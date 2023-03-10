@@ -1,0 +1,54 @@
+{
+  "levels": [
+    {
+      "id": 1,
+      "isLevelActive": true,
+      "variants": [
+        {
+          "id": 1,
+          "cells": [
+            { "id": 1, "toVictory": false},
+            { "id": 2, "toVictory": true},
+            { "id": 3, "toVictory": false},
+            { "id": 4, "toVictory": false},
+            { "id": 5, "toVictory": true},
+            { "id": 6, "toVictory": false},
+            { "id": 7, "toVictory": false},
+            { "id": 8, "toVictory": true},
+            { "id": 9, "toVictory": false}
+          ]
+        },
+
+        {
+          "id": 2,
+          "cells": [
+            { "id": 1, "toVictory": false},
+            { "id": 2, "toVictory": false},
+            { "id": 3, "toVictory": false},
+            { "id": 4, "toVictory": true},
+            { "id": 5, "toVictory": true},
+            { "id": 6, "toVictory": true},
+            { "id": 7, "toVictory": false},
+            { "id": 8, "toVictory": false},
+            { "id": 9, "toVictory": false}
+          ]
+        },
+
+        {
+          "id": 3,
+          "cells": [
+            { "id": 1, "toVictory": false},
+            { "id": 2, "toVictory": false},
+            { "id": 3, "toVictory": true},
+            { "id": 4, "toVictory": false},
+            { "id": 5, "toVictory": false},
+            { "id": 6, "toVictory": true},
+            { "id": 7, "toVictory": false},
+            { "id": 8, "toVictory": false},
+            { "id": 9, "toVictory": true}
+          ]
+        }
+      ]
+    }
+  ]
+}
