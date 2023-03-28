@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
-// import { Labyrinth } from './components/Labyrinth';
-import { Labyrinth2 } from './components/Labyrinth2';
+import { Labyrinth } from './components/Labyrinth';
+// import { Labyrinth2 } from './components/Labyrinth2';
 
 function App() {
   return (
@@ -11,8 +11,8 @@ function App() {
           Labyrinth
         </h1>
       </header>
-      {/* <Labyrinth /> */}
-      <Labyrinth2 />
+      <Labyrinth />
+      {/* <Labyrinth2 /> */}
     </div>
   );
 }

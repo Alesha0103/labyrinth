@@ -1,0 +1,16 @@
+.cell {
+  background-color: rgb(175, 175, 30);
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.cells {
+  display: grid;
+  grid-template-columns: repeat(3, 75px);
+  grid-template-rows: repeat(3, 75px);
+  grid-gap: 10px;
+  justify-content: center;
+
+  margin-top: 100px;
+}

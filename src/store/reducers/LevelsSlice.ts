@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ILevels } from "../../models/ILevels";
+import { ILevel } from "../../models/ILevel";
 
 interface levelsState {
-  levels: ILevels[] | null,
+  levels: ILevel[] | [],
   isLoading: boolean,
   error: boolean,
 }
 
 const initialState: levelsState = {
-  levels: null,
+  levels: [],
   isLoading: false,
   error: false,
 }
@@ -20,7 +20,7 @@ export const levelsSlice = createSlice({
     levelsFetching(state) {
       state.isLoading = true;
     },
-    levelsFetchingSuccsess(state, action: PayloadAction<ILevels[]>) {
+    levelsFetchingSuccsess(state, action: PayloadAction<ILevel[]>) {
       state.levels = action.payload
       state.isLoading = false;
       state.error = false;
