@@ -1,11 +1,11 @@
 import React from 'react'
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { fetchAllLevelsAction, setLoserOverlay } from '../store/actions/LevelsActions';
+import { fetchAllLevelsAction } from '../store/actions/LevelsActions';
 import { Cells } from './Cells';
 import './Labyrinth.scss';
 
-const getRandomIndex = (max: number) => {
-  let previousNumber = null
+const getRandomIndex = (previous: number, max: number) => {
+  let previousNumber = previous
   let randomNumber = Math.floor(Math.random() * max);
 
   while (randomNumber === previousNumber) {
@@ -32,7 +32,7 @@ export const Labyrinth = () => {
 
   React.useEffect(() => {
     if(!loserOverlay && variantsCount) {
-      const randomNumber = getRandomIndex(variantsCount);
+      const randomNumber = getRandomIndex(variant, variantsCount);
       setVariant(randomNumber);
     }
   }, [loserOverlay])
