@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { ICell } from '../models/ILevel';
-import { cellsSlice } from '../store/reducers/CellsSlice';
+import { ICell, Warning } from '../models/ICells';
+import { chooseCell, setWarning } from '../store/actions/CellsAction';
 import { Cell } from './Cell';
 
 import './Cells.scss';
@@ -12,23 +12,37 @@ type CellsPropsType = {
 
 export const Cells: React.FC<CellsPropsType> = ({cells}) => {
   const dispatch = useAppDispatch();
-  const chosenCells = useAppSelector(state => state.cellsReducer.chosenCells);
+  const { warning, warningType } = useAppSelector(state => state.cellsReducer);
 
-  console.log('chosenCells :>> ', chosenCells);
+  const [warningColor, setWarningColor] = React.useState("");
 
   React.useEffect(() => {
     const firstStep = cells.find(cell => cell.toVictory);
 
-    if(!chosenCells.length && firstStep) {
-      dispatch(cellsSlice.actions.chooseCell(firstStep));
+    if(firstStep) {
+      dispatch(chooseCell(firstStep));
     }
-  }, []);
+  }, [cells]);
+  
+  React.useEffect(() => {
+    if(warningType === Warning.error) {
+      setWarningColor("red");
+    } else {
+      setWarningColor("#afaf1e");
+    }
+    setTimeout(() => {
+      dispatch(setWarning(Warning.clear));
+    }, 2000)
+  }, [warningType])
   
   return (
-    <div className='cells'>
+    <>
+      <h3 className='warning' style={{color: warningColor}}>{warning}</h3>
+      <div className='cells'>
       {cells?.map(cell => {
         return <Cell key={cell.id} cell={cell}/>
       })}
     </div>
+    </>
   )
 }

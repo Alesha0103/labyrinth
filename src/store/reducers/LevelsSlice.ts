@@ -5,12 +5,14 @@ interface levelsState {
   levels: ILevel[] | [],
   isLoading: boolean,
   error: boolean,
+  loserOverlay: boolean,
 }
 
 const initialState: levelsState = {
   levels: [],
   isLoading: false,
   error: false,
+  loserOverlay: false,
 }
 
 export const levelsSlice = createSlice({
@@ -28,6 +30,9 @@ export const levelsSlice = createSlice({
     levelsFetchingFailure(state, action: PayloadAction<boolean>) {
       state.isLoading = false;
       state.error = action.payload;
+    },
+    setOverlay(state, action: PayloadAction<boolean>) {
+      state.loserOverlay = action.payload;
     },
   },
 });

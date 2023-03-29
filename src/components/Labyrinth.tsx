@@ -1,19 +1,41 @@
 import React from 'react'
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { fetchAllLevelsAction } from '../store/actions/LevelsActions';
+import { fetchAllLevelsAction, setLoserOverlay } from '../store/actions/LevelsActions';
 import { Cells } from './Cells';
 import './Labyrinth.scss';
 
+const getRandomIndex = (max: number) => {
+  let previousNumber = null
+  let randomNumber = Math.floor(Math.random() * max);
+
+  while (randomNumber === previousNumber) {
+    randomNumber = Math.floor(Math.random() * max);
+  }
+
+  previousNumber = randomNumber;
+  return randomNumber;
+}
+
 export const Labyrinth = () => {
   const dispatch = useAppDispatch();
-  const { levels, isLoading, error } = useAppSelector(state => state.levelsReducer);
+  const { levels, isLoading, error, loserOverlay } = useAppSelector(state => state.levelsReducer);
+
+  const [variant, setVariant] = React.useState(0);
 
   const activeLevel = levels.find(level => level.isLevelActive)!;
-  const cells = activeLevel?.variants[0].cells
+  const cells = activeLevel?.stages[variant].cells;
+  const variantsCount = activeLevel?.stages.length;
 
   React.useEffect(() => {
     dispatch(fetchAllLevelsAction())
   }, [])
+
+  React.useEffect(() => {
+    if(!loserOverlay && variantsCount) {
+      const randomNumber = getRandomIndex(variantsCount);
+      setVariant(randomNumber);
+    }
+  }, [loserOverlay])
 
   if (error) {
     return <h2>Error Page</h2>

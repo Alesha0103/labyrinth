@@ -1,10 +1,10 @@
 import React from 'react';
-import { ICell } from '../models/ILevel';
-
+import { ICell, Warning } from '../models/ICells';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
+import { chooseCell, clearChosenCells, setWarning } from '../store/actions/CellsAction';
 
 import './Cells.scss';
-import { cellsSlice } from '../store/reducers/CellsSlice';
+import { setLoserOverlay } from '../store/actions/LevelsActions';
 
 type CellPropsType = {
   cell: ICell,
@@ -17,14 +17,34 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
   const chosenCells = useAppSelector(state => state.cellsReducer.chosenCells);
 
   React.useEffect(() => {
-  }, [])
+    const isCellChosen = chosenCells.some(el => el.id === cell.id);
+
+    if(isCellChosen && cell.toVictory) {
+      setColor("green");
+    }
+    if(isCellChosen && !cell.toVictory) {
+      setColor("red");
+      dispatch(setLoserOverlay(true));
+
+      setTimeout(() => {
+        dispatch(clearChosenCells());
+        dispatch(setLoserOverlay(false));
+      }, 3000)
+    }
+  }, [chosenCells])
 
   const onClickHandle = () => {
-    if(cell.toVictory) {
-      setColor("green")
+    const neighbor = chosenCells[chosenCells.length-1].neighbor;
+  
+    if (neighbor && neighbor.some(el => el === cell.id)) {
+      dispatch(chooseCell(cell));
+      dispatch(setWarning(Warning.clear))
     }
-    if (!cell.toVictory) {
-      setColor("red");
+    if (!neighbor.some(el => el === cell.id)) {
+      dispatch(setWarning(Warning.error))
+    }
+    if (chosenCells.some(el => el.id === cell.id)) {
+      dispatch(setWarning(Warning.warning))
     }
   }
   

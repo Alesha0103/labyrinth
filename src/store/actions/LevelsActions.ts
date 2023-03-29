@@ -12,3 +12,7 @@ export const fetchAllLevelsAction = () => async (dispatch: AppDispatch) => {
     dispatch(levelsSlice.actions.levelsFetchingFailure(true));
   }
 }
+
+export const setLoserOverlay = (state: boolean) => async (dispatch: AppDispatch) => {
+  dispatch(levelsSlice.actions.setOverlay(state));
+}

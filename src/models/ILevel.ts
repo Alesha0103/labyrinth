@@ -1,10 +1,6 @@
-export interface ICell {
-  id: number,
-  toVictory: boolean,
-  neighbor: number[],
-}
+import { ICell } from "./ICells";
 
-export interface IVariant {
+interface IStage {
   id: number,
   cells: ICell[],
 }
@@ -12,5 +8,5 @@ export interface IVariant {
 export interface ILevel {
   id: number,
   isLevelActive: boolean,
-  variants: IVariant[]
+  stages: IStage[]
 }
