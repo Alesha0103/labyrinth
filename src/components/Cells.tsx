@@ -5,6 +5,7 @@ import { chooseCell, setWarning } from '../store/actions/CellsAction';
 import { Cell } from './Cell';
 
 import './Cells.scss';
+import { finishStageAction } from '../store/actions/LevelsActions';
 
 type CellsPropsType = {
   cells: ICell[],
@@ -39,10 +40,11 @@ export const Cells: React.FC<CellsPropsType> = ({cells}) => {
     <>
       <h3 className='warning' style={{color: warningColor}}>{warning}</h3>
       <div className='cells'>
-      {cells?.map(cell => {
-        return <Cell key={cell.id} cell={cell}/>
-      })}
-    </div>
+        {cells.map(cell => {
+          return <Cell key={cell.id} cell={cell}/>
+        })}
+      </div>
+      <div style={{border: "solid", padding: "20px"}} onClick={()=>dispatch(finishStageAction(2))}>Finish!</div>
     </>
   )
 }

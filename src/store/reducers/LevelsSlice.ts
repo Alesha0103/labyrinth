@@ -2,14 +2,14 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ILevel } from "../../models/ILevel";
 
 interface levelsState {
-  levels: ILevel[] | [],
+  level: ILevel | null,
   isLoading: boolean,
   error: boolean,
   loserOverlay: boolean,
 }
 
 const initialState: levelsState = {
-  levels: [],
+  level: null,
   isLoading: false,
   error: false,
   loserOverlay: false,
@@ -22,8 +22,8 @@ export const levelsSlice = createSlice({
     levelsFetching(state) {
       state.isLoading = true;
     },
-    levelsFetchingSuccsess(state, action: PayloadAction<ILevel[]>) {
-      state.levels = action.payload
+    levelsFetchingSuccsess(state, action: PayloadAction<ILevel>) {
+      state.level = action.payload
       state.isLoading = false;
       state.error = false;
     },
