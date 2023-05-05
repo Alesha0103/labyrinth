@@ -2,9 +2,9 @@ import React from 'react';
 import { ICell, Warning } from '../models/ICells';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { chooseCell, clearChosenCells, setWarning } from '../store/actions/CellsAction';
+import { hideOverlay, setLoserOverlay } from '../store/actions/LevelsActions';
 
 import './Cells.scss';
-import { setLoserOverlay } from '../store/actions/LevelsActions';
 
 type CellPropsType = {
   cell: ICell,
@@ -28,7 +28,7 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
 
       setTimeout(() => {
         dispatch(clearChosenCells());
-        dispatch(setLoserOverlay(false));
+        dispatch(hideOverlay());
       }, 3000)
     }
   }, [chosenCells])

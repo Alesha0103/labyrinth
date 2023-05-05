@@ -5,7 +5,7 @@ import { chooseCell, setWarning } from '../store/actions/CellsAction';
 import { Cell } from './Cell';
 
 import './Cells.scss';
-import { finishStageAction } from '../store/actions/LevelsActions';
+import { finishStage } from '../store/actions/LevelsActions';
 
 type CellsPropsType = {
   cells: ICell[],
@@ -14,7 +14,6 @@ type CellsPropsType = {
 export const Cells: React.FC<CellsPropsType> = ({cells}) => {
   const dispatch = useAppDispatch();
   const { warning, warningType } = useAppSelector(state => state.cellsReducer);
-
   const [warningColor, setWarningColor] = React.useState("");
 
   React.useEffect(() => {
@@ -44,7 +43,7 @@ export const Cells: React.FC<CellsPropsType> = ({cells}) => {
           return <Cell key={cell.id} cell={cell}/>
         })}
       </div>
-      <div style={{border: "solid", padding: "20px"}} onClick={()=>dispatch(finishStageAction(2))}>Finish!</div>
+      <div style={{border: "solid", padding: "20px"}} onClick={()=>dispatch(finishStage(2))}>Finish!</div>
     </>
   )
 }

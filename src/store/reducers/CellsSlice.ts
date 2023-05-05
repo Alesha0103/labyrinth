@@ -1,11 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ICell, Warning } from "../../models/ICells";
-
-interface CellsState {
-  chosenCells: ICell[],
-  warning: string,
-  warningType: Warning,
-}
+import { CellsState, ICell, Warning } from "../../models/ICells";
 
 const initialState: CellsState = {
   chosenCells: [],
@@ -13,7 +7,7 @@ const initialState: CellsState = {
   warningType: Warning.clear,
 }
 
-export const cellsSlice = createSlice({
+const cellsSlice = createSlice({
   name: "cells",
   initialState,
   reducers: {
@@ -31,3 +25,6 @@ export const cellsSlice = createSlice({
     }
   }
 });
+
+export const cellsReducer = cellsSlice.reducer;
+export const cellsActions = cellsSlice.actions;

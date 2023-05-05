@@ -1,10 +1,10 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { cellsSlice } from "./reducers/CellsSlice";
-import { levelsSlice } from "./reducers/LevelsSlice";
+import { cellsReducer } from "./reducers/CellsSlice";
+import { levelsReducer } from "./reducers/LevelsSlice";
 
 const rootReducer = combineReducers({
-  levelsReducer: levelsSlice.reducer,
-  cellsReducer: cellsSlice.reducer,
+  levelsReducer: levelsReducer,
+  cellsReducer: cellsReducer,
 });
 
 export const setupStore = () => {

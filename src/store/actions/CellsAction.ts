@@ -1,5 +1,5 @@
 import { ICell, Warning } from "../../models/ICells";
-import { cellsSlice } from "../reducers/CellsSlice";
+import { cellsActions } from "../reducers/CellsSlice";
 import { AppDispatch, RootState } from "../store";
 
 export const chooseCell = (cell: ICell) => (dispatch: AppDispatch, getState: ()=> RootState) => {
@@ -7,12 +7,8 @@ export const chooseCell = (cell: ICell) => (dispatch: AppDispatch, getState: ()=
   const duplicatedCell = cellsState.chosenCells.find(el => el.id === cell.id);
 
   if(!duplicatedCell) {
-    dispatch(cellsSlice.actions.chooseCell(cell));
+    dispatch(cellsActions.chooseCell(cell));
   }
-}
-
-export const clearChosenCells = () => (dispatch: AppDispatch) => {
-  dispatch(cellsSlice.actions.clearChosenCells());
 }
 
 export const setWarning = (warning: Warning) => (dispatch: AppDispatch) => {
@@ -24,6 +20,8 @@ export const setWarning = (warning: Warning) => (dispatch: AppDispatch) => {
   if(warning === Warning.warning) {
     warningText = "Cell is already selected"
   }
-  dispatch(cellsSlice.actions.setWarning(warningText));
-  dispatch(cellsSlice.actions.setWarningType(warning));
+  dispatch(cellsActions.setWarning(warningText));
+  dispatch(cellsActions.setWarningType(warning));
 }
+
+export const clearChosenCells = () => cellsActions.clearChosenCells();

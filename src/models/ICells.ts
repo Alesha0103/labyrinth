@@ -9,3 +9,9 @@ export interface ICell {
   toVictory: boolean,
   neighbor: number[],
 }
+
+export interface CellsState {
+  chosenCells: ICell[],
+  warning: string,
+  warningType: Warning,
+}
