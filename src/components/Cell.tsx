@@ -2,44 +2,73 @@ import React from 'react';
 import { ICell, Warning } from '../models/ICells';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { chooseCell, clearChosenCells, setWarning } from '../store/actions/CellsAction';
-import { hideOverlay, setLoserOverlay } from '../store/actions/LevelsActions';
+import { fetchLevel, finishStage, hideOverlay, setActiveStage, setLoserOverlay } from '../store/actions/LevelsActions';
 
-import './Cells.scss';
+import './Stage.scss';
 
 type CellPropsType = {
   cell: ICell,
 }
+const LENGTH_ZERO = 0;
 
 export const Cell: React.FC<CellPropsType> = ({cell}) => {
   const dispatch = useAppDispatch();
   const [color, setColor] = React.useState("");
 
-  const chosenCells = useAppSelector(state => state.cellsReducer.chosenCells);
+  const { activeStageID } = useAppSelector(state => state.levelsReducer);
+  const { cells, chosenCells } = useAppSelector(state => state.cellsReducer);
+  
+  const isLastElement = (currentId: number) => {
+    const victoryCells = cells.filter(cell => cell.toVictory).map(cell => Number(cell.id));
+    return currentId === victoryCells[victoryCells.length - 1];
+  }
+
+  const skipStage = async () => {
+    dispatch(clearChosenCells());
+    dispatch(setActiveStage());
+    dispatch(hideOverlay());
+    setColor("");
+  }
 
   React.useEffect(() => {
-    const isCellChosen = chosenCells.some(el => el.id === cell.id);
+    const firstStep = cells.find(cell => cell.toVictory);
 
-    if(isCellChosen && cell.toVictory) {
+    if(firstStep && chosenCells.length === LENGTH_ZERO) {
+      dispatch(chooseCell(firstStep));
+    }
+    if(firstStep && cell.id === firstStep.id) {
       setColor("green");
     }
-    if(isCellChosen && !cell.toVictory) {
-      setColor("red");
-      dispatch(setLoserOverlay(true));
-
-      setTimeout(() => {
-        dispatch(clearChosenCells());
-        dispatch(hideOverlay());
-      }, 3000)
-    }
-  }, [chosenCells])
+  }, [cells, chosenCells, activeStageID])
 
   const onClickHandle = () => {
     const neighbor = chosenCells[chosenCells.length-1].neighbor;
   
     if (neighbor && neighbor.some(el => el === cell.id)) {
       dispatch(chooseCell(cell));
-      dispatch(setWarning(Warning.clear))
+      dispatch(setWarning(Warning.clear));
+
+      if (cell.toVictory) {
+        setColor("green");
+        if(isLastElement(cell.id)) {
+          dispatch(finishStage(activeStageID));
+          
+          setTimeout(() => {
+            skipStage();
+          }, 3000)
+          return;
+        }
+      }
+      if (!cell.toVictory) {
+        setColor("red");
+        dispatch(setLoserOverlay(true));
+
+        setTimeout(() => {
+          skipStage();
+        }, 3000)
+      }
     }
+
     if (!neighbor.some(el => el === cell.id)) {
       dispatch(setWarning(Warning.error))
     }

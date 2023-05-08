@@ -2,6 +2,8 @@ import { ICell, Warning } from "../../models/ICells";
 import { cellsActions } from "../reducers/CellsSlice";
 import { AppDispatch, RootState } from "../store";
 
+export const setCells = (cells: ICell[]) => cellsActions.setCells(cells);
+
 export const chooseCell = (cell: ICell) => (dispatch: AppDispatch, getState: ()=> RootState) => {
   const cellsState = getState().cellsReducer;
   const duplicatedCell = cellsState.chosenCells.find(el => el.id === cell.id);
@@ -25,3 +27,4 @@ export const setWarning = (warning: Warning) => (dispatch: AppDispatch) => {
 }
 
 export const clearChosenCells = () => cellsActions.clearChosenCells();
+// export const updateCells = () => cellsActions.updateCells();

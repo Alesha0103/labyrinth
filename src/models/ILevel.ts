@@ -13,9 +13,11 @@ export interface ILevel {
 }
 
 export interface levelsState {
-  level: ILevel | null,
+  level: number,
   isLoading: boolean,
   error: boolean,
+  stages: IStage[],
+  activeStageID: number,
   loserOverlay: boolean,
   winerOverlay: boolean
 }

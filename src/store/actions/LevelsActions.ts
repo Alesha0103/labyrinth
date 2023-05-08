@@ -1,14 +1,15 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ILevel, IStage } from "../../models/ILevel";
-import { RootState } from "../store";
+import { AppDispatch, RootState } from "../store";
 import { levelsActions } from "../reducers/LevelsSlice";
+import { PayloadType, getRandomStageId } from "../../helpers/getRandomStageId";
 
 export const fetchLevel = createAsyncThunk(
   "levels/fetchLevel",
   async (levelID: number|string|undefined, thunckAPI) => {
     const state = thunckAPI.getState() as RootState;
-    const checkLevelId = levelID ? levelID : state.levelsReducer.level?.id;
+    const checkLevelId = levelID ? levelID : state.levelsReducer.level;
     try {
       const response = await axios.get<ILevel>(`http://localhost:5000/levels/${checkLevelId}`);
       return response.data
@@ -28,7 +29,6 @@ export const finishStage = createAsyncThunk(
     try {
       thunckAPI.dispatch(setWinnerOverlay(true));
       axios.put<IStage>(`http://localhost:5000/stages/${stageID}`);
-      thunckAPI.dispatch(fetchLevel());
     } catch (error) {
       if (error instanceof Error) {
         return thunckAPI.rejectWithValue(error.message)
@@ -38,6 +38,18 @@ export const finishStage = createAsyncThunk(
     }
   }
 );
+
+export const setActiveStage = () => (dispatch: AppDispatch, getState: ()=> RootState) => {
+  const {activeStageID, stages} = getState().levelsReducer;
+  const payload: PayloadType = {
+    id: activeStageID,
+    possibleId: stages.map(stage => stage.id),
+    forbiddenId: stages.filter(stage => stage.done).map(stage => stage.id)
+  }
+  const stageID = getRandomStageId(payload);
+  console.log('stageID :>> ', stageID);
+  dispatch(levelsActions.setActiveStage(stageID));
+};
 
 export const setLoserOverlay = (loserOverlay: boolean) => levelsActions.setLoserOverlay(loserOverlay);
 export const setWinnerOverlay = (winnerOverlay: boolean) => levelsActions.setWinnerOverlay(winnerOverlay);

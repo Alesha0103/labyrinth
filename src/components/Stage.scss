@@ -1,17 +1,17 @@
-.cell {
-  background-color: rgb(175, 175, 30);
-  &:hover {
-    cursor: pointer;
-  }
-}
-
-.cells {
+.stage {
   display: grid;
   grid-template-columns: repeat(3, 75px);
   grid-template-rows: repeat(3, 75px);
   grid-gap: 10px;
   justify-content: center;
   margin-top: 20px;
+}
+
+.cell {
+  background-color: rgb(175, 175, 30);
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .warning {

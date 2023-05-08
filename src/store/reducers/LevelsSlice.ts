@@ -3,9 +3,11 @@ import { ILevel, levelsState } from "../../models/ILevel";
 import { fetchLevel } from "../actions/LevelsActions";
 
 const initialState: levelsState = {
-  level: null,
+  level: 1,
   isLoading: false,
   error: false,
+  stages: [],
+  activeStageID: 1,
   loserOverlay: false,
   winerOverlay: false,
 }
@@ -24,6 +26,9 @@ const levelsSlice = createSlice({
       state.loserOverlay = false;
       state.winerOverlay = false;
     },
+    setActiveStage(state, action: PayloadAction<number>) {
+      state.activeStageID = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -31,7 +36,8 @@ const levelsSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(fetchLevel.fulfilled, (state, action: PayloadAction<ILevel>) => {
-        state.level = action.payload
+        state.level = action.payload.id;
+        state.stages = action.payload.stages;
         state.isLoading = false;
         state.error = false;
       })

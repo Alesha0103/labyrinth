@@ -11,6 +11,7 @@ export interface ICell {
 }
 
 export interface CellsState {
+  cells: ICell[],
   chosenCells: ICell[],
   warning: string,
   warningType: Warning,
