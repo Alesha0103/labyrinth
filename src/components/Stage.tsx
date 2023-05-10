@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { Warning } from '../models/ICells';
-import { clearChosenCells, setCells, setWarning } from '../store/actions/CellsAction';
+import { setCells, setWarning } from '../store/actions/CellsAction';
 import { Cell } from './Cell';
 
 import './Stage.scss';
@@ -12,10 +12,6 @@ export const Stage: React.FC = () => {
   const { warning, warningType, cells } = useAppSelector(state => state.cellsReducer);
 
   const [warningColor, setWarningColor] = React.useState("");
-
-  const clearCells = () => {
-    dispatch(clearChosenCells());
-  }
 
   React.useEffect(() => {
     if (!!stages.length) {
@@ -43,7 +39,6 @@ export const Stage: React.FC = () => {
           return <Cell key={cell.id} cell={cell}/>
         })}
       </div>
-      <div style={{padding: "25px", borderStyle: "solid"}} onClick={()=>clearCells()}> clear cells </div>
     </>
   )
 }

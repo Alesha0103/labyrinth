@@ -27,4 +27,3 @@ export const setWarning = (warning: Warning) => (dispatch: AppDispatch) => {
 }
 
 export const clearChosenCells = () => cellsActions.clearChosenCells();
-// export const updateCells = () => cellsActions.updateCells();

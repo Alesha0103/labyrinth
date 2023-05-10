@@ -19,5 +19,6 @@ export interface levelsState {
   stages: IStage[],
   activeStageID: number,
   loserOverlay: boolean,
-  winerOverlay: boolean
+  winerOverlay: boolean,
+  finishPage: boolean,
 }

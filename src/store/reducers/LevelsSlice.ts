@@ -10,6 +10,7 @@ const initialState: levelsState = {
   activeStageID: 1,
   loserOverlay: false,
   winerOverlay: false,
+  finishPage: false,
 }
 
 const levelsSlice = createSlice({
@@ -28,6 +29,9 @@ const levelsSlice = createSlice({
     },
     setActiveStage(state, action: PayloadAction<number>) {
       state.activeStageID = action.payload;
+    },
+    setFinishPage(state, action: PayloadAction<boolean>) {
+      state.finishPage = action.payload;
     }
   },
   extraReducers: (builder) => {

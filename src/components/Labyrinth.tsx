@@ -7,12 +7,11 @@ import './Labyrinth.scss';
 
 export const Labyrinth = () => {
   const dispatch = useAppDispatch();
-  const { level, isLoading, error, winerOverlay } = useAppSelector(state => state.levelsReducer);
-  const chosenCells = useAppSelector(state => state.cellsReducer.chosenCells);
+  const { level, isLoading, error } = useAppSelector(state => state.levelsReducer);
 
   React.useEffect(() => {
     dispatch(fetchLevel(level));
-  }, [winerOverlay])
+  }, [])
 
   if (error) {
     return <h2>Error Page</h2>

@@ -5,6 +5,8 @@ import { AppDispatch, RootState } from "../store";
 import { levelsActions } from "../reducers/LevelsSlice";
 import { PayloadType, getRandomStageId } from "../../helpers/getRandomStageId";
 
+const DEFAULT_STAGE = 1;
+
 export const fetchLevel = createAsyncThunk(
   "levels/fetchLevel",
   async (levelID: number|string|undefined, thunckAPI) => {
@@ -27,7 +29,6 @@ export const finishStage = createAsyncThunk(
   "levels/finishStage",
   async (stageID: number|string, thunckAPI) => {
     try {
-      thunckAPI.dispatch(setWinnerOverlay(true));
       axios.put<IStage>(`http://localhost:5000/stages/${stageID}`);
     } catch (error) {
       if (error instanceof Error) {
@@ -46,8 +47,11 @@ export const setActiveStage = () => (dispatch: AppDispatch, getState: ()=> RootS
     possibleId: stages.map(stage => stage.id),
     forbiddenId: stages.filter(stage => stage.done).map(stage => stage.id)
   }
-  const stageID = getRandomStageId(payload);
-  console.log('stageID :>> ', stageID);
+  if(payload.possibleId.length === payload.forbiddenId.length+1) {
+    console.log('working');
+    dispatch(levelsActions.setFinishPage(true))
+  }
+  const stageID = getRandomStageId(payload) || DEFAULT_STAGE;
   dispatch(levelsActions.setActiveStage(stageID));
 };
 
