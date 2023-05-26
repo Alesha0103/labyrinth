@@ -6,39 +6,44 @@ import { setActiveStage } from '../store/actions/LevelsActions';
 
 import './Stage.scss';
 import { Cell } from './Cell';
+import { WARNING_TIMEOUT } from '../constants';
 
 export const Stage: React.FC = () => {
   const dispatch = useAppDispatch();
   const { stages, activeStageID} = useAppSelector(state => state.levelsReducer);
-  const { warning, warningType, cells, chosenCells } = useAppSelector(state => state.cellsReducer);
-  
+  const { warning, warningType, cells } = useAppSelector(state => state.cellsReducer);
 
   const [warningColor, setWarningColor] = React.useState("");
 
-  console.log('stages :>> ', stages);
-  console.log('chosenCells :>> ', chosenCells);
+  React.useEffect(() => {
+    if(!!stages.length) {
+      const activeStage = stages[0];
+      setActiveStage(activeStage.id);
+      dispatch(setCells(activeStage.cells));
+      dispatch(setRightWay(activeStage.rightWay));
+    }
+  }, []);
 
   React.useEffect(() => {
-    if (!!stages.length) {
-      let stage = stages.find(stage => stage.id === activeStageID);
-      if (!stage) {
-        stage = stages[0];
-        dispatch(setActiveStage(stage.id));
-      }
-      dispatch(setCells(stage.cells));
-      dispatch(setRightWay(stage.rightWay));
+    const activeStage = stages.find(stage => stage.id === activeStageID);
+    if (activeStage) {
+      setActiveStage(activeStage.id);
+      dispatch(setCells(activeStage.cells));
+      dispatch(setRightWay(activeStage.rightWay));
     }
-  }, [stages, activeStageID])
+  }, [activeStageID]);
   
   React.useEffect(() => {
-    if(warningType === Warning.error) {
+    if(warningType === Warning.error || warningType === Warning.lastStage) {
       setWarningColor("red");
     } else {
       setWarningColor("#afaf1e");
     }
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       dispatch(setWarning(Warning.clear));
-    }, 2000)
+    }, WARNING_TIMEOUT)
+  
+    return () => clearTimeout(timeout);
   }, [warningType])
   
   return (

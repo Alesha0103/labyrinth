@@ -1,4 +1,5 @@
 export enum Warning {
+  lastStage = "lastStage",
   warning = "warning",
   error = "error",
   clear = "",

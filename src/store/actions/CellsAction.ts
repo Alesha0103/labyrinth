@@ -23,6 +23,9 @@ export const setWarning = (warning: Warning) => (dispatch: AppDispatch) => {
   if(warning === Warning.warning) {
     warningText = "Cell is already selected"
   }
+  if(warning === Warning.lastStage) {
+    warningText = "You are close! Don't give up!"
+  }
   dispatch(cellsActions.setWarning(warningText));
   dispatch(cellsActions.setWarningType(warning));
 }

@@ -9,25 +9,25 @@ import {
   setWarning,
 } from '../store/actions/CellsAction';
 import {
-  fetchLevel,
+  fetchStages,
   finishStage,
   hideOverlay,
   getRandomStage,
   setLoserOverlay,
   setWinnerOverlay,
 } from '../store/actions/LevelsActions';
+import { OVERLAY_TIMEOUT, WARNING_TIMEOUT } from '../constants';
 
 type CellPropsType = {
   cell: ICell,
 }
-
 
 export const Cell: React.FC<CellPropsType> = ({cell}) => {
   const dispatch = useAppDispatch();
   const [color, setColor] = React.useState("");
 
   const { cells, chosenCells, rightWay } = useAppSelector(state => state.cellsReducer);
-  const { activeStageID } = useAppSelector(state => state.levelsReducer);
+  const { stages, activeStageID } = useAppSelector(state => state.levelsReducer);
 
   const skipStage = () => {
     dispatch(hideOverlay());
@@ -47,6 +47,7 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
   const onClickHandle = () => {
     const isClickable = chosenCells[chosenCells.length-1].neighbor.some(id => id === cell.id);
     const winnerCell = rightWay[rightWay.length-1];
+    const isLastStage = stages.length === 1;
 
     if(isClickable && cell.toVictory) {
       setColor("green");
@@ -55,18 +56,29 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
         dispatch(setWinnerOverlay(true));
         dispatch(finishStage(activeStageID));
 
-        setTimeout(() => {
+        const timeout = setTimeout(() => {
           skipStage();
-          dispatch(fetchLevel());
-        }, 3000)
+          dispatch(fetchStages());
+        }, OVERLAY_TIMEOUT)
+        return () => clearTimeout(timeout);
       }
     }
-    if(isClickable && !cell.toVictory) {
+    if(isClickable && !cell.toVictory && !isLastStage) {
       setColor("red");
       dispatch(setLoserOverlay(true));
-      setTimeout(() => {
+      const timeout = setTimeout(() => {
         skipStage();
-      }, 3000)
+      }, OVERLAY_TIMEOUT)
+      return () => clearTimeout(timeout);
+    }
+
+    if(isClickable && !cell.toVictory && isLastStage) {
+      setColor("red");
+      dispatch(setWarning(Warning.lastStage));
+      const timeout = setTimeout(() => {
+        setColor("");
+      }, WARNING_TIMEOUT)
+      return () => clearTimeout(timeout);
     }
 
     if(!isClickable) {

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ILevel, levelsState } from "../../models/ILevel";
-import { fetchLevel } from "../actions/LevelsActions";
+import { ILevel, IStage, levelsState } from "../../models/ILevel";
+import { fetchStages } from "../actions/LevelsActions";
 
 const initialState: levelsState = {
   level: 1,
@@ -26,25 +26,24 @@ const levelsSlice = createSlice({
       state.loserOverlay = false;
       state.winerOverlay = false;
     },
+    setActiveLevel(state, action: PayloadAction<number>) {
+      state.level = action.payload;
+    },
     setActiveStage(state, action: PayloadAction<number>) {
       state.activeStageID = action.payload;
     },
-    clearStages(state) {
-      state.stages = [];
-    }
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchLevel.pending, (state) => {
+      .addCase(fetchStages.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchLevel.fulfilled, (state, action: PayloadAction<ILevel>) => {
-        state.level = action.payload.id;
-        state.stages = action.payload.stages;
+      .addCase(fetchStages.fulfilled, (state, action: PayloadAction<IStage[]>) => {
+        state.stages = action.payload;
         state.isLoading = false;
         state.error = false;
       })
-      .addCase(fetchLevel.rejected, (state) => {
+      .addCase(fetchStages.rejected, (state) => {
         state.isLoading = false;
         state.error = true;
       })
