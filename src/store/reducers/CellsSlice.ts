@@ -3,6 +3,7 @@ import { CellsState, ICell, Warning } from "../../models/ICells";
 
 const initialState: CellsState = {
   cells: [],
+  rightWay: [],
   chosenCells: [],
   warning: "",
   warningType: Warning.clear,
@@ -14,6 +15,9 @@ const cellsSlice = createSlice({
   reducers: {
     setCells(state, action: PayloadAction<ICell[]>) {
       state.cells = action.payload;
+    },
+    setRightWay(state, action: PayloadAction<number[]>) {
+      state.rightWay = action.payload;
     },
     setWarning(state, action: PayloadAction<string>) {
       state.warning = action.payload;

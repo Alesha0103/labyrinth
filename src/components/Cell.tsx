@@ -12,7 +12,7 @@ import {
   fetchLevel,
   finishStage,
   hideOverlay,
-  setActiveStage,
+  getRandomStage,
   setLoserOverlay,
   setWinnerOverlay,
 } from '../store/actions/LevelsActions';
@@ -21,32 +21,32 @@ type CellPropsType = {
   cell: ICell,
 }
 
+
 export const Cell: React.FC<CellPropsType> = ({cell}) => {
   const dispatch = useAppDispatch();
   const [color, setColor] = React.useState("");
 
-  const { cells, chosenCells } = useAppSelector(state => state.cellsReducer)
-  const { activeStageID } = useAppSelector(state => state.levelsReducer)
+  const { cells, chosenCells, rightWay } = useAppSelector(state => state.cellsReducer);
+  const { activeStageID } = useAppSelector(state => state.levelsReducer);
 
   const skipStage = () => {
     dispatch(hideOverlay());
     dispatch(clearChosenCells());
-    dispatch(setActiveStage());
-    setColor("");
+    dispatch(getRandomStage());
   }
 
   React.useEffect(() => {
-    const firstStep = cells.find(cell => cell.toVictory);
+    setColor("");
+    const firstStep = cells.find(cell => cell.firstStep);
     if(firstStep && firstStep.id === cell.id) {
       setColor("green");
       dispatch(chooseCell(firstStep));
     }
-  }, [])
+  }, [cells]);
 
   const onClickHandle = () => {
     const isClickable = chosenCells[chosenCells.length-1].neighbor.some(id => id === cell.id);
-    const winnerCells = cells.filter(cell => cell.toVictory).map(cell => cell.id);
-    const winnerCell = winnerCells[winnerCells.length-1];
+    const winnerCell = rightWay[rightWay.length-1];
 
     if(isClickable && cell.toVictory) {
       setColor("green");

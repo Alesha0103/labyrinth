@@ -3,7 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ILevel, IStage } from "../../models/ILevel";
 import { AppDispatch, RootState } from "../store";
 import { levelsActions } from "../reducers/LevelsSlice";
-import { PayloadType, getRandomStageId } from "../../helpers/getRandomStageId";
+import { PayloadType, getRandomStageId } from "../../helpers";
 
 const DEFAULT_STAGE = 1;
 
@@ -40,21 +40,18 @@ export const finishStage = createAsyncThunk(
   }
 );
 
-export const setActiveStage = () => (dispatch: AppDispatch, getState: ()=> RootState) => {
+export const getRandomStage = () => (dispatch: AppDispatch, getState: ()=> RootState) => {
   const {activeStageID, stages} = getState().levelsReducer;
   const payload: PayloadType = {
     id: activeStageID,
     possibleId: stages.map(stage => stage.id),
     forbiddenId: stages.filter(stage => stage.done).map(stage => stage.id)
   }
-  if(payload.possibleId.length === payload.forbiddenId.length+1) {
-    console.log('working');
-    dispatch(levelsActions.setFinishPage(true))
-  }
   const stageID = getRandomStageId(payload) || DEFAULT_STAGE;
-  dispatch(levelsActions.setActiveStage(stageID));
+  dispatch(setActiveStage(stageID));
 };
 
+export const setActiveStage = (stageID: number) => levelsActions.setActiveStage(stageID);
 export const setLoserOverlay = (loserOverlay: boolean) => levelsActions.setLoserOverlay(loserOverlay);
 export const setWinnerOverlay = (winnerOverlay: boolean) => levelsActions.setWinnerOverlay(winnerOverlay);
 export const hideOverlay = () => levelsActions.hideOverlay();

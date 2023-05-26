@@ -3,6 +3,7 @@ import { cellsActions } from "../reducers/CellsSlice";
 import { AppDispatch, RootState } from "../store";
 
 export const setCells = (cells: ICell[]) => cellsActions.setCells(cells);
+export const setRightWay = (ids: number[]) => cellsActions.setRightWay(ids);
 
 export const chooseCell = (cell: ICell) => (dispatch: AppDispatch, getState: ()=> RootState) => {
   const cellsState = getState().cellsReducer;

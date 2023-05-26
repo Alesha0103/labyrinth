@@ -12,3 +12,9 @@ export const getRandomStageId = (payload: PayloadType): number => {
   );
   return filteredIds.length > 0 ? filteredIds[Math.floor(Math.random() * filteredIds.length)] : 0;
 }
+
+export const isSequenceMatch = (chosenCells: number[], rightWay: number[]) => {
+  const uniqueChosenCells = Array.from(new Set(chosenCells));
+
+  return uniqueChosenCells.every((value, index) => value === rightWay[index]);
+}

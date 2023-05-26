@@ -1,22 +1,32 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { Warning } from '../models/ICells';
-import { setCells, setWarning } from '../store/actions/CellsAction';
-import { Cell } from './Cell';
+import { setCells, setRightWay, setWarning } from '../store/actions/CellsAction';
+import { setActiveStage } from '../store/actions/LevelsActions';
 
 import './Stage.scss';
+import { Cell } from './Cell';
 
 export const Stage: React.FC = () => {
   const dispatch = useAppDispatch();
   const { stages, activeStageID} = useAppSelector(state => state.levelsReducer);
-  const { warning, warningType, cells } = useAppSelector(state => state.cellsReducer);
+  const { warning, warningType, cells, chosenCells } = useAppSelector(state => state.cellsReducer);
+  
 
   const [warningColor, setWarningColor] = React.useState("");
 
+  console.log('stages :>> ', stages);
+  console.log('chosenCells :>> ', chosenCells);
+
   React.useEffect(() => {
     if (!!stages.length) {
-      const stage = stages.find(stage => stage.id === activeStageID)!;
+      let stage = stages.find(stage => stage.id === activeStageID);
+      if (!stage) {
+        stage = stages[0];
+        dispatch(setActiveStage(stage.id));
+      }
       dispatch(setCells(stage.cells));
+      dispatch(setRightWay(stage.rightWay));
     }
   }, [stages, activeStageID])
   

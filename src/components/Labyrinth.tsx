@@ -7,11 +7,21 @@ import './Labyrinth.scss';
 
 export const Labyrinth = () => {
   const dispatch = useAppDispatch();
-  const { level, isLoading, error } = useAppSelector(state => state.levelsReducer);
+  const { level, stages, isLoading, error } = useAppSelector(state => state.levelsReducer);
+
+  const unpassedStageID = !!stages.find(stage => !stage.done)?.id;
 
   React.useEffect(() => {
     dispatch(fetchLevel(level));
   }, [])
+
+  React.useEffect(() => {
+    if(!unpassedStageID && !!stages.length) {
+      dispatch(fetchLevel(level+1));
+      // зробити Component з переходом на новий рівень. + було б прикольно показувати бали за невдалі спроби.
+      // виправити баг!!! коли залишається останній рівень і робиш невірний крок то маю помилку
+    }
+  }, [unpassedStageID])
 
   if (error) {
     return <h2>Error Page</h2>

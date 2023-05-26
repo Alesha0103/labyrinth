@@ -2,6 +2,7 @@ import { ICell } from "./ICells";
 
 export interface IStage {
   id: number,
+  rightWay: number[],
   cells: ICell[],
   done?: boolean,
 }
@@ -9,7 +10,8 @@ export interface IStage {
 export interface ILevel {
   id: number,
   isLevelActive: boolean,
-  stages: IStage[]
+  stages: IStage[],
+  rightWay: number[]
 }
 
 export interface levelsState {
@@ -20,5 +22,4 @@ export interface levelsState {
   activeStageID: number,
   loserOverlay: boolean,
   winerOverlay: boolean,
-  finishPage: boolean,
 }
