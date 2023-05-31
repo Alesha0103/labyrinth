@@ -22,4 +22,6 @@ export interface levelsState {
   activeStageID: number,
   loserOverlay: boolean,
   winerOverlay: boolean,
+  isLevelFinished: boolean,
+  isGameFinished: boolean,
 }

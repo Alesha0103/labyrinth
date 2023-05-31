@@ -52,7 +52,12 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
     if(isClickable && cell.toVictory) {
       setColor("green");
       dispatch(chooseCell(cell));
-      if (cell.id === winnerCell) {
+      if (cell.id === winnerCell && isLastStage) {
+        dispatch(finishStage(activeStageID));
+        dispatch(clearChosenCells());
+        dispatch(getRandomStage());
+      }
+      if (cell.id === winnerCell && !isLastStage) {
         dispatch(setWinnerOverlay(true));
         dispatch(finishStage(activeStageID));
 

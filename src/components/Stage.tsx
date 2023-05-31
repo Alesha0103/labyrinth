@@ -10,7 +10,7 @@ import { WARNING_TIMEOUT } from '../constants';
 
 export const Stage: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { stages, activeStageID} = useAppSelector(state => state.levelsReducer);
+  const { level, stages, activeStageID} = useAppSelector(state => state.levelsReducer);
   const { warning, warningType, cells } = useAppSelector(state => state.cellsReducer);
 
   const [warningColor, setWarningColor] = React.useState("");
@@ -18,16 +18,16 @@ export const Stage: React.FC = () => {
   React.useEffect(() => {
     if(!!stages.length) {
       const activeStage = stages[0];
-      setActiveStage(activeStage.id);
+      dispatch(setActiveStage(activeStage.id));
       dispatch(setCells(activeStage.cells));
       dispatch(setRightWay(activeStage.rightWay));
     }
   }, []);
 
   React.useEffect(() => {
-    const activeStage = stages.find(stage => stage.id === activeStageID);
+    const activeStage = !!stages.length && stages.find(stage => stage.id === activeStageID);
     if (activeStage) {
-      setActiveStage(activeStage.id);
+      dispatch(setActiveStage(activeStage.id));
       dispatch(setCells(activeStage.cells));
       dispatch(setRightWay(activeStage.rightWay));
     }

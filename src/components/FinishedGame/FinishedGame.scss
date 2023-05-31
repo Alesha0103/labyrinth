@@ -1,0 +1,23 @@
+.finished-game-page {
+  width: 350px;
+  margin: auto;
+  padding: 45px 0;
+  border: 2px solid black;
+  border-radius: 25px;
+  font-family: Impact;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+
+  position: absolute;
+  top: 22vh;
+  left: 29vw;
+  span {
+    font-size: 24px;
+    font-weight: bold;
+    &:last-child {
+      margin-top: 24px;
+    }
+  }
+}

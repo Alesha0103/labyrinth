@@ -10,6 +10,8 @@ const initialState: levelsState = {
   activeStageID: 1,
   loserOverlay: false,
   winerOverlay: false,
+  isLevelFinished: false,
+  isGameFinished: false,
 }
 
 const levelsSlice = createSlice({
@@ -32,6 +34,12 @@ const levelsSlice = createSlice({
     setActiveStage(state, action: PayloadAction<number>) {
       state.activeStageID = action.payload;
     },
+    finishLevel(state, action: PayloadAction<boolean>) {
+      state.isLevelFinished = action.payload
+    },
+    finishGame(state) {
+      state.isGameFinished = true;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -39,7 +47,7 @@ const levelsSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(fetchStages.fulfilled, (state, action: PayloadAction<IStage[]>) => {
-        state.stages = action.payload;
+        state.stages = action.payload || [];
         state.isLoading = false;
         state.error = false;
       })

@@ -7,11 +7,14 @@ import { PayloadType, getRandomStageId } from "../../helpers";
 
 export const fetchStages = createAsyncThunk(
   "levels/fetchLevel",
-  async (levelID: number|string|undefined, thunckAPI) => {
+  async (_, thunckAPI) => {
     const state = thunckAPI.getState() as RootState;
-    const checkedLevelId = levelID ? levelID : state.levelsReducer.level;
+    const levelID = state.levelsReducer.level;
     try {
-      const response = await axios.get<IStage[]>(`http://localhost:5000/levels/${checkedLevelId}`);
+      const response = await axios.get<IStage[]>(`http://localhost:5000/levels/${levelID}`);
+      if (!response.data.length) {
+        thunckAPI.dispatch(finishGame());
+      }
       return response.data
     } catch (err) {
       if (err instanceof Error) {
@@ -49,7 +52,7 @@ export const getRandomStage = () => (dispatch: AppDispatch, getState: ()=> RootS
   if (stageID) {
     dispatch(setActiveStage(stageID));
   } else {
-    dispatch(setActiveLevel(level+1));
+    dispatch(finishLevel(true));
   }
 };
 
@@ -58,3 +61,5 @@ export const setActiveStage = (stageID: number) => levelsActions.setActiveStage(
 export const setLoserOverlay = (loserOverlay: boolean) => levelsActions.setLoserOverlay(loserOverlay);
 export const setWinnerOverlay = (winnerOverlay: boolean) => levelsActions.setWinnerOverlay(winnerOverlay);
 export const hideOverlay = () => levelsActions.hideOverlay();
+export const finishLevel = (finish: boolean) => levelsActions.finishLevel(finish);
+export const finishGame = () => levelsActions.finishGame();

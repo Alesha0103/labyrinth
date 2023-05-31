@@ -1,0 +1,32 @@
+
+.finished-level-page {
+  width: 350px;
+  margin: auto;
+  border: 2px solid black;
+  border-radius: 25px;
+  font-family: Impact;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+
+  position: absolute;
+  top: 22vh;
+  left: 29vw;
+  span {
+    font-size: 24px;
+    font-weight: bold;
+    &:first-child {
+      margin: 45px 0 25px;
+    }
+  }
+  button {
+    margin: 25px;
+    margin-bottom: 50px;
+    border: none;
+    cursor: pointer;
+    border-radius: 15px;
+    font-size: 24px;
+    padding: 15px;
+  }
+}
