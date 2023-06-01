@@ -7,29 +7,36 @@ import { setActiveStage } from '../store/actions/LevelsActions';
 import './Stage.scss';
 import { Cell } from './Cell';
 import { WARNING_TIMEOUT } from '../constants';
+import { calculateHints } from '../helpers';
+import { IStage } from '../models/ILevel';
+import { Hints } from './Hints/Hints';
 
 export const Stage: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { level, stages, activeStageID} = useAppSelector(state => state.levelsReducer);
+  const { stages, activeStageID} = useAppSelector(state => state.levelsReducer);
   const { warning, warningType, cells } = useAppSelector(state => state.cellsReducer);
 
   const [warningColor, setWarningColor] = React.useState("");
+  const [hints, setHints] = React.useState(0);
+
+  const updateStage = (activeStage: IStage) => {
+    dispatch(setActiveStage(activeStage.id));
+    dispatch(setCells(activeStage.cells));
+    dispatch(setRightWay(activeStage.rightWay));
+    setHints(calculateHints(activeStage.rightWay))
+  }
 
   React.useEffect(() => {
     if(!!stages.length) {
       const activeStage = stages[0];
-      dispatch(setActiveStage(activeStage.id));
-      dispatch(setCells(activeStage.cells));
-      dispatch(setRightWay(activeStage.rightWay));
+      updateStage(activeStage);
     }
   }, []);
 
   React.useEffect(() => {
     const activeStage = !!stages.length && stages.find(stage => stage.id === activeStageID);
     if (activeStage) {
-      dispatch(setActiveStage(activeStage.id));
-      dispatch(setCells(activeStage.cells));
-      dispatch(setRightWay(activeStage.rightWay));
+      updateStage(activeStage);
     }
   }, [activeStageID]);
   
@@ -49,6 +56,7 @@ export const Stage: React.FC = () => {
   return (
     <>
       <h3 className='warning' style={{color: warningColor}}>{warning}</h3>
+      {!!hints && <Hints hints={3}/>}
       <div className='stage'>
         {cells.map(cell => {
           return <Cell key={cell.id} cell={cell}/>

@@ -24,4 +24,5 @@ export interface levelsState {
   winerOverlay: boolean,
   isLevelFinished: boolean,
   isGameFinished: boolean,
+  hint: boolean,
 }

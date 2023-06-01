@@ -63,3 +63,4 @@ export const setWinnerOverlay = (winnerOverlay: boolean) => levelsActions.setWin
 export const hideOverlay = () => levelsActions.hideOverlay();
 export const finishLevel = (finish: boolean) => levelsActions.finishLevel(finish);
 export const finishGame = () => levelsActions.finishGame();
+export const showHint = (hint: boolean) => levelsActions.showHint(hint);

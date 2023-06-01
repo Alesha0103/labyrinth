@@ -15,6 +15,7 @@ import {
   getRandomStage,
   setLoserOverlay,
   setWinnerOverlay,
+  showHint,
 } from '../store/actions/LevelsActions';
 import { OVERLAY_TIMEOUT, WARNING_TIMEOUT } from '../constants';
 
@@ -27,7 +28,8 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
   const [color, setColor] = React.useState("");
 
   const { cells, chosenCells, rightWay } = useAppSelector(state => state.cellsReducer);
-  const { stages, activeStageID } = useAppSelector(state => state.levelsReducer);
+  const { stages, activeStageID, hint } = useAppSelector(state => state.levelsReducer);
+  const lastChosenCell = chosenCells?.[chosenCells.length - 1];
 
   const skipStage = () => {
     dispatch(hideOverlay());
@@ -44,10 +46,25 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
     }
   }, [cells]);
 
+  React.useEffect(() => {
+    const currentIndex = rightWay.indexOf(lastChosenCell?.id);
+    const nextRightStep = rightWay[currentIndex+1];
+    if (
+      hint
+      && nextRightStep
+      && nextRightStep===cell.id
+    ) {
+        setColor("pink")
+      // Зробити підсказку якоюсь красивою
+    }
+  }, [hint])
+
   const onClickHandle = () => {
     const isClickable = chosenCells[chosenCells.length-1].neighbor.some(id => id === cell.id);
     const winnerCell = rightWay[rightWay.length-1];
     const isLastStage = stages.length === 1;
+
+    dispatch(showHint(false));
 
     if(isClickable && cell.toVictory) {
       setColor("green");

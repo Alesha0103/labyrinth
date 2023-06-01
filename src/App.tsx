@@ -17,9 +17,9 @@ const App = () => {
       </h1>
       <Labyrinth />
       <Overlay />
-      <Modal>
+      {/* <Modal>
         {isGameFinished ? <FinishedGame/> : <Wellcome/>}
-      </Modal>
+      </Modal> */}
     </div>
   );
 }

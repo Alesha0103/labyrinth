@@ -12,3 +12,10 @@ export const getRandomStageId = (payload: PayloadType): number | null => {
   );
   return filteredIds.length > 0 ? filteredIds[Math.floor(Math.random() * filteredIds.length)] : null;
 }
+
+export const calculateHints = (hints: number[]):number => {
+  if (hints.length <= 3) {
+    return 1;
+  }
+  return hints.length-3;
+}

@@ -1,0 +1,32 @@
+.hints {
+  position: absolute;
+  top: 14vh;
+  right: 5vw;
+  .hints-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button {
+      font-size: 20px;
+      font-family: 'Times New Roman';
+      color: green;
+      display: block;
+      background-color: white;
+      border: 1px solid green;
+      border-radius: 5px;
+      padding: 10px;
+      cursor: pointer;
+    }
+    .disabled {
+      color: red;
+      border-color: red;
+      cursor: auto;
+    }
+    div {
+      height: 25px;
+      width: 25px;
+      border-radius: 25px;
+      margin-left: 20px;
+    }
+  }
+}
