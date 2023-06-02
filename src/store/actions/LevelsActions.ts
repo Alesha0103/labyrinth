@@ -41,6 +41,18 @@ export const finishStage = createAsyncThunk(
   }
 );
 
+export const checkIfGameFinished = createAsyncThunk(
+  "levels/finishGame",
+  async (_, thunckAPI) => {
+    try {
+      const res = await axios.get<boolean>(`http://localhost:5000/check-the-end`);
+      console.log('checkIfGameFinished :>> ', res.data);
+    } catch (error) {
+      console.log('error :>> ', error);
+    }
+  }
+);
+
 export const getRandomStage = () => (dispatch: AppDispatch, getState: ()=> RootState) => {
   const {level, activeStageID, stages} = getState().levelsReducer;
   const payload: PayloadType = {

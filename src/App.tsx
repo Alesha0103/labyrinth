@@ -5,10 +5,10 @@ import { Overlay } from './components/Overlay';
 import { Modal } from './components/Modal/Modal';
 import { Wellcome } from './components/Wellcome/Wellcome';
 import { useAppSelector } from './hooks/redux';
-import { FinishedGame } from './components/FinishedGame/FinishedGame';
+import { FinishedLevel } from './components/FinishedLevel/FinishedLevel';
 
 const App = () => {
-  const { isGameFinished } = useAppSelector(state => state.levelsReducer);
+  const { isLevelFinished } = useAppSelector(state => state.levelsReducer);
 
   return (
     <div className="App">
@@ -17,9 +17,10 @@ const App = () => {
       </h1>
       <Labyrinth />
       <Overlay />
-      {/* <Modal>
-        {isGameFinished ? <FinishedGame/> : <Wellcome/>}
-      </Modal> */}
+      <Modal>
+        <Wellcome/>
+        {isLevelFinished && <FinishedLevel/>}
+      </Modal>
     </div>
   );
 }

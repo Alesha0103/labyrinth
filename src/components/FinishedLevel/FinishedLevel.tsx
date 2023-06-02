@@ -6,15 +6,11 @@ import './FinishedLevel.scss'
 
 export const FinishedLevel = () => {
   const dispatch = useAppDispatch();
-  const { level, isLevelFinished } = useAppSelector(state => state.levelsReducer);
+  const { level } = useAppSelector(state => state.levelsReducer);
 
   const onClickHandler = () => {
     dispatch(setActiveLevel(level+1));
     dispatch(finishLevel(false));
-  }
-
-  if(!isLevelFinished) {
-    return null;
   }
 
   return (

@@ -16,6 +16,7 @@ import {
   setLoserOverlay,
   setWinnerOverlay,
   showHint,
+  checkIfGameFinished,
 } from '../store/actions/LevelsActions';
 import { OVERLAY_TIMEOUT, WARNING_TIMEOUT } from '../constants';
 
@@ -54,8 +55,7 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
       && nextRightStep
       && nextRightStep===cell.id
     ) {
-        setColor("pink")
-      // Зробити підсказку якоюсь красивою
+      setColor("pink");
     }
   }, [hint])
 
@@ -70,6 +70,7 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
       setColor("green");
       dispatch(chooseCell(cell));
       if (cell.id === winnerCell && isLastStage) {
+        dispatch(checkIfGameFinished());
         dispatch(finishStage(activeStageID));
         dispatch(clearChosenCells());
         dispatch(getRandomStage());

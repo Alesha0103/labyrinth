@@ -4,8 +4,6 @@ import { fetchStages } from '../store/actions/LevelsActions';
 import { Stage } from './Stage';
 
 import './Labyrinth.scss';
-import { Modal } from './Modal/Modal';
-import { FinishedLevel } from './FinishedLevel/FinishedLevel';
 
 export const Labyrinth = () => {
   const dispatch = useAppDispatch();
@@ -27,9 +25,6 @@ export const Labyrinth = () => {
     <React.Fragment>
       <h2>Level №{level}</h2>
       <Stage />
-      <Modal>
-        <FinishedLevel/>
-      </Modal>
     </React.Fragment>
   )
 }

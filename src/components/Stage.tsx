@@ -56,7 +56,7 @@ export const Stage: React.FC = () => {
   return (
     <>
       <h3 className='warning' style={{color: warningColor}}>{warning}</h3>
-      {!!hints && <Hints hints={3}/>}
+      {!!hints && <Hints hints={hints}/>}
       <div className='stage'>
         {cells.map(cell => {
           return <Cell key={cell.id} cell={cell}/>
