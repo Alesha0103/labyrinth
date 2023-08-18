@@ -17,6 +17,7 @@ import {
   setWinnerOverlay,
   showHint,
   checkIfGameFinished,
+  setActiveLevel,
 } from '../store/actions/LevelsActions';
 import { OVERLAY_TIMEOUT, WARNING_TIMEOUT } from '../constants';
 
@@ -29,7 +30,7 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
   const [color, setColor] = React.useState("");
 
   const { cells, chosenCells, rightWay } = useAppSelector(state => state.cellsReducer);
-  const { stages, activeStageID, hint } = useAppSelector(state => state.levelsReducer);
+  const { level, stages, activeStageID, hint } = useAppSelector(state => state.levelsReducer);
   const lastChosenCell = chosenCells?.[chosenCells.length - 1];
 
   const skipStage = () => {
@@ -70,10 +71,10 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
       setColor("green");
       dispatch(chooseCell(cell));
       if (cell.id === winnerCell && isLastStage) {
-        dispatch(checkIfGameFinished());
         dispatch(finishStage(activeStageID));
         dispatch(clearChosenCells());
-        dispatch(getRandomStage());
+
+        dispatch(checkIfGameFinished(level+1));
       }
       if (cell.id === winnerCell && !isLastStage) {
         dispatch(setWinnerOverlay(true));
@@ -81,7 +82,7 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
 
         const timeout = setTimeout(() => {
           skipStage();
-          dispatch(fetchStages());
+          dispatch(fetchStages(level));
         }, OVERLAY_TIMEOUT)
         return () => clearTimeout(timeout);
       }

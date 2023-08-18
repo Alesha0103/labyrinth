@@ -10,7 +10,7 @@ export const Labyrinth = () => {
   const { level, isLoading, error } = useAppSelector(state => state.levelsReducer);
 
   React.useEffect(() => {
-    dispatch(fetchStages());
+    dispatch(fetchStages(level));
   }, [level])
 
   if (error) {

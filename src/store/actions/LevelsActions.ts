@@ -7,9 +7,7 @@ import { PayloadType, getRandomStageId } from "../../helpers";
 
 export const fetchStages = createAsyncThunk(
   "levels/fetchLevel",
-  async (_, thunckAPI) => {
-    const state = thunckAPI.getState() as RootState;
-    const levelID = state.levelsReducer.level;
+  async (levelID: number, thunckAPI) => {
     try {
       const response = await axios.get<IStage[]>(`http://localhost:5000/levels/${levelID}`);
       if (!response.data.length) {
@@ -43,10 +41,15 @@ export const finishStage = createAsyncThunk(
 
 export const checkIfGameFinished = createAsyncThunk(
   "levels/finishGame",
-  async (_, thunckAPI) => {
+  async (levelID: number, thunckAPI) => {
     try {
       const res = await axios.get<boolean>(`http://localhost:5000/check-the-end`);
-      console.log('checkIfGameFinished :>> ', res.data);
+      if(res && !res.data) {
+        thunckAPI.dispatch(setActiveLevel(levelID));
+        thunckAPI.dispatch(finishLevelPopup(true));
+      } else if (res && res.data) {
+        thunckAPI.dispatch(finishGame());
+      }
     } catch (error) {
       console.log('error :>> ', error);
     }
@@ -54,7 +57,7 @@ export const checkIfGameFinished = createAsyncThunk(
 );
 
 export const getRandomStage = () => (dispatch: AppDispatch, getState: ()=> RootState) => {
-  const {level, activeStageID, stages} = getState().levelsReducer;
+  const {activeStageID, stages} = getState().levelsReducer;
   const payload: PayloadType = {
     id: activeStageID,
     possibleId: stages.map(stage => stage.id),
@@ -63,8 +66,6 @@ export const getRandomStage = () => (dispatch: AppDispatch, getState: ()=> RootS
   const stageID = getRandomStageId(payload);
   if (stageID) {
     dispatch(setActiveStage(stageID));
-  } else {
-    dispatch(finishLevel(true));
   }
 };
 
@@ -73,6 +74,6 @@ export const setActiveStage = (stageID: number) => levelsActions.setActiveStage(
 export const setLoserOverlay = (loserOverlay: boolean) => levelsActions.setLoserOverlay(loserOverlay);
 export const setWinnerOverlay = (winnerOverlay: boolean) => levelsActions.setWinnerOverlay(winnerOverlay);
 export const hideOverlay = () => levelsActions.hideOverlay();
-export const finishLevel = (finish: boolean) => levelsActions.finishLevel(finish);
+export const finishLevelPopup = (finish: boolean) => levelsActions.finishLevelPopup(finish);
 export const finishGame = () => levelsActions.finishGame();
 export const showHint = (hint: boolean) => levelsActions.showHint(hint);

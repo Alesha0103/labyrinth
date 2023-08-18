@@ -35,7 +35,7 @@ const levelsSlice = createSlice({
     setActiveStage(state, action: PayloadAction<number>) {
       state.activeStageID = action.payload;
     },
-    finishLevel(state, action: PayloadAction<boolean>) {
+    finishLevelPopup(state, action: PayloadAction<boolean>) {
       state.isLevelFinished = action.payload
     },
     finishGame(state) {
