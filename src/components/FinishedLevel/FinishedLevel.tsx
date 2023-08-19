@@ -1,15 +1,23 @@
 import React from 'react'
 import { useAppDispatch } from '../../hooks/redux';
-import { finishLevelPopup } from '../../store/actions/LevelsActions';
+import { disableHints, finishLevelPopup } from '../../store/actions/LevelsActions';
 
 import './FinishedLevel.scss'
+import { setWarning } from '../../store/actions/CellsAction';
+import { Warning } from '../../models/ICells';
 
 export const FinishedLevel = () => {
   const dispatch = useAppDispatch();
 
   const onClickHandler = () => {
     dispatch(finishLevelPopup(false));
+    dispatch(disableHints(false));
   }
+
+  React.useEffect(() => {
+    dispatch(disableHints(true));
+    dispatch(setWarning(Warning.clear));
+  }, [])
 
   return (
     <div className="finished-level-page">

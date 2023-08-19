@@ -13,6 +13,7 @@ const initialState: levelsState = {
   isLevelFinished: false,
   isGameFinished: false,
   hint: false,
+  disableHints: false,
 }
 
 const levelsSlice = createSlice({
@@ -44,6 +45,9 @@ const levelsSlice = createSlice({
     showHint(state, action: PayloadAction<boolean>) {
       state.hint = action.payload;
     },
+    disableHints(state, action: PayloadAction<boolean>) {
+      state.disableHints = action.payload
+    }
   },
   extraReducers: (builder) => {
     builder

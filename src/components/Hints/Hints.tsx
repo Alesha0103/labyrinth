@@ -1,8 +1,8 @@
 import React from 'react';
 
 import "./Hints.scss";
-import { Hint } from './Hint';
-import { useAppDispatch } from '../../hooks/redux';
+import { Dot } from './Dot';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { showHint } from '../../store/actions/LevelsActions';
 
 type HintsProps = {
@@ -13,7 +13,9 @@ type HintsProps = {
 export const Hints: React.FC<HintsProps> = ({hints}) => {
   const dispatch = useAppDispatch();
   const [hintIDs, setHintIDs] = React.useState<number[]>([]);
-  const [freeHint, setFreeHint] = React.useState<number[]>([]);
+  const [freeHints, setFreeHints] = React.useState<number[]>([]);
+
+  const { activeStageID, disableHints } = useAppSelector(state => state.levelsReducer);
 
   React.useEffect(() => {
     const IDs = []
@@ -21,27 +23,27 @@ export const Hints: React.FC<HintsProps> = ({hints}) => {
       IDs.push(i);
     }
     setHintIDs(IDs);
-    setFreeHint(IDs);
-  }, [hints])
+    setFreeHints(IDs);
+  }, [hints, activeStageID, disableHints])
 
   const handleHint = () => {
-    setFreeHint(freeHint.slice(0,-1))
+    setFreeHints(freeHints.slice(0,-1))
     dispatch(showHint(true));
   }
 
-  const renderHints = () => {
-    return hintIDs.map(id => <Hint key={id} id={id} freeHint={freeHint}/>)
+  const renderDots = () => {
+    return hintIDs.map((id, index) => <Dot key={id+index} id ={id} freeHints={freeHints} disabled={disableHints}/>)
   }
 
   return (
     <div className="hints">
       <div className="hints-section" id="hints-section">
         <button 
-          disabled={!freeHint.length}
+          disabled={disableHints || !freeHints.length}
           onClick={handleHint}
-          className={!freeHint.length ? "disabled" : undefined}
+          className={!freeHints.length || disableHints ? "disabled" : undefined}
         >Show hint</button>
-        {renderHints()}
+        {renderDots()}
       </div>
     </div>
   )

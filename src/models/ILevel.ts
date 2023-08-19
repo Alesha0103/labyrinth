@@ -25,4 +25,5 @@ export interface levelsState {
   isLevelFinished: boolean,
   isGameFinished: boolean,
   hint: boolean,
+  disableHints: boolean,
 }

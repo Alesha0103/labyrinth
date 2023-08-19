@@ -5,7 +5,6 @@ import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import './Stage.scss';
 import {
   chooseCell,
-  clearChosenCells,
   setWarning,
 } from '../store/actions/CellsAction';
 import {
@@ -17,7 +16,7 @@ import {
   setWinnerOverlay,
   showHint,
   checkIfGameFinished,
-  setActiveLevel,
+  setActiveStage,
 } from '../store/actions/LevelsActions';
 import { OVERLAY_TIMEOUT, WARNING_TIMEOUT } from '../constants';
 
@@ -35,7 +34,6 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
 
   const skipStage = () => {
     dispatch(hideOverlay());
-    dispatch(clearChosenCells());
     dispatch(getRandomStage());
   }
 
@@ -72,9 +70,8 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
       dispatch(chooseCell(cell));
       if (cell.id === winnerCell && isLastStage) {
         dispatch(finishStage(activeStageID));
-        dispatch(clearChosenCells());
-
         dispatch(checkIfGameFinished(level+1));
+        dispatch(setActiveStage(1));
       }
       if (cell.id === winnerCell && !isLastStage) {
         dispatch(setWinnerOverlay(true));

@@ -4,6 +4,7 @@ import { IStage } from "../../models/ILevel";
 import { AppDispatch, RootState } from "../store";
 import { levelsActions } from "../reducers/LevelsSlice";
 import { PayloadType, getRandomStageId } from "../../helpers";
+import { isDisabled } from "@testing-library/user-event/dist/utils";
 
 export const fetchStages = createAsyncThunk(
   "levels/fetchLevel",
@@ -77,3 +78,4 @@ export const hideOverlay = () => levelsActions.hideOverlay();
 export const finishLevelPopup = (finish: boolean) => levelsActions.finishLevelPopup(finish);
 export const finishGame = () => levelsActions.finishGame();
 export const showHint = (hint: boolean) => levelsActions.showHint(hint);
+export const disableHints = (isDisabled: boolean) => levelsActions.disableHints(isDisabled);

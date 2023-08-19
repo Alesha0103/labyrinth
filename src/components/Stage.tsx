@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { Warning } from '../models/ICells';
-import { setCells, setRightWay, setWarning } from '../store/actions/CellsAction';
+import { clearChosenCells, setCells, setRightWay, setWarning } from '../store/actions/CellsAction';
 import { setActiveStage } from '../store/actions/LevelsActions';
 
 import './Stage.scss';
@@ -13,7 +13,7 @@ import { Hints } from './Hints/Hints';
 
 export const Stage: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { stages, activeStageID} = useAppSelector(state => state.levelsReducer);
+  const { level, stages, activeStageID} = useAppSelector(state => state.levelsReducer);
   const { warning, warningType, cells } = useAppSelector(state => state.cellsReducer);
 
   const [warningColor, setWarningColor] = React.useState("");
@@ -28,14 +28,16 @@ export const Stage: React.FC = () => {
 
   React.useEffect(() => {
     if(!!stages.length) {
+      dispatch(clearChosenCells());
       const activeStage = stages[0];
       updateStage(activeStage);
     }
-  }, []);
+  }, [level]);
 
   React.useEffect(() => {
     const activeStage = !!stages.length && stages.find(stage => stage.id === activeStageID);
     if (activeStage) {
+      dispatch(clearChosenCells());
       updateStage(activeStage);
     }
   }, [activeStageID]);
@@ -56,7 +58,7 @@ export const Stage: React.FC = () => {
   return (
     <>
       <h3 className='warning' style={{color: warningColor}}>{warning}</h3>
-      {/* {!!hints && <Hints hints={hints}/>} */}
+      {!!hints && <Hints hints={hints}/>}
       <div className='stage'>
         {cells.map(cell => {
           return <Cell key={cell.id} cell={cell}/>
