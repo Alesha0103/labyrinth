@@ -29,7 +29,7 @@ export const finishStage = createAsyncThunk(
   "levels/finishStage",
   async (stageID: number|string, thunckAPI) => {
     try {
-      axios.put<IStage>(`http://localhost:5000/stages/${stageID}`);
+      await axios.put<IStage>(`http://localhost:5000/stages/${stageID}`);
     } catch (error) {
       if (error instanceof Error) {
         return thunckAPI.rejectWithValue(error.message)
