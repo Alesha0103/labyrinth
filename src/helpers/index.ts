@@ -17,5 +17,5 @@ export const calculateHints = (hints: number[]):number => {
   if (hints.length <= 3) {
     return 1;
   }
-  return hints.length-3;
+  return 3;
 }

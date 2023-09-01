@@ -17,4 +17,5 @@ export interface CellsState {
   chosenCells: ICell[],
   warning: string,
   warningType: Warning,
+  attempts: number,
 }

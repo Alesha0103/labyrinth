@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import '../Stage/Stage.scss'
 import {
   chooseCell,
+  setAttempts,
   setWarning,
 } from '../../store/actions/CellsAction';
 import {
@@ -28,14 +29,21 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
   const dispatch = useAppDispatch();
   const [color, setColor] = React.useState("");
 
-  const { cells, chosenCells, rightWay } = useAppSelector(state => state.cellsReducer);
+  const { cells, chosenCells, rightWay, attempts } = useAppSelector(state => state.cellsReducer);
   const { level, stages, activeStageID, hint } = useAppSelector(state => state.levelsReducer);
   const lastChosenCell = chosenCells?.[chosenCells.length - 1];
 
   const hideStage = () => {
     dispatch(hideOverlay());
     dispatch(getRandomStage());
-  }
+  };
+
+  React.useEffect(() => {
+    if(lastChosenCell) {
+      const filtred = lastChosenCell.neighbor.filter(id => !chosenCells.find(cell => cell.id === id))?.length-2;
+      dispatch(setAttempts(filtred));
+    }
+  }, [lastChosenCell]);
 
   React.useEffect(() => {
     setColor("");
@@ -56,10 +64,19 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
     ) {
       setColor("pink");
     }
-  }, [hint])
+  }, [hint]);
+
+  const handleErrorWarning = () => {
+    dispatch(setWarning(Warning.lastStage));
+    dispatch(setAttempts(attempts - 2));
+    const timeout = setTimeout(() => {
+      setColor("");
+    }, WARNING_TIMEOUT)
+    return () => clearTimeout(timeout);
+  };
 
   const onClickHandle = () => {
-    const isClickable = chosenCells[chosenCells.length-1].neighbor.some(id => id === cell.id);
+    const isClickable = chosenCells[chosenCells.length-1].neighbor.some(id => id === cell.id && !chosenCells.includes(cell));
     const winnerCell = rightWay[rightWay.length-1];
     const isLastStage = stages.length === 1;
 
@@ -91,20 +108,22 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
     }
     if(isClickable && !checkNextStep && !isLastStage) {
       setColor("red");
-      dispatch(setLoserOverlay(true));
-      const timeout = setTimeout(() => {
-        hideStage();
-      }, OVERLAY_TIMEOUT)
-      return () => clearTimeout(timeout);
+      if (attempts < 1) {
+        dispatch(setLoserOverlay(true));
+
+        const timeout = setTimeout(() => {
+          hideStage();
+        }, OVERLAY_TIMEOUT);
+
+        return () => clearTimeout(timeout);
+      } else {
+        handleErrorWarning();
+      }
     }
 
     if(isClickable && !checkNextStep && isLastStage) {
       setColor("red");
-      dispatch(setWarning(Warning.lastStage));
-      const timeout = setTimeout(() => {
-        setColor("");
-      }, WARNING_TIMEOUT)
-      return () => clearTimeout(timeout);
+      handleErrorWarning();
     }
 
     if(!isClickable) {
@@ -113,7 +132,7 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
     if(!isClickable && chosenCells[chosenCells.length-1].id === cell.id) {
       dispatch(setWarning(Warning.warning))
     }
-  }
+  };
 
   return (
     <div className="cell" onClick={onClickHandle} style={{backgroundColor: color}}/>

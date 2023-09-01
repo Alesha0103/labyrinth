@@ -31,3 +31,4 @@ export const setWarning = (warning: Warning) => (dispatch: AppDispatch) => {
 }
 
 export const clearChosenCells = () => cellsActions.clearChosenCells();
+export const setAttempts = (attempts: number) => cellsActions.setAttempts(attempts);

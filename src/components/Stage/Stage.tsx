@@ -55,7 +55,7 @@ export const Stage: React.FC = () => {
     }, WARNING_TIMEOUT)
   
     return () => clearTimeout(timeout);
-  }, [warningType])
+  }, [warningType]);
   
   return (
     <>

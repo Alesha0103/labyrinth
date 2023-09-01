@@ -7,6 +7,7 @@ const initialState: CellsState = {
   chosenCells: [],
   warning: "",
   warningType: Warning.clear,
+  attempts: 0,
 }
 
 const cellsSlice = createSlice({
@@ -30,6 +31,9 @@ const cellsSlice = createSlice({
     },
     clearChosenCells(state) {
       state.chosenCells = [];
+    },
+    setAttempts(state, action: PayloadAction<number>) {
+      state.attempts = action.payload
     }
   }
 });
