@@ -1,9 +1,9 @@
 import React from 'react'
-import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { fetchStages } from '../store/actions/LevelsActions';
-import { Stage } from './Stage';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { fetchStages } from '../../store/actions/LevelsActions';
 
 import './Labyrinth.scss';
+import { Stage } from '../Stage/Stage';
 
 export const Labyrinth = () => {
   const dispatch = useAppDispatch();
@@ -11,6 +11,7 @@ export const Labyrinth = () => {
 
   React.useEffect(() => {
     dispatch(fetchStages(level));
+    localStorage.setItem("level", level.toString())
   }, [level])
 
   if (error) {

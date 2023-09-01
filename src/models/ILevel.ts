@@ -5,13 +5,17 @@ export interface IStage {
   rightWay: number[],
   cells: ICell[],
   done?: boolean,
+  geometry: {
+    columns: number,
+    rows: number,
+  }
 }
 
 export interface ILevel {
   id: number,
   isLevelActive: boolean,
   stages: IStage[],
-  rightWay: number[]
+  rightWay: number[],
 }
 
 export interface levelsState {

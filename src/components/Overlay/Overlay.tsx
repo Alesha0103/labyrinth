@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAppSelector } from '../hooks/redux';
+import { useAppSelector } from '../../hooks/redux';
 import './Overlay.scss'
 
 export const Overlay = () => {

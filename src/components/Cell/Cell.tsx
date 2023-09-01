@@ -1,12 +1,12 @@
 import React from 'react';
-import { ICell, Warning } from '../models/ICells';
-import { useAppDispatch, useAppSelector } from '../hooks/redux';
+import { ICell, Warning } from '../../models/ICells';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
-import './Stage.scss';
+import '../Stage/Stage.scss'
 import {
   chooseCell,
   setWarning,
-} from '../store/actions/CellsAction';
+} from '../../store/actions/CellsAction';
 import {
   fetchStages,
   finishStage,
@@ -17,8 +17,8 @@ import {
   showHint,
   checkIfGameFinished,
   setActiveStage,
-} from '../store/actions/LevelsActions';
-import { OVERLAY_TIMEOUT, WARNING_TIMEOUT } from '../constants';
+} from '../../store/actions/LevelsActions';
+import { OVERLAY_TIMEOUT, WARNING_TIMEOUT } from '../../constants';
 
 type CellPropsType = {
   cell: ICell,
@@ -32,7 +32,7 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
   const { level, stages, activeStageID, hint } = useAppSelector(state => state.levelsReducer);
   const lastChosenCell = chosenCells?.[chosenCells.length - 1];
 
-  const skipStage = () => {
+  const hideStage = () => {
     dispatch(hideOverlay());
     dispatch(getRandomStage());
   }
@@ -52,7 +52,7 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
     if (
       hint
       && nextRightStep
-      && nextRightStep===cell.id
+      && nextRightStep === cell.id
     ) {
       setColor("pink");
     }
@@ -63,9 +63,14 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
     const winnerCell = rightWay[rightWay.length-1];
     const isLastStage = stages.length === 1;
 
+    const currentIndex = rightWay.indexOf(lastChosenCell?.id);
+    const nextRightStep = rightWay[currentIndex+1];
+
+    const checkNextStep = nextRightStep === cell.id;
+
     dispatch(showHint(false));
 
-    if(isClickable && cell.toVictory) {
+    if(isClickable && checkNextStep) {
       setColor("green");
       dispatch(chooseCell(cell));
       if (cell.id === winnerCell && isLastStage) {
@@ -78,22 +83,22 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
         dispatch(finishStage(activeStageID));
 
         const timeout = setTimeout(() => {
-          skipStage();
+          hideStage();
           dispatch(fetchStages(level));
         }, OVERLAY_TIMEOUT)
         return () => clearTimeout(timeout);
       }
     }
-    if(isClickable && !cell.toVictory && !isLastStage) {
+    if(isClickable && !checkNextStep && !isLastStage) {
       setColor("red");
       dispatch(setLoserOverlay(true));
       const timeout = setTimeout(() => {
-        skipStage();
+        hideStage();
       }, OVERLAY_TIMEOUT)
       return () => clearTimeout(timeout);
     }
 
-    if(isClickable && !cell.toVictory && isLastStage) {
+    if(isClickable && !checkNextStep && isLastStage) {
       setColor("red");
       dispatch(setWarning(Warning.lastStage));
       const timeout = setTimeout(() => {
@@ -111,6 +116,6 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
   }
 
   return (
-    <div className='cell' onClick={onClickHandle} style={{backgroundColor: color}}/>
+    <div className="cell" onClick={onClickHandle} style={{backgroundColor: color}}/>
   )
 }

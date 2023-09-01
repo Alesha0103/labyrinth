@@ -7,7 +7,6 @@ export enum Warning {
 
 export interface ICell {
   id: number,
-  toVictory: boolean,
   firstStep?: boolean,
   neighbor: number[],
 }

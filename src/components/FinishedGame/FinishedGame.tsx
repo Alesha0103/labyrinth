@@ -3,6 +3,10 @@ import './FinishedGame.scss';
 
 export const FinishedGame = () => {
 
+  React.useEffect(() => {
+    localStorage.removeItem("level");
+  }, [])
+
   return (
     <div className="finished-game-page">
     <span>Congratulations!</span>

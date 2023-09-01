@@ -1,7 +1,5 @@
 .stage {
   display: grid;
-  grid-template-columns: repeat(3, 75px);
-  grid-template-rows: repeat(3, 75px);
   grid-gap: 10px;
   justify-content: center;
   margin-top: 20px;
