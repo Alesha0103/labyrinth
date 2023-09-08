@@ -4,6 +4,7 @@ import { fetchStages } from '../../store/actions/LevelsActions';
 
 import './Labyrinth.scss';
 import { Stage } from '../Stage/Stage';
+import { Loader } from '../Loader/Loader';
 
 export const Labyrinth = () => {
   const dispatch = useAppDispatch();
@@ -19,7 +20,7 @@ export const Labyrinth = () => {
   }
   
   if (!level || isLoading) {
-    return <h2>Loading...</h2>
+    return <Loader />
   }
 
   return (

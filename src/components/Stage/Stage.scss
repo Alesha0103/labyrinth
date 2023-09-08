@@ -6,7 +6,8 @@
 }
 
 .cell {
-  background-color: rgb(175, 175, 30);
+  border: 2px solid rgb(135, 210, 135);
+  border-radius: 5px;
   &:hover {
     cursor: pointer;
   }
@@ -15,5 +16,5 @@
 .warning {
   height: 20px;
   text-align: center;
-  margin-top: 60px;
+  margin-top: 70px;
 }

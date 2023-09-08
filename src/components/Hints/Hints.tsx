@@ -41,7 +41,6 @@ export const Hints: React.FC<HintsProps> = ({hints}) => {
         <button 
           disabled={disableHints || !freeHints.length}
           onClick={handleHint}
-          className={!freeHints.length || disableHints ? "disabled" : undefined}
         >Show hint</button>
         {renderDots()}
       </div>

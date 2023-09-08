@@ -6,6 +6,7 @@ import '../Stage/Stage.scss'
 import {
   chooseCell,
   setAttempts,
+  setHintIndicator,
   setWarning,
 } from '../../store/actions/CellsAction';
 import {
@@ -19,7 +20,7 @@ import {
   checkIfGameFinished,
   setActiveStage,
 } from '../../store/actions/LevelsActions';
-import { OVERLAY_TIMEOUT, WARNING_TIMEOUT } from '../../constants';
+import { HINT_COLOR, LOOSER_COLOR, OVERLAY_TIMEOUT, WARNING_TIMEOUT, WINNER_COLOR } from '../../constants';
 
 type CellPropsType = {
   cell: ICell,
@@ -49,7 +50,7 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
     setColor("");
     const firstStep = cells.find(cell => cell.firstStep);
     if(firstStep && firstStep.id === cell.id) {
-      setColor("green");
+      setColor(WINNER_COLOR);
       dispatch(chooseCell(firstStep));
     }
   }, [cells]);
@@ -62,9 +63,17 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
       && nextRightStep
       && nextRightStep === cell.id
     ) {
-      setColor("pink");
+      setColor(HINT_COLOR);
     }
   }, [hint]);
+
+  React.useEffect(() => {
+    if(color === HINT_COLOR) {
+      dispatch(setHintIndicator(true));
+    } else {
+      dispatch(setHintIndicator(false));
+    }
+  }, [color]);
 
   const handleErrorWarning = () => {
     dispatch(setWarning(Warning.lastStage));
@@ -88,7 +97,7 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
     dispatch(showHint(false));
 
     if(isClickable && checkNextStep) {
-      setColor("green");
+      setColor(WINNER_COLOR);
       dispatch(chooseCell(cell));
       if (cell.id === winnerCell && isLastStage) {
         dispatch(finishStage(activeStageID));
@@ -107,7 +116,7 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
       }
     }
     if(isClickable && !checkNextStep && !isLastStage) {
-      setColor("red");
+      setColor(LOOSER_COLOR);
       if (attempts < 1) {
         dispatch(setLoserOverlay(true));
 
@@ -122,7 +131,7 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
     }
 
     if(isClickable && !checkNextStep && isLastStage) {
-      setColor("red");
+      setColor(LOOSER_COLOR);
       handleErrorWarning();
     }
 
@@ -135,6 +144,10 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
   };
 
   return (
-    <div className="cell" onClick={onClickHandle} style={{backgroundColor: color}}/>
+    <div className="cell" onClick={onClickHandle} style={{
+      backgroundColor: color,
+      borderColor: color && "transparent",
+      transform: color && "scale(0.99)"
+    }}/>
   )
 }

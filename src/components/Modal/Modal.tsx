@@ -1,5 +1,6 @@
-import React, { ReactNode } from 'react'
-import { createPortal } from 'react-dom'
+import React, { ReactNode } from 'react';
+import { createPortal } from 'react-dom';
+import './Modal.scss'
 
 type Modal = {
   children: ReactNode
@@ -14,9 +15,9 @@ export const Modal: React.FC<Modal> = ({children}) => {
   }
 
   return createPortal(
-    <>
+    <div className="modal">
       {children}
-    </>,
+    </div>,
     modalRoot
   );
 }

@@ -2,7 +2,6 @@ import React from 'react'
 import { useAppDispatch } from '../../hooks/redux';
 import { disableHints, finishLevelPopup } from '../../store/actions/LevelsActions';
 
-import './FinishedLevel.scss'
 import { setWarning } from '../../store/actions/CellsAction';
 import { Warning } from '../../models/ICells';
 

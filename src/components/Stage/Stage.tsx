@@ -5,7 +5,7 @@ import { clearChosenCells, setCells, setRightWay, setWarning } from '../../store
 import { setActiveStage } from '../../store/actions/LevelsActions';
 
 import './Stage.scss';
-import { WARNING_TIMEOUT } from '../../constants';
+import { LOOSER_COLOR, WARNING_TIMEOUT } from '../../constants';
 import { calculateHints } from '../../helpers';
 import { IStage } from '../../models/ILevel';
 import { Hints } from '../Hints/Hints';
@@ -45,10 +45,8 @@ export const Stage: React.FC = () => {
   }, [activeStageID]);
   
   React.useEffect(() => {
-    if(warningType === Warning.error || warningType === Warning.lastStage) {
-      setWarningColor("red");
-    } else {
-      setWarningColor("#afaf1e");
+    if(warningType) {
+      setWarningColor(LOOSER_COLOR);
     }
     const timeout = setTimeout(() => {
       dispatch(setWarning(Warning.clear));

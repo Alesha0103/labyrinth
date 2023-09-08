@@ -9,6 +9,7 @@ import { FinishedLevel } from './components/FinishedLevel/FinishedLevel';
 import { FinishedGame } from './components/FinishedGame/FinishedGame';
 import axios from 'axios';
 import { setActiveLevel } from './store/actions/LevelsActions';
+import { Loader } from './components/Loader/Loader';
 
 const App = () => {
   const [isReady, setReady] = React.useState(false);
@@ -27,7 +28,7 @@ const App = () => {
       await axios.put("http://localhost:5000/defaultDataBase");
       setReady(true);
     } catch {
-      console.log("can not update level");
+      console.log("Level wasn't updated");
     }
   }
 
@@ -36,22 +37,24 @@ const App = () => {
   }, [])
 
   if (!isReady) {
-    return <h2>Loading...</h2>
+    return <Loader />
   }
 
   return (
-    <div className="App">
-      <h1>
-        Labyrinth
-      </h1>
-      {!isGameFinished && <Labyrinth/>}
-      <Overlay />
-      <Modal>
-        {!isGameFinished && <Wellcome/>}
-        {isLevelFinished && <FinishedLevel/>}
-        {isGameFinished && <FinishedGame/>}
-      </Modal>
-    </div>
+    <>
+      <div className="app-overlay"></div>
+      <div className="App">
+        <h1>
+          Labyrinth
+        </h1>
+        {!isGameFinished ? <Labyrinth/> : <FinishedGame/>}
+        <Overlay />
+        <Modal>
+          {!isGameFinished && <Wellcome/>}
+          {isLevelFinished && <FinishedLevel/>}
+        </Modal>
+      </div>
+    </>
   );
 }
 

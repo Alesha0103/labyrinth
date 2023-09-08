@@ -32,3 +32,4 @@ export const setWarning = (warning: Warning) => (dispatch: AppDispatch) => {
 
 export const clearChosenCells = () => cellsActions.clearChosenCells();
 export const setAttempts = (attempts: number) => cellsActions.setAttempts(attempts);
+export const setHintIndicator = (indicator: boolean) => cellsActions.setHintIndicator(indicator);
