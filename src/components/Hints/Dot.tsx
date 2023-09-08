@@ -15,13 +15,12 @@ export const Dot: React.FC<HintProps> = ({id, freeHints, disabled}) => {
   React.useEffect(() => {
     if(!!freeHints.length && !disabled && freeHints.some(hint => hint === id)) {
       setColor(WINNER_COLOR);
-    } else if(disabled || freeHints.length < 1) {
+    } else if(hintIndicator && freeHints[freeHints.length-1]+1 === id) {
+      setColor(HINT_COLOR);
+    } else {
       setColor(LOOSER_COLOR);
     }
-    else {
-      setColor(HINT_COLOR);
-    }
-  }, [freeHints])
+  }, [freeHints, hintIndicator]);
 
   return (
     <div style={{backgroundColor: color}}></div>

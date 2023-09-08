@@ -40,6 +40,8 @@ const App = () => {
     return <Loader />
   }
 
+  // TODO: модалку стейджа і завершення гри зробити зеленою для розуміння
+
   return (
     <>
       <div className="app-overlay"></div>

@@ -16,6 +16,7 @@ export const Hints: React.FC<HintsProps> = ({hints}) => {
   const [freeHints, setFreeHints] = React.useState<number[]>([]);
 
   const { activeStageID, disableHints } = useAppSelector(state => state.levelsReducer);
+  const { hintIndicator } = useAppSelector(state => state.cellsReducer);
 
   React.useEffect(() => {
     const IDs = []
@@ -27,8 +28,10 @@ export const Hints: React.FC<HintsProps> = ({hints}) => {
   }, [hints, activeStageID, disableHints])
 
   const handleHint = () => {
-    setFreeHints(freeHints.slice(0,-1))
-    dispatch(showHint(true));
+    if(!hintIndicator) {
+      setFreeHints(freeHints.slice(0,-1))
+      dispatch(showHint(true));
+    }
   }
 
   const renderDots = () => {
