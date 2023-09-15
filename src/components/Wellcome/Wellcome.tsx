@@ -1,6 +1,7 @@
 import React from 'react'
 
 import './Wellcome.scss'
+import Troll from '../../assets/strange_troll_c.png';
 
 export const Wellcome = () => {
   const [wellcome, setWellcome] = React.useState(true);
@@ -15,6 +16,9 @@ export const Wellcome = () => {
   return (
     <div className='wellcome-view'>
       <h1>Greetings, dear traveler!</h1>
+      <div className="img">
+        <img src={Troll} alt="troll_pic" />
+      </div>
       <div className="explanation">
         <span>Looks like you are lost in the Labyrinth!</span>       
         <span className='rules'>Here you can see the rules of this game:</span>

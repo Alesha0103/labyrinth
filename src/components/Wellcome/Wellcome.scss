@@ -9,11 +9,31 @@
 
   display: flex;
   flex-direction: column;
+  .img {
+    display: none;
+    margin: 0 auto;
+    @media (max-width: 900px) {
+      display: block;
+      width: 150px;
+      height: 150px;
+    }
+  }
   h1 {
     margin: 50px;
     text-align: center;
     font-family: 'Oswald', sans-serif;
     color: rgb(205, 100, 100);
+    position: relative;
+    @media (max-width: 900px) {
+      margin-bottom: 15px;
+    }
+    &::after {
+      content: url("../../assets/strange_troll_c.png");
+      position: absolute;
+      @media (max-width: 900px) {
+        display: none;
+      }
+    }
   }
   .explanation {
     max-width: 750px;
