@@ -79,7 +79,9 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
     dispatch(setWarning(Warning.lastStage));
     dispatch(setAttempts(attempts - 2));
     const timeout = setTimeout(() => {
-      setColor("");
+      if (color === LOOSER_COLOR) {
+        setColor("");
+      }
     }, WARNING_TIMEOUT)
     return () => clearTimeout(timeout);
   };
