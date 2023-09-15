@@ -23,11 +23,15 @@ const App = () => {
     try {
       if(savedLevel) {
         dispatch(setActiveLevel(Number(savedLevel)));
-        setReady(true);
+        setTimeout(() => {
+          setReady(true);
+        }, 1500);
         return;
       }
       await axios.put("http://localhost:5000/defaultDataBase");
-      setReady(true);
+      setTimeout(() => {
+        setReady(true);
+      }, 1500);
     } catch {
       console.log("Level wasn't updated");
     }
