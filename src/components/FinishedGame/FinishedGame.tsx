@@ -9,8 +9,8 @@ export const FinishedGame = () => {
 
   return (
     <div className="finished-game-page">
-    <span>Congratulations!</span>
-    <span>You have escaped the Labyrinth</span>
-  </div>
+      <span>Congratulations!</span>
+      <span>You have escaped the Labyrinth</span>
+    </div>
   )
 }

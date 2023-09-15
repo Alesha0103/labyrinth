@@ -10,7 +10,6 @@ import { FinishedGame } from './components/FinishedGame/FinishedGame';
 import axios from 'axios';
 import { setActiveLevel } from './store/actions/LevelsActions';
 import { Loader } from './components/Loader/Loader';
-import Confetti from 'react-confetti/dist/types/Confetti';
 
 const App = () => {
   const [isReady, setReady] = React.useState(false);
@@ -46,11 +45,11 @@ const App = () => {
   return (
     <>
       <div className="app-overlay"></div>
-      <div className={isLevelFinished || !isGameFinished ? "App winnerBg" : "App"}>
+      <div className={isLevelFinished || isGameFinished ? "App winnerBg" : "App"}>
         <h1>
           Labyrinth
         </h1>
-        {isGameFinished ? <Labyrinth/> : <FinishedGame/>}
+        {!isGameFinished ? <Labyrinth/> : <FinishedGame/>}
         <Overlay />
         <Modal>
           {!isGameFinished && <Wellcome/>}
