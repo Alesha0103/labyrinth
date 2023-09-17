@@ -30,4 +30,5 @@ export interface levelsState {
   isGameFinished: boolean,
   hint: boolean,
   disableHints: boolean,
+  blackTheme: boolean,
 }

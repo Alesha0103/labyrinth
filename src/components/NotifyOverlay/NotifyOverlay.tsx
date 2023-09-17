@@ -1,11 +1,11 @@
 import React from 'react';
 import { useAppSelector } from '../../hooks/redux';
-import './Overlay.scss'
+import './NotifyOverlay.scss'
 import { WINNER_COLOR } from '../../constants';
 import GreenTroll from "../../assets/green_troll.png";
 import RedTroll from "../../assets/red_troll.png";
 
-export const Overlay = () => {
+export const NotifyOverlay = () => {
   const { loserOverlay, winerOverlay} = useAppSelector(state => state.levelsReducer);
   const overlay = loserOverlay || winerOverlay;
 
@@ -15,7 +15,7 @@ export const Overlay = () => {
   
   return (
     <div className='overlay'>
-            <div className="img">
+      <div className="img">
         {winerOverlay && <img src={GreenTroll} alt="green_troll" />}
         {loserOverlay && <img src={RedTroll} alt="pink_troll" />}
       </div>

@@ -2,9 +2,12 @@ import React from 'react'
 
 import './Wellcome.scss'
 import Troll from '../../assets/strange_troll_c.png';
+import { useAppSelector } from '../../hooks/redux';
+import classNames from 'classnames';
 
 export const Wellcome = () => {
   const [wellcome, setWellcome] = React.useState(true);
+  const { blackTheme } = useAppSelector(state => state.levelsReducer);
 
   const hideThisPage = () => {
     setWellcome(false);
@@ -14,14 +17,14 @@ export const Wellcome = () => {
   }
 
   return (
-    <div className='wellcome-view'>
+    <div className={classNames("wellcome-view", {"black-wellcome": blackTheme})}>
       <h1>Greetings, dear traveler!</h1>
       <div className="img">
         <img src={Troll} alt="troll_pic" />
       </div>
       <div className="explanation">
         <span>Looks like you are lost in the Labyrinth!</span>       
-        <span className='rules'>Here you can see the rules of this game:</span>
+        <span className="rules">Here you can see the rules of this game:</span>
         <p>
           You can choose a cell for your step. 
           The cell must be adjacent to the one where you are already standing but you can't go back. 

@@ -14,6 +14,8 @@ const initialState: levelsState = {
   isGameFinished: false,
   hint: false,
   disableHints: false,
+
+  blackTheme: true,
 }
 
 const levelsSlice = createSlice({

@@ -7,6 +7,7 @@
 
 .finished-level-page {
   width: 100%;
+  background-color: rgb(255, 244, 230);
   border: 2px solid rgb(135, 210, 135);
   box-shadow: 0px 0px 10px 3px rgb(135, 210, 135);
   color: rgb(135, 210, 135);
@@ -17,7 +18,7 @@
   flex-direction: column;
 
   position: absolute;
-  top: -390px;
+  bottom: 105px;
 
   span {
     font-size: 24px;
@@ -35,6 +36,7 @@
     border-radius: 15px;
     font-size: 24px;
     padding: 15px;
+    background-color: rgb(255, 244, 230);
     color: rgb(135, 210, 135);
     box-shadow: 0px 0px 10px  rgb(135, 210, 135);
     &:hover {

@@ -73,15 +73,16 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
     } else {
       dispatch(setHintIndicator(false));
     }
+    if(chosenCells.some(choosenCell => cell.id === choosenCell.id)) {
+      setColor(WINNER_COLOR);
+    }
   }, [color]);
 
-  const handleErrorWarning = () => {
+  const handleWarning = () => {
     dispatch(setWarning(Warning.lastStage));
     dispatch(setAttempts(attempts - 2));
     const timeout = setTimeout(() => {
-      if (color === LOOSER_COLOR) {
-        setColor("");
-      }
+      setColor("");
     }, WARNING_TIMEOUT)
     return () => clearTimeout(timeout);
   };
@@ -128,13 +129,13 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
 
         return () => clearTimeout(timeout);
       } else {
-        handleErrorWarning();
+        handleWarning();
       }
     }
 
     if(isClickable && !checkNextStep && isLastStage) {
       setColor(LOOSER_COLOR);
-      handleErrorWarning();
+      handleWarning();
     }
 
     if(!isClickable) {

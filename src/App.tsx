@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
 import { Labyrinth } from './components/Labyrinth/Labyrinth';
-import { Overlay } from './components/Overlay/Overlay';
+import { NotifyOverlay } from './components/NotifyOverlay/NotifyOverlay';
 import { Modal } from './components/Modal/Modal';
 import { Wellcome } from './components/Wellcome/Wellcome';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
@@ -11,11 +11,12 @@ import axios from 'axios';
 import { setActiveLevel } from './store/actions/LevelsActions';
 import { Loader } from './components/Loader/Loader';
 import Confetti from "react-confetti";
+import classNames from 'classnames';
 
 const App = () => {
   const [isReady, setReady] = React.useState(false);
   const dispatch = useAppDispatch();
-  const { isLevelFinished, isGameFinished } = useAppSelector(state => state.levelsReducer);
+  const { isLevelFinished, isGameFinished, blackTheme } = useAppSelector(state => state.levelsReducer);
 
   const savedLevel = localStorage.getItem("level");
 
@@ -42,27 +43,34 @@ const App = () => {
   }, [])
 
   if (!isReady) {
-    return <Loader />
+    return (
+      <div className="app-background">
+        <Loader />
+      </div>
+    )
   }
-
-  // TODO: модалку стейджа і завершення гри зробити зеленою для розуміння а також фон Арр в цілому
 
   return (
     <>
-      <div className="app-overlay">
+      <div className={classNames("app-overlay", {"black-overlay": blackTheme})}>
         {isGameFinished && <Confetti height={2000}/>}
       </div>
-      <div className={isLevelFinished || isGameFinished ? "App winnerBg" : "App"}>
+      <div className="app-background" />
+
+      <div className={classNames("app", {
+          "winner-bg": isLevelFinished || isGameFinished,
+        })}>
         <h1>
           Labyrinth
         </h1>
         {!isGameFinished ? <Labyrinth/> : <FinishedGame/>}
-        <Overlay />
-        <Modal>
+        <NotifyOverlay />
+      </div>
+
+      <Modal>
           {!isGameFinished && <Wellcome/>}
           {isLevelFinished && <FinishedLevel/>}
         </Modal>
-      </div>
     </>
   );
 }
