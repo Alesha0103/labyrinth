@@ -20,7 +20,14 @@ import {
   checkIfGameFinished,
   setActiveStage,
 } from '../../store/actions/LevelsActions';
-import { HINT_COLOR, LOOSER_COLOR, OVERLAY_TIMEOUT, WARNING_TIMEOUT, WINNER_COLOR } from '../../constants';
+import {
+  FIX_ARRAY_LENGTH,
+  HINT_COLOR,
+  LOOSER_COLOR,
+  OVERLAY_TIMEOUT,
+  WARNING_TIMEOUT,
+  WINNER_COLOR,
+} from "../../constants";
 
 type CellPropsType = {
   cell: ICell,
@@ -32,7 +39,7 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
 
   const { cells, chosenCells, rightWay, attempts } = useAppSelector(state => state.cellsReducer);
   const { level, stages, activeStageID, hint } = useAppSelector(state => state.levelsReducer);
-  const lastChosenCell = chosenCells?.[chosenCells.length - 1];
+  const lastChosenCell = chosenCells?.[chosenCells.length - FIX_ARRAY_LENGTH];
 
   const hideStage = () => {
     dispatch(hideOverlay());
@@ -57,7 +64,7 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
 
   React.useEffect(() => {
     const currentIndex = rightWay.indexOf(lastChosenCell?.id);
-    const nextRightStep = rightWay[currentIndex+1];
+    const nextRightStep = rightWay[currentIndex+FIX_ARRAY_LENGTH];
     if (
       hint
       && nextRightStep
@@ -88,12 +95,12 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
   };
 
   const onClickHandle = () => {
-    const isClickable = chosenCells[chosenCells.length-1].neighbor.some(id => id === cell.id && !chosenCells.includes(cell));
-    const winnerCell = rightWay[rightWay.length-1];
-    const isLastStage = stages.length === 1;
+    const isClickable = chosenCells[chosenCells.length-FIX_ARRAY_LENGTH].neighbor.some(id => id === cell.id && !chosenCells.includes(cell));
+    const winnerCell = rightWay[rightWay.length-FIX_ARRAY_LENGTH];
+    const isLastStage = stages.length === FIX_ARRAY_LENGTH;
 
     const currentIndex = rightWay.indexOf(lastChosenCell?.id);
-    const nextRightStep = rightWay[currentIndex+1];
+    const nextRightStep = rightWay[currentIndex+FIX_ARRAY_LENGTH];
 
     const checkNextStep = nextRightStep === cell.id;
 
@@ -104,8 +111,8 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
       dispatch(chooseCell(cell));
       if (cell.id === winnerCell && isLastStage) {
         dispatch(finishStage(activeStageID));
-        dispatch(checkIfGameFinished(level+1));
-        dispatch(setActiveStage(1));
+        dispatch(checkIfGameFinished(level+FIX_ARRAY_LENGTH));
+        dispatch(setActiveStage(FIX_ARRAY_LENGTH));
       }
       if (cell.id === winnerCell && !isLastStage) {
         dispatch(setWinnerOverlay(true));
@@ -120,7 +127,7 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
     }
     if(isClickable && !checkNextStep && !isLastStage) {
       setColor(LOOSER_COLOR);
-      if (attempts < 1) {
+      if (attempts < FIX_ARRAY_LENGTH) {
         dispatch(setLoserOverlay(true));
 
         const timeout = setTimeout(() => {
@@ -141,7 +148,7 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
     if(!isClickable) {
       dispatch(setWarning(Warning.error))
     }
-    if(!isClickable && chosenCells[chosenCells.length-1].id === cell.id) {
+    if(!isClickable && chosenCells[chosenCells.length-FIX_ARRAY_LENGTH].id === cell.id) {
       dispatch(setWarning(Warning.warning))
     }
   };

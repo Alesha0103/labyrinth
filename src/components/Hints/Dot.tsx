@@ -1,5 +1,5 @@
 import React from 'react'
-import { HINT_COLOR, LOOSER_COLOR, WINNER_COLOR } from '../../constants';
+import { FIX_ARRAY_LENGTH, HINT_COLOR, LAST_HINT_ID, LOOSER_COLOR, WINNER_COLOR } from '../../constants';
 import { useAppSelector } from '../../hooks/redux';
 
 type HintProps = {
@@ -13,9 +13,17 @@ export const Dot: React.FC<HintProps> = ({id, freeHints, disabled}) => {
   const { hintIndicator } = useAppSelector(state => state.cellsReducer);
 
   React.useEffect(() => {
-    if(!!freeHints.length && !disabled && freeHints.some(hint => hint === id)) {
+    if (
+      !!freeHints.length &&
+      !disabled &&
+      freeHints.some((hint) => hint === id)
+    ) {
       setColor(WINNER_COLOR);
-    } else if(hintIndicator && freeHints[freeHints.length-1]+1 === id) {
+    } else if (
+      (hintIndicator &&
+        freeHints[freeHints.length - FIX_ARRAY_LENGTH] + FIX_ARRAY_LENGTH === id) ||
+      (hintIndicator && id === LAST_HINT_ID)
+    ) {
       setColor(HINT_COLOR);
     } else {
       setColor(LOOSER_COLOR);
