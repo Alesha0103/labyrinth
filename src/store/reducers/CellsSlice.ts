@@ -8,7 +8,6 @@ const initialState: CellsState = {
   warning: "",
   warningType: Warning.clear,
   attempts: 0,
-  hintIndicator: false,
 }
 
 const cellsSlice = createSlice({
@@ -36,9 +35,6 @@ const cellsSlice = createSlice({
     setAttempts(state, action: PayloadAction<number>) {
       state.attempts = action.payload
     },
-    setHintIndicator(state, action: PayloadAction<boolean>) {
-      state.hintIndicator = action.payload
-    }
   }
 });
 

@@ -19,8 +19,7 @@ type HintProps = {
 
 export const Dot: React.FC<HintProps> = ({id, freeHints, disabled}) => {
   const [color, setColor] = React.useState("");
-  const { hintIndicator } = useAppSelector(state => state.cellsReducer);
-  const { blackTheme } = useAppSelector(state => state.levelsReducer);
+  const { hintIndicator, blackTheme } = useAppSelector(state => state.levelsReducer);
 
   const hintColor = blackTheme ? HINT_COLOR_THEME : HINT_COLOR;
   const winnerColor = blackTheme ? WINNER_COLOR_THEME : WINNER_COLOR;

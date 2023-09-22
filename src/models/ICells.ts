@@ -18,5 +18,4 @@ export interface CellsState {
   warning: string,
   warningType: Warning,
   attempts: number,
-  hintIndicator: boolean,
 }

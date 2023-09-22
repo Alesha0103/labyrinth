@@ -77,5 +77,5 @@ export const setWinnerOverlay = (winnerOverlay: boolean) => levelsActions.setWin
 export const hideOverlay = () => levelsActions.hideOverlay();
 export const finishLevelPopup = (finish: boolean) => levelsActions.finishLevelPopup(finish);
 export const finishGame = () => levelsActions.finishGame();
-export const showHint = (hint: boolean) => levelsActions.showHint(hint);
 export const disableHints = (isDisabled: boolean) => levelsActions.disableHints(isDisabled);
+export const setHintIndicator = (indicator: boolean) => levelsActions.setHintIndicator(indicator);

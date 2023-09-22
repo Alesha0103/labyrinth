@@ -6,7 +6,6 @@ import '../Stage/Stage.scss'
 import {
   chooseCell,
   setAttempts,
-  setHintIndicator,
   setWarning,
 } from '../../store/actions/CellsAction';
 import {
@@ -16,7 +15,7 @@ import {
   getRandomStage,
   setLoserOverlay,
   setWinnerOverlay,
-  showHint,
+  setHintIndicator,
   checkIfGameFinished,
   setActiveStage,
 } from '../../store/actions/LevelsActions';
@@ -42,7 +41,7 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
   const [color, setColor] = React.useState("");
 
   const { cells, chosenCells, rightWay, attempts } = useAppSelector(state => state.cellsReducer);
-  const { level, stages, activeStageID, hint, blackTheme } = useAppSelector(state => state.levelsReducer);
+  const { level, stages, activeStageID, hintIndicator, blackTheme } = useAppSelector(state => state.levelsReducer);
   const lastChosenCell = chosenCells?.[chosenCells.length - FIX_ARRAY_LENGTH];
 
   const hintColor = blackTheme ? HINT_COLOR_THEME : HINT_COLOR;
@@ -74,13 +73,13 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
     const currentIndex = rightWay.indexOf(lastChosenCell?.id);
     const nextRightStep = rightWay[currentIndex+FIX_ARRAY_LENGTH];
     if (
-      hint
+      hintIndicator
       && nextRightStep
       && nextRightStep === cell.id
     ) {
       setColor(hintColor);
     }
-  }, [hint, color]);
+  }, [hintIndicator, color]);
 
   React.useEffect(() => {
     if (color === hintColor) {
@@ -112,7 +111,7 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
 
     const checkNextStep = nextRightStep === cell.id;
 
-    dispatch(showHint(false));
+    dispatch(setHintIndicator(false));
 
     if(isClickable && checkNextStep) {
       setColor(winnerColor);
