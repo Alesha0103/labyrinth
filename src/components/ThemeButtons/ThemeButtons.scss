@@ -1,0 +1,33 @@
+.handle-theme {
+  position: fixed;
+  top: 50px;
+  right: 150px;
+  z-index: 10;
+  display: inline;
+  button {
+    padding: 7px;
+    background-color: navajowhite;
+    font-weight: bold;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    color: rgb(205, 100, 100);
+    cursor: pointer;
+    &:disabled {
+      cursor: default;
+      background-color: rgb(255, 244, 230);
+    }
+  }
+  :last-child {
+    margin-left: 5px;
+  }
+}
+.handle-theme-black {
+  button {
+    color: rgb(255, 125, 125);
+    background-color: rgb(60, 60, 60);
+    &:disabled {
+      background-color: transparent;
+    }
+  }
+}

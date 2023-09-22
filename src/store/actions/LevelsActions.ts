@@ -79,3 +79,4 @@ export const finishLevelPopup = (finish: boolean) => levelsActions.finishLevelPo
 export const finishGame = () => levelsActions.finishGame();
 export const disableHints = (isDisabled: boolean) => levelsActions.disableHints(isDisabled);
 export const setHintIndicator = (indicator: boolean) => levelsActions.setHintIndicator(indicator);
+export const setTheme = (blackTheme: boolean) => levelsActions.setTheme(blackTheme);

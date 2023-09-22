@@ -15,7 +15,7 @@ const initialState: levelsState = {
   disableHints: false,
   hintIndicator: false,
 
-  blackTheme: true,
+  blackTheme: false,
 }
 
 const levelsSlice = createSlice({
@@ -49,6 +49,9 @@ const levelsSlice = createSlice({
     },
     setHintIndicator(state, action: PayloadAction<boolean>) {
       state.hintIndicator = action.payload
+    },
+    setTheme(state, action: PayloadAction<boolean>) {
+      state.blackTheme = action.payload
     }
   },
   extraReducers: (builder) => {

@@ -79,7 +79,7 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
     ) {
       setColor(hintColor);
     }
-  }, [hintIndicator, color]);
+  }, [hintIndicator, color, blackTheme]);
 
   React.useEffect(() => {
     if (color === hintColor) {
@@ -90,7 +90,7 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
     if (chosenCells.some(choosenCell => cell.id === choosenCell.id)) {
       setColor(winnerColor);
     }
-  }, [color]);
+  }, [color, blackTheme]);
 
   const handleWarning = () => {
     dispatch(setWarning(Warning.lastStage));

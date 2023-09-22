@@ -1,4 +1,4 @@
-export const WARNING_TIMEOUT = 4000;
+export const WARNING_TIMEOUT = 2000;
 export const OVERLAY_TIMEOUT = 2000;
 
 export const LAST_HINT_ID = 1;

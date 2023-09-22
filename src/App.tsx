@@ -8,10 +8,12 @@ import { useAppDispatch, useAppSelector } from './hooks/redux';
 import { FinishedLevel } from './components/FinishedLevel/FinishedLevel';
 import { FinishedGame } from './components/FinishedGame/FinishedGame';
 import axios from 'axios';
-import { setActiveLevel } from './store/actions/LevelsActions';
+import { setActiveLevel, setTheme } from './store/actions/LevelsActions';
 import { Loader } from './components/Loader/Loader';
 import Confetti from "react-confetti";
 import classNames from 'classnames';
+import { LOOSER_COLOR, WINNER_COLOR } from './constants';
+import { ThemeButtons } from './components/ThemeButtons/ThemeButtons';
 
 const App = () => {
   const [isReady, setReady] = React.useState(false);
@@ -19,8 +21,12 @@ const App = () => {
   const { isLevelFinished, isGameFinished, blackTheme } = useAppSelector(state => state.levelsReducer);
 
   const savedLevel = localStorage.getItem("level");
+  const savedTheme = localStorage.getItem("theme");
 
   const updateDate = async() => {
+    if(savedTheme && savedTheme === "dark") {
+      dispatch(setTheme(true));
+    }
     try {
       if(savedLevel) {
         dispatch(setActiveLevel(Number(savedLevel)));
@@ -50,8 +56,6 @@ const App = () => {
     )
   }
 
-  // ЗРОБИТИ стейдж оверлей + протестити два режима + зробити перемикач
-
   return (
     <>
       <div className={classNames("app-overlay", {"black-overlay": blackTheme})}>
@@ -71,8 +75,10 @@ const App = () => {
         <NotifyOverlay />
       </div>
 
+      <ThemeButtons />
+
       <Modal>
-          {/* {!isGameFinished && <Wellcome/>} */}
+          {!isGameFinished && <Wellcome/>}
           {isLevelFinished && <FinishedLevel/>}
         </Modal>
     </>
