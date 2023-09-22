@@ -28,7 +28,7 @@ export const Wellcome = () => {
         <p>
           You can choose a cell for your step. 
           The cell must be adjacent to the one where you are already standing but you can't go back. 
-          You have a few trying to make right step.
+          You have a few trying to make right step if there are 3 ways.
           If you loose it then the Labyrinth will take you to another stage of this level. 
           However, this stage is not counted. All levels have 5 stages. 
           Your task is to pass all of them to proceed to the next level. 

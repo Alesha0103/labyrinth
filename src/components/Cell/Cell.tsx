@@ -51,6 +51,7 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
   const hideStage = () => {
     dispatch(hideOverlay());
     dispatch(getRandomStage());
+    dispatch(setHintIndicator(false));
   };
 
   React.useEffect(() => {
@@ -79,22 +80,17 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
     ) {
       setColor(hintColor);
     }
-  }, [hintIndicator, color, blackTheme]);
-
-  React.useEffect(() => {
-    if (color === hintColor) {
-      dispatch(setHintIndicator(true));
-    } else {
-      dispatch(setHintIndicator(false));
-    }
     if (chosenCells.some(choosenCell => cell.id === choosenCell.id)) {
       setColor(winnerColor);
     }
-  }, [color, blackTheme]);
+  }, [hintIndicator, color, blackTheme]);
 
   const handleWarning = () => {
     dispatch(setWarning(Warning.lastStage));
     dispatch(setAttempts(attempts - 2));
+    if(hintIndicator) {
+      dispatch(setHintIndicator(true));
+    }
     const timeout = setTimeout(() => {
       setColor("");
     }, WARNING_TIMEOUT)
@@ -111,9 +107,10 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
 
     const checkNextStep = nextRightStep === cell.id;
 
-    dispatch(setHintIndicator(false));
-
     if(isClickable && checkNextStep) {
+      if(hintIndicator) {
+        dispatch(setHintIndicator(false));
+      }
       setColor(winnerColor);
       dispatch(chooseCell(cell));
       if (cell.id === winnerCell && isLastStage) {
