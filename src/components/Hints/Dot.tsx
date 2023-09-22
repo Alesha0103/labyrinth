@@ -1,5 +1,14 @@
 import React from 'react'
-import { FIX_ARRAY_LENGTH, HINT_COLOR, LAST_HINT_ID, LOOSER_COLOR, WINNER_COLOR } from '../../constants';
+import {
+  FIX_ARRAY_LENGTH,
+  HINT_COLOR,
+  HINT_COLOR_THEME,
+  LAST_HINT_ID,
+  LOOSER_COLOR,
+  LOOSER_COLOR_THEME,
+  WINNER_COLOR,
+  WINNER_COLOR_THEME,
+} from '../../constants';
 import { useAppSelector } from '../../hooks/redux';
 
 type HintProps = {
@@ -11,6 +20,11 @@ type HintProps = {
 export const Dot: React.FC<HintProps> = ({id, freeHints, disabled}) => {
   const [color, setColor] = React.useState("");
   const { hintIndicator } = useAppSelector(state => state.cellsReducer);
+  const { blackTheme } = useAppSelector(state => state.levelsReducer);
+
+  const hintColor = blackTheme ? HINT_COLOR_THEME : HINT_COLOR;
+  const winnerColor = blackTheme ? WINNER_COLOR_THEME : WINNER_COLOR;
+  const looserColor = blackTheme ? LOOSER_COLOR_THEME : LOOSER_COLOR;
 
   React.useEffect(() => {
     if (
@@ -18,19 +32,19 @@ export const Dot: React.FC<HintProps> = ({id, freeHints, disabled}) => {
       !disabled &&
       freeHints.some((hint) => hint === id)
     ) {
-      setColor(WINNER_COLOR);
+      setColor(winnerColor);
     } else if (
       (hintIndicator &&
         freeHints[freeHints.length - FIX_ARRAY_LENGTH] + FIX_ARRAY_LENGTH === id) ||
       (hintIndicator && id === LAST_HINT_ID)
     ) {
-      setColor(HINT_COLOR);
+      setColor(hintColor);
     } else {
-      setColor(LOOSER_COLOR);
+      setColor(looserColor);
     }
   }, [freeHints, hintIndicator]);
 
   return (
-    <div style={{backgroundColor: color}}></div>
+    <div style={{ backgroundColor: color, boxShadow: blackTheme ? `0px 0px 10px ${color}` : undefined}}></div>
   )
 }

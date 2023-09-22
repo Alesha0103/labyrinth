@@ -44,21 +44,25 @@ const App = () => {
 
   if (!isReady) {
     return (
-      <div className="app-background">
+      <div className={classNames("app-background", {"black-bg": blackTheme})}>
         <Loader />
       </div>
     )
   }
+
+  // ЗРОБИТИ стейдж оверлей + протестити два режима + зробити перемикач
 
   return (
     <>
       <div className={classNames("app-overlay", {"black-overlay": blackTheme})}>
         {isGameFinished && <Confetti height={2000}/>}
       </div>
-      <div className="app-background" />
+      <div className={classNames("app-background", {"black-bg": blackTheme})} />
 
       <div className={classNames("app", {
+          "black-app": blackTheme,
           "winner-bg": isLevelFinished || isGameFinished,
+          "black-winner-bg": (isLevelFinished || isGameFinished) && blackTheme,
         })}>
         <h1>
           Labyrinth
@@ -68,7 +72,7 @@ const App = () => {
       </div>
 
       <Modal>
-          {!isGameFinished && <Wellcome/>}
+          {/* {!isGameFinished && <Wellcome/>} */}
           {isLevelFinished && <FinishedLevel/>}
         </Modal>
     </>

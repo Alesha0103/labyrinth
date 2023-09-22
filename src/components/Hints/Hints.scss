@@ -54,3 +54,41 @@
     box-shadow: 0px 0px 5px rgb(135, 210, 135);
   }
 }
+
+// BLACK THEME
+
+.black-hints-button {
+  border-color: rgb(150, 255, 150);
+  animation: borderPulseBlack 2s infinite alternate forwards !important;
+  color: rgb(150, 255, 150);
+  &:hover {
+    box-shadow: 0px 0px 10px rgb(135, 210, 135);
+    animation-play-state: paused !important;
+  }
+  &:disabled {
+    background-color: rgb(70, 70, 70) !important;
+    border: 1px solid rgb(255, 70, 70) !important;
+    color: rgb(255, 70, 70) !important;
+    animation: none !important;
+    box-shadow: 0px 0px 10px rgb(255, 70, 70) !important;
+  }
+}
+
+.yellow-dot {
+  animation-play-state: paused !important;
+}
+
+@keyframes borderPulseBlack {
+  0% {
+    background-color: rgb(70, 70, 70);
+    box-shadow: 0px 0px 5px rgb(135, 210, 135);
+  }
+  50% {
+    background-color: rgb(60, 60, 60);
+    box-shadow: 0px 0px 15px rgb(135, 210, 135);
+  }
+  100% {
+    background-color: rgb(70, 70, 70);
+    box-shadow: 0px 0px 5px rgb(135, 210, 135);
+  }
+}

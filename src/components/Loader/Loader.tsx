@@ -1,6 +1,5 @@
 import React from 'react';
 import { Hourglass } from 'react-loader-spinner';
-import { WINNER_COLOR } from '../../constants';
 
 export const Loader = () => {
   return (

@@ -4,6 +4,7 @@ import "./Hints.scss";
 import { Dot } from './Dot';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { showHint } from '../../store/actions/LevelsActions';
+import classNames from 'classnames';
 
 type HintsProps = {
   hints: number,
@@ -15,7 +16,7 @@ export const Hints: React.FC<HintsProps> = ({hints}) => {
   const [hintIDs, setHintIDs] = React.useState<number[]>([]);
   const [freeHints, setFreeHints] = React.useState<number[]>([]);
 
-  const { activeStageID, disableHints } = useAppSelector(state => state.levelsReducer);
+  const { activeStageID, disableHints, blackTheme } = useAppSelector(state => state.levelsReducer);
   const { hintIndicator } = useAppSelector(state => state.cellsReducer);
 
   React.useEffect(() => {
@@ -43,6 +44,7 @@ export const Hints: React.FC<HintsProps> = ({hints}) => {
       <div className="hints-section" id="hints-section">
         <button 
           disabled={disableHints || !freeHints.length}
+          className={classNames({"black-hints-button": blackTheme})}
           onClick={handleHint}
         >Show hint</button>
         {renderDots()}

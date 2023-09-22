@@ -27,6 +27,10 @@ import {
   OVERLAY_TIMEOUT,
   WARNING_TIMEOUT,
   WINNER_COLOR,
+
+  HINT_COLOR_THEME,
+  WINNER_COLOR_THEME,
+  LOOSER_COLOR_THEME,
 } from "../../constants";
 
 type CellPropsType = {
@@ -38,8 +42,12 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
   const [color, setColor] = React.useState("");
 
   const { cells, chosenCells, rightWay, attempts } = useAppSelector(state => state.cellsReducer);
-  const { level, stages, activeStageID, hint } = useAppSelector(state => state.levelsReducer);
+  const { level, stages, activeStageID, hint, blackTheme } = useAppSelector(state => state.levelsReducer);
   const lastChosenCell = chosenCells?.[chosenCells.length - FIX_ARRAY_LENGTH];
+
+  const hintColor = blackTheme ? HINT_COLOR_THEME : HINT_COLOR;
+  const winnerColor = blackTheme ? WINNER_COLOR_THEME : WINNER_COLOR;
+  const looserColor = blackTheme ? LOOSER_COLOR_THEME : LOOSER_COLOR;
 
   const hideStage = () => {
     dispatch(hideOverlay());
@@ -57,7 +65,7 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
     setColor("");
     const firstStep = cells.find(cell => cell.firstStep);
     if(firstStep && firstStep.id === cell.id) {
-      setColor(WINNER_COLOR);
+      setColor(winnerColor);
       dispatch(chooseCell(firstStep));
     }
   }, [cells]);
@@ -70,18 +78,18 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
       && nextRightStep
       && nextRightStep === cell.id
     ) {
-      setColor(HINT_COLOR);
+      setColor(hintColor);
     }
-  }, [hint]);
+  }, [hint, color]);
 
   React.useEffect(() => {
-    if(color === HINT_COLOR) {
+    if (color === hintColor) {
       dispatch(setHintIndicator(true));
     } else {
       dispatch(setHintIndicator(false));
     }
-    if(chosenCells.some(choosenCell => cell.id === choosenCell.id)) {
-      setColor(WINNER_COLOR);
+    if (chosenCells.some(choosenCell => cell.id === choosenCell.id)) {
+      setColor(winnerColor);
     }
   }, [color]);
 
@@ -107,7 +115,7 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
     dispatch(showHint(false));
 
     if(isClickable && checkNextStep) {
-      setColor(WINNER_COLOR);
+      setColor(winnerColor);
       dispatch(chooseCell(cell));
       if (cell.id === winnerCell && isLastStage) {
         dispatch(finishStage(activeStageID));
@@ -126,7 +134,7 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
       }
     }
     if(isClickable && !checkNextStep && !isLastStage) {
-      setColor(LOOSER_COLOR);
+      setColor(looserColor);
       if (attempts < FIX_ARRAY_LENGTH) {
         dispatch(setLoserOverlay(true));
 
@@ -141,7 +149,7 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
     }
 
     if(isClickable && !checkNextStep && isLastStage) {
-      setColor(LOOSER_COLOR);
+      setColor(looserColor);
       handleWarning();
     }
 

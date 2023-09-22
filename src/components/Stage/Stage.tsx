@@ -5,7 +5,7 @@ import { clearChosenCells, setCells, setRightWay, setWarning } from '../../store
 import { setActiveStage } from '../../store/actions/LevelsActions';
 
 import './Stage.scss';
-import { LOOSER_COLOR, WARNING_TIMEOUT } from '../../constants';
+import { LOOSER_COLOR, LOOSER_COLOR_THEME, WARNING_TIMEOUT } from '../../constants';
 import { calculateHints } from '../../helpers';
 import { IStage } from '../../models/ILevel';
 import { Hints } from '../Hints/Hints';
@@ -13,12 +13,14 @@ import { Cell } from '../Cell/Cell';
 
 export const Stage: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { level, stages, activeStageID } = useAppSelector(state => state.levelsReducer);
+  const { level, stages, activeStageID, blackTheme } = useAppSelector(state => state.levelsReducer);
   const { warning, warningType, cells } = useAppSelector(state => state.cellsReducer);
 
   const [warningColor, setWarningColor] = React.useState("");
   const [hints, setHints] = React.useState(0);
   const [geometry, setGeometry] = React.useState({ columns: 3, rows: 3 });
+
+  const looserColor = blackTheme ? LOOSER_COLOR_THEME : LOOSER_COLOR;
 
   const updateStage = (activeStage: IStage) => {
     dispatch(setActiveStage(activeStage.id));
@@ -46,7 +48,7 @@ export const Stage: React.FC = () => {
   
   React.useEffect(() => {
     if(warningType) {
-      setWarningColor(LOOSER_COLOR);
+      setWarningColor(looserColor);
     }
     const timeout = setTimeout(() => {
       dispatch(setWarning(Warning.clear));

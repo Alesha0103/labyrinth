@@ -38,13 +38,34 @@
     color: rgb(230 115 115);
   }
 }
-
 .winner-bg {
   box-shadow: 0px 0px 35px 5px rgb(135, 210, 135);
+  border: 2px solid rgb(135, 210, 132);
   h1, h2 {
     color: rgb(80, 180, 80);
   }
 }
+
+// BLACK THEME
+
+.black-bg {
+  background-color: rgb(32, 32, 32);
+}
 .black-overlay {
-  
+  background-color: transparent;
+}
+.black-app {
+  background-color: rgb(50, 50, 50);
+  border: 2px solid rgb(255, 125, 125);
+  box-shadow: 0px 0px 25px 5px rgb(255, 95, 95);
+  h1 {
+    color: rgb(255, 125, 125);
+  }
+}
+.black-winner-bg {
+  box-shadow: 0px 0px 35px 5px rgb(135, 210, 135);
+  border: 2px solid rgb(135, 210, 130);
+  h1, h2 {
+    color: rgb(135, 210, 135);
+  }
 }
