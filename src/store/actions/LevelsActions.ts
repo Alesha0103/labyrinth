@@ -1,26 +1,21 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IStage } from "../../models/ILevel";
+import { IError, IStage } from "../../models/ILevel";
 import { AppDispatch, RootState } from "../store";
 import { levelsActions } from "../reducers/LevelsSlice";
 import { PayloadType, getRandomStageId } from "../../helpers";
-import { isDisabled } from "@testing-library/user-event/dist/utils";
 
 export const fetchStages = createAsyncThunk(
-  "levels/fetchLevel",
+  "levels/fetchStages",
   async (levelID: number, thunckAPI) => {
     try {
       const response = await axios.get<IStage[]>(`http://localhost:5000/levels/${levelID}`);
       if (!response.data.length) {
         thunckAPI.dispatch(finishGame());
       }
-      return response.data
-    } catch (err) {
-      if (err instanceof Error) {
-       return thunckAPI.rejectWithValue(err.message)
-      } else {
-        return thunckAPI.rejectWithValue("unknown error")
-      }
+      thunckAPI.dispatch(setStages(response.data));
+    } catch {
+      thunckAPI.dispatch(setError({active: true, message: "Level was not updated"}))
     }
   }
 );
@@ -30,12 +25,8 @@ export const finishStage = createAsyncThunk(
   async (stageID: number|string, thunckAPI) => {
     try {
       await axios.put<IStage>(`http://localhost:5000/stages/${stageID}`);
-    } catch (error) {
-      if (error instanceof Error) {
-        return thunckAPI.rejectWithValue(error.message)
-       } else {
-         return thunckAPI.rejectWithValue("unknown error")
-       }
+    } catch {
+      thunckAPI.dispatch(setError({active: true, message: ""}))
     }
   }
 );
@@ -52,7 +43,18 @@ export const checkIfGameFinished = createAsyncThunk(
         thunckAPI.dispatch(finishGame());
       }
     } catch (error) {
-      console.log('error :>> ', error);
+      thunckAPI.dispatch(setError({active: true, message: ""}));
+    }
+  }
+);
+
+export const setDefaultDataBase = createAsyncThunk(
+  "levels/setDefaultDataBase",
+  async (_, thunckAPI) => {
+    try {
+      await axios.put<boolean>(`http://localhost:5000/defaultDataBase`);
+    } catch (error) {
+      thunckAPI.dispatch(setError({active: true, message: "Level was not updated"}));
     }
   }
 );
@@ -80,3 +82,6 @@ export const finishGame = () => levelsActions.finishGame();
 export const disableHints = (isDisabled: boolean) => levelsActions.disableHints(isDisabled);
 export const setHintIndicator = (indicator: boolean) => levelsActions.setHintIndicator(indicator);
 export const setTheme = (blackTheme: boolean) => levelsActions.setTheme(blackTheme);
+export const setError = (error: IError) => levelsActions.setError(error);
+export const setLoader = (loader: boolean) => levelsActions.setLoader(loader);
+export const setStages = (stages: IStage[]) => levelsActions.setStages(stages);

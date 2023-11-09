@@ -36,7 +36,7 @@ export const Stage: React.FC = () => {
       const activeStage = stages[0];
       updateStage(activeStage);
     }
-  }, [level]);
+  }, [level, stages]);
 
   React.useEffect(() => {
     const activeStage = !!stages.length && stages.find(stage => stage.id === activeStageID);

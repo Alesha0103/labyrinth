@@ -1,11 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ILevel, IStage, levelsState } from "../../models/ILevel";
-import { fetchStages } from "../actions/LevelsActions";
+import { IError, IStage, levelsState } from "../../models/ILevel";
 
 const initialState: levelsState = {
   level: 1,
-  isLoading: false,
-  error: false,
+  isLoading: true,
+  error: {
+    active: false,
+    message: ""
+  },
   stages: [],
   activeStageID: 1,
   loserOverlay: false,
@@ -52,22 +54,18 @@ const levelsSlice = createSlice({
     },
     setTheme(state, action: PayloadAction<boolean>) {
       state.blackTheme = action.payload
+    },
+    setError(state, action: PayloadAction<IError>) {
+      state.error = action.payload;
+    },
+    setStages(state, action: PayloadAction<IStage[]>) {
+      state.stages = action.payload || [];
+      state.isLoading = false;
+      state.error.active = false;
+    },
+    setLoader(state, action: PayloadAction<boolean>) {
+      state.isLoading = action.payload;
     }
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchStages.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(fetchStages.fulfilled, (state, action: PayloadAction<IStage[]>) => {
-        state.stages = action.payload || [];
-        state.isLoading = false;
-        state.error = false;
-      })
-      .addCase(fetchStages.rejected, (state) => {
-        state.isLoading = false;
-        state.error = true;
-      })
   }
 });
 

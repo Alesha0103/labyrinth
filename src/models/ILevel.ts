@@ -18,10 +18,15 @@ export interface ILevel {
   rightWay: number[],
 }
 
+export interface IError {
+  active: boolean,
+  message: string,
+}
+
 export interface levelsState {
   level: number,
   isLoading: boolean,
-  error: boolean,
+  error: IError,
   stages: IStage[],
   activeStageID: number,
   loserOverlay: boolean,
