@@ -26,13 +26,14 @@ export const Wellcome = () => {
         <span>Looks like you are lost in the Labyrinth!</span>       
         <span className="rules">Here you can see the rules of this game:</span>
         <p>
-          You can choose a cell for your step. 
-          The cell must be adjacent to the one where you are already standing but you can't go back. 
-          You have a few trying to make right step if there are 3 ways.
-          If you loose it then the Labyrinth will take you to another stage of this level. 
-          However, this stage is not counted. All levels have 5 stages. 
-          Your task is to pass all of them to proceed to the next level. 
-          Looks easy. Let's see. Good luck!
+        When you start the game you will see the number of cells. 
+        Your task is to match these cells to build the correct path. 
+        You can only click on a cell that is adjacent to the one you are already standing on, 
+        but not on the previous one you selected. 
+        If you make a wrong move, the Labyrinth will take you to another stage of that level. 
+        However, this stage is not counted. 
+        All levels have 5 stages. Your task is to pass all of them to proceed to the next level. 
+        Looks easy. Let's see. Good luck!
         </p>
       </div>
       <button onClick={hideThisPage}>Start game</button>
