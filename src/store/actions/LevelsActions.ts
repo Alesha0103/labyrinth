@@ -72,6 +72,18 @@ export const getRandomStage = () => (dispatch: AppDispatch, getState: ()=> RootS
   }
 };
 
+export const setLanguage = createAsyncThunk(
+  "levels/setLanguage",
+  async (language: string, thunckAPI) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/translations/${language}`);
+      thunckAPI.dispatch(setTranslation({language, translation: response.data}))
+    } catch (error) {
+      thunckAPI.dispatch(setError({active: true, message: "Translation is not found"}));
+    }
+  }
+);
+
 export const setActiveLevel = (levelID: number) => levelsActions.setActiveLevel(levelID);
 export const setActiveStage = (stageID: number) => levelsActions.setActiveStage(stageID);
 export const setLoserOverlay = (loserOverlay: boolean) => levelsActions.setLoserOverlay(loserOverlay);
@@ -86,3 +98,5 @@ export const setError = (error: IError) => levelsActions.setError(error);
 export const setLoader = (loader: boolean) => levelsActions.setLoader(loader);
 export const setStages = (stages: IStage[]) => levelsActions.setStages(stages);
 export const hideWellcomePage = () => levelsActions.hideWellcomePage();
+export const setTranslation = ({language, translation}: { language: string, translation: { [key:string]: string } }) => 
+  levelsActions.setTranslation({language, translation})

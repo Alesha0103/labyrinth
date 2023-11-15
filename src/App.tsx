@@ -12,6 +12,7 @@ import { Loader } from './components/Loader/Loader';
 import Confetti from "react-confetti";
 import classNames from 'classnames';
 import { ThemeButtons } from './components/ThemeButtons/ThemeButtons';
+import { useTranslation } from './hooks/useTranslations';
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -21,11 +22,13 @@ const App = () => {
     isGameFinished,
     blackTheme,
     error,
-    isLoading
+    isLoading,
   } = useAppSelector(state => state.levelsReducer);
 
   const savedLevel = localStorage.getItem("level");
   const savedTheme = localStorage.getItem("theme");
+
+  const labyrinthText = useTranslation("LABYRINTH");
 
   const updateData = () => {
     if(savedTheme && savedTheme === "dark") {
@@ -70,7 +73,7 @@ const App = () => {
           "black-winner-bg": (isLevelFinished || isGameFinished) && blackTheme,
         })}>
         <h1>
-          Labyrinth
+          {labyrinthText}
         </h1>
         {!isGameFinished ? <Labyrinth/> : <FinishedGame/>}
       </div>

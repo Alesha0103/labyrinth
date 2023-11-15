@@ -5,6 +5,7 @@ import { Dot } from './Dot';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { setHintIndicator } from '../../store/actions/LevelsActions';
 import classNames from 'classnames';
+import { useTranslation } from '../../hooks/useTranslations';
 
 type HintsProps = {
   hints: number,
@@ -18,6 +19,8 @@ export const Hints: React.FC<HintsProps> = ({hints}) => {
   const [buttonAnimation, setAnimation] = React.useState(true);
 
   const { activeStageID, disableHints, hintIndicator, blackTheme } = useAppSelector(state => state.levelsReducer);
+
+  const showHintText = useTranslation("SHOW_HINT");
 
   React.useEffect(() => {
     if (!hintIndicator) {
@@ -53,7 +56,9 @@ export const Hints: React.FC<HintsProps> = ({hints}) => {
           disabled={disableHints || !freeHints.length}
           className={classNames({"black-hints-button": blackTheme, "yellow-dot": !buttonAnimation})}
           onClick={handleHint}
-        >Show hint</button>
+        >
+          {showHintText}
+        </button>
         {renderDots()}
       </div>
     </div>

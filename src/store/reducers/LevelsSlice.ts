@@ -19,6 +19,13 @@ const initialState: levelsState = {
 
   blackTheme: false,
   wellcomePage: true,
+  translation: {},
+  language: "en",
+}
+
+type Lang = {
+  translations: any,
+  lang: string
 }
 
 const levelsSlice = createSlice({
@@ -69,7 +76,11 @@ const levelsSlice = createSlice({
     },
     hideWellcomePage(state) {
       state.wellcomePage = false;
-    }
+    },
+    setTranslation(state, action: PayloadAction<{ language: string, translation: { [key:string]: string } }>) {
+      state.language = action.payload.language;
+      state.translation = action.payload.translation;
+    },
   }
 });
 

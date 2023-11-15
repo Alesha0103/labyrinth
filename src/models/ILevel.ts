@@ -37,4 +37,6 @@ export interface levelsState {
   hintIndicator: boolean,
   blackTheme: boolean,
   wellcomePage: boolean,
+  translation: { [key:string]: string },
+  language: string
 }

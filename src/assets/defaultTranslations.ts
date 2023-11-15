@@ -1,0 +1,22 @@
+export const defaultTranslation: {[key: string]: string} = {
+  LABYRINTH: "Labyrinth",
+  GREETINGS: "Greetings, dear traveler!",
+  ENTER: "Looks like you are lost in the Labyrinth!",
+  RULES: "Here you can see the rules of this game:",
+  RULES_RULES:
+    "When you start the game you will see the number of cells. Your task is to match these cells to build the correct path. You can only click on a cell that is adjacent to the one you are already standing on, but not on the previous one you selected. If you make a wrong move, the Labyrinth will take you to another stage of that level. However, this stage is not counted. All levels have 5 stages. Your task is to pass all of them to proceed to the next level. Looks easy. Let's see. Good luck!",
+  START_GAME: "Start game",
+  CONGRATULATIONS:"Congratulations!",
+  COMPLETED_LEVEL: "You have completed the level",
+  NEXT_LEVEL: "Move to the next level",
+  FINISH_GAME_LABEL: "You have escaped the Labyrinth",
+  LEVEL: "Level №",
+  LIGHT_THEME: "light",
+  DARK_THEME: "dark",
+  FINISH_STAGE: "You've made this stage!",
+  WASTED_STAGE: "Wasted! Loading new stage...",
+  WARNING: "Cell is already selected",
+  WARNING_ERROR: "Follow the rools!",
+  WARNING_LAST_STAGE: "You are close! Don't give up!",
+  SHOW_HINT: "Show hint",
+};
