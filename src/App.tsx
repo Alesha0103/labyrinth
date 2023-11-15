@@ -16,6 +16,7 @@ import { ThemeButtons } from './components/ThemeButtons/ThemeButtons';
 const App = () => {
   const dispatch = useAppDispatch();
   const {
+    wellcomePage,
     isLevelFinished,
     isGameFinished,
     blackTheme,
@@ -77,7 +78,7 @@ const App = () => {
       <ThemeButtons />
 
       <Modal>
-        {!isGameFinished && !error.active && <Wellcome/>}
+        {wellcomePage && !error.active && <Wellcome/>}
         {isLevelFinished && <FinishedLevel/>}
       </Modal>
     </>

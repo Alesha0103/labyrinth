@@ -85,3 +85,4 @@ export const setTheme = (blackTheme: boolean) => levelsActions.setTheme(blackThe
 export const setError = (error: IError) => levelsActions.setError(error);
 export const setLoader = (loader: boolean) => levelsActions.setLoader(loader);
 export const setStages = (stages: IStage[]) => levelsActions.setStages(stages);
+export const hideWellcomePage = () => levelsActions.hideWellcomePage();

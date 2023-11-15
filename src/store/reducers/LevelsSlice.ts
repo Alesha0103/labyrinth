@@ -18,6 +18,7 @@ const initialState: levelsState = {
   hintIndicator: false,
 
   blackTheme: false,
+  wellcomePage: true,
 }
 
 const levelsSlice = createSlice({
@@ -65,6 +66,9 @@ const levelsSlice = createSlice({
     },
     setLoader(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;
+    },
+    hideWellcomePage(state) {
+      state.wellcomePage = false;
     }
   }
 });

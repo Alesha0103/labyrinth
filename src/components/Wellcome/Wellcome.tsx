@@ -2,17 +2,18 @@ import React from 'react'
 
 import './Wellcome.scss'
 import Troll from '../../assets/strange_troll_c.png';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import classNames from 'classnames';
+import { hideWellcomePage } from '../../store/actions/LevelsActions';
 
 export const Wellcome = () => {
-  const [wellcome, setWellcome] = React.useState(true);
-  const { blackTheme } = useAppSelector(state => state.levelsReducer);
+  const dispatch = useAppDispatch();
+  const { wellcomePage, blackTheme } = useAppSelector(state => state.levelsReducer);
 
   const hideThisPage = () => {
-    setWellcome(false);
+    dispatch(hideWellcomePage());
   }
-  if (!wellcome) {
+  if (!wellcomePage) {
     return null;
   }
 

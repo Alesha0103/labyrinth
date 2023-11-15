@@ -36,4 +36,5 @@ export interface levelsState {
   disableHints: boolean,
   hintIndicator: boolean,
   blackTheme: boolean,
+  wellcomePage: boolean,
 }
