@@ -8,7 +8,7 @@ import { useTranslation } from '../../hooks/useTranslations';
 
 export const ThemeButtons = () => {
   const dispatch = useAppDispatch();
-  const { wellcomePage, isLevelFinished, isGameFinished, blackTheme } = useAppSelector(state => state.levelsReducer);
+  const { wellcomePage, isLevelFinished, isGameFinished, blackTheme, error: { active } } = useAppSelector(state => state.levelsReducer);
 
   const lightThemeText = useTranslation("LIGHT_THEME");
   const darkThemeText = useTranslation("DARK_THEME");
@@ -17,13 +17,15 @@ export const ThemeButtons = () => {
     dispatch(setTheme(blackTheme ? false : true));
     localStorage.setItem("theme", blackTheme ? "light" : "dark");
   }
-
   const chooseColor = (disabled: boolean): string => {
     if (!blackTheme && !wellcomePage && disabled){
       return MILK_TEXT_COLOR;
     }
     if (!blackTheme && (isLevelFinished || isGameFinished)) {
       return GREEN_TITLE_COLOR;
+    }
+    if (!blackTheme && active && disabled) {
+      return MILK_TEXT_COLOR;
     }
     if (blackTheme && (isLevelFinished || isGameFinished)) {
       return WINNER_COLOR;

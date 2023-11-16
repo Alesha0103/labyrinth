@@ -3,7 +3,7 @@ import "./LanguageButtons.scss";
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { Languages } from '../../models/ILevel';
 import { setLanguage } from '../../store/actions/LevelsActions';
-import { BLACK_BUTTON, LOOSER_COLOR, WINNER_COLOR } from '../../constants';
+import { BLACK_BUTTON, BLACK_BUTTON_BG, LOOSER_COLOR, TRANSPARENT_BLACK, TRANSPARENT_YELLOW, WINNER_COLOR } from '../../constants';
 import { NAVAJOWHITE_COLOR } from '../../constants';
 import { MILK_TEXT_COLOR } from '../../constants';
 import { GREEN_TITLE_COLOR } from '../../constants';
@@ -14,8 +14,9 @@ import USA from '../../assets/usa_flag.png';
 export const LanguageButtons = () => {
   const dispatch = useAppDispatch();
   const [visible, setVisible] = React.useState(false);
+  const flagRef = React.useRef<HTMLDivElement | null>(null);
 
-  const { language, wellcomePage, isLevelFinished, isGameFinished, blackTheme } = useAppSelector(state => state.levelsReducer);
+  const { language, wellcomePage, isLevelFinished, isGameFinished, blackTheme, error: { active } } = useAppSelector(state => state.levelsReducer);
 
   const chooseLanguage = (lang: Languages) => () => {
     localStorage.setItem("language", lang);
@@ -28,6 +29,9 @@ export const LanguageButtons = () => {
     }
     if (!blackTheme && (isLevelFinished || isGameFinished)) {
       return GREEN_TITLE_COLOR;
+    }
+    if (!blackTheme && active && disabled) {
+      return MILK_TEXT_COLOR;
     }
     if (blackTheme && (isLevelFinished || isGameFinished)) {
       return WINNER_COLOR;
@@ -70,8 +74,42 @@ export const LanguageButtons = () => {
     }
   }
 
+  const switchFlagBg = () => {
+    switch (visible) {
+      case false:
+        return "";
+      case true:
+        if (blackTheme) {
+          return BLACK_BUTTON_BG;
+        }
+        if (!blackTheme && !wellcomePage) {
+          return TRANSPARENT_BLACK;
+        }
+        if (!blackTheme && wellcomePage) {
+          return TRANSPARENT_YELLOW;
+        }
+    }
+  }
+
+  const handleClickOutside = (event: any) => {
+    if (flagRef.current && !flagRef.current.contains(event.target)) {
+      setVisible(false);
+    }
+  };
+
+  React.useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [])
+
   return (
-    <div className="languages-container">
+    <div className="languages-container"
+      style={{ backgroundColor: switchFlagBg()}}
+      ref={flagRef}
+    >
       <div className="flag" onClick={handleButtons}>
         {checkFlag()}
       </div>

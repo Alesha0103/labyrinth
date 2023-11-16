@@ -11,10 +11,9 @@ import { setActiveLevel, setDefaultDataBase, setLanguage, setLoader, setTheme } 
 import { Loader } from './components/Loader/Loader';
 import Confetti from "react-confetti";
 import classNames from 'classnames';
-import { ThemeButtons } from './components/ThemeButtons/ThemeButtons';
 import { useTranslation } from './hooks/useTranslations';
-import { LanguageButtons } from './components/LanguageButtons/LanguageButtons';
 import { Languages } from './models/ILevel';
+import { Header } from './components/Header/Header';
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -68,6 +67,7 @@ const App = () => {
 
   return (
     <>
+      <Header />
       <div className={classNames("app-overlay", {"black-overlay": blackTheme})}>
         {isGameFinished && <Confetti height={2000}/>}
       </div>
@@ -83,9 +83,6 @@ const App = () => {
         </h1>
         {!isGameFinished ? <Labyrinth/> : <FinishedGame/>}
       </div>
-
-      <LanguageButtons />
-      <ThemeButtons />
 
       <Modal>
         {wellcomePage && !error.active && <Wellcome/>}

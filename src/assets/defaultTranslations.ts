@@ -19,4 +19,7 @@ export const defaultTranslation: {[key: string]: string} = {
   WARNING_ERROR: "Follow the rools!",
   WARNING_LAST_STAGE: "You are close! Don't give up!",
   SHOW_HINT: "Show hint",
+  WAS_NOT_UPDATED: "Level was not updated",
+  ERROR: "Ooh, an ERROR...",
+  DEFAULT_ERROR: "It looks like this troll has hacked the Labyrinth.",
 };

@@ -4,6 +4,7 @@ import { IError, IStage, Languages } from "../../models/ILevel";
 import { AppDispatch, RootState } from "../store";
 import { levelsActions } from "../reducers/LevelsSlice";
 import { PayloadType, getRandomStageId } from "../../helpers";
+import { defaultTranslation } from "../../assets/defaultTranslations";
 
 export const fetchStages = createAsyncThunk(
   "levels/fetchStages",
@@ -15,7 +16,7 @@ export const fetchStages = createAsyncThunk(
       }
       thunckAPI.dispatch(setStages(response.data));
     } catch {
-      thunckAPI.dispatch(setError({active: true, message: "Level was not updated"}))
+      thunckAPI.dispatch(setError({active: true, message: "WAS_NOT_UPDATED"}))
     }
   }
 );
@@ -54,7 +55,7 @@ export const setDefaultDataBase = createAsyncThunk(
     try {
       await axios.put<boolean>(`http://localhost:5000/defaultDataBase`);
     } catch (error) {
-      thunckAPI.dispatch(setError({active: true, message: "Level was not updated"}));
+      thunckAPI.dispatch(setError({active: true, message: "WAS_NOT_UPDATED"}));
     }
   }
 );
@@ -78,8 +79,8 @@ export const setLanguage = createAsyncThunk(
     try {
       const response = await axios.get(`http://localhost:5000/translations/${language}`);
       thunckAPI.dispatch(setTranslation({language, translation: response.data}))
-    } catch (error) {
-      thunckAPI.dispatch(setError({active: true, message: "Translation is not found"}));
+    } catch {
+      thunckAPI.dispatch(setTranslation({language: Languages.USA, translation: defaultTranslation}))
     }
   }
 );
