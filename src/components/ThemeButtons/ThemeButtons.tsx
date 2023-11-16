@@ -18,7 +18,7 @@ export const ThemeButtons = () => {
     localStorage.setItem("theme", blackTheme ? "light" : "dark");
   }
 
-  const chooseColor = (disabled: boolean) => {
+  const chooseColor = (disabled: boolean): string => {
     if (!blackTheme && !wellcomePage && disabled){
       return MILK_TEXT_COLOR;
     }

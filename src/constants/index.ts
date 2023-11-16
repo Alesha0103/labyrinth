@@ -12,6 +12,7 @@ export const GREEN_TITLE_COLOR = "#50b450";
 export const RED_TEXT_COLOR = "#ff7d7d";
 export const MILK_TEXT_COLOR = "#fff4e6";
 export const NAVAJOWHITE_COLOR = "#ffdead";
+export const BLACK_BUTTON = "#3c3c3c";
 
 export const HINT_COLOR_THEME = "#e6ff3c"
 export const WINNER_COLOR_THEME = "#64e664";
