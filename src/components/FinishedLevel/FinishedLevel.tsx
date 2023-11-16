@@ -22,7 +22,7 @@ export const FinishedLevel = () => {
 
   React.useEffect(() => {
     dispatch(disableHints(true));
-    dispatch(setWarning(Warning.clear));
+    dispatch(setWarning(Warning.CLEAR));
   }, [])
 
   return (

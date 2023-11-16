@@ -1,8 +1,8 @@
 export enum Warning {
-  lastStage = "lastStage",
-  warning = "warning",
-  error = "error",
-  clear = "",
+  LAST_STAGE = "lastStage",
+  WARNING = "warning",
+  ERROR = "error",
+  CLEAR = "",
 }
 
 export interface ICell {

@@ -17,14 +17,14 @@ export const chooseCell = (cell: ICell) => (dispatch: AppDispatch, getState: ()=
 export const setWarning = (warning: Warning) => (dispatch: AppDispatch) => {
   let warningText: string = "";
 
-  if(warning === Warning.error) {
-    warningText = "Follow the rools!"
+  if(warning === Warning.ERROR) {
+    warningText = "WARNING_ERROR"
   }
-  if(warning === Warning.warning) {
-    warningText = "Cell is already selected"
+  if(warning === Warning.WARNING) {
+    warningText = "WARNING"
   }
-  if(warning === Warning.lastStage) {
-    warningText = "You are close! Don't give up!"
+  if(warning === Warning.LAST_STAGE) {
+    warningText = "WARNING_LAST_STAGE"
   }
   dispatch(cellsActions.setWarning(warningText));
   dispatch(cellsActions.setWarningType(warning));

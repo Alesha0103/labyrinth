@@ -23,6 +23,10 @@ export interface IError {
   message: string,
 }
 
+export enum Languages {
+  USA = "usa",
+  UA = "ua",
+}
 export interface levelsState {
   level: number,
   isLoading: boolean,
@@ -38,5 +42,5 @@ export interface levelsState {
   blackTheme: boolean,
   wellcomePage: boolean,
   translation: { [key:string]: string },
-  language: string
+  language: Languages
 }

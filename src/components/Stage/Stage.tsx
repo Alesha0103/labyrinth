@@ -10,6 +10,7 @@ import { calculateHints } from '../../helpers';
 import { IStage } from '../../models/ILevel';
 import { Hints } from '../Hints/Hints';
 import { Cell } from '../Cell/Cell';
+import { useTranslation } from '../../hooks/useTranslations';
 
 export const Stage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -19,6 +20,8 @@ export const Stage: React.FC = () => {
   const [warningColor, setWarningColor] = React.useState("");
   const [hints, setHints] = React.useState(0);
   const [geometry, setGeometry] = React.useState({ columns: 3, rows: 3 });
+
+  const warningText = useTranslation(warning);
 
   const looserColor = blackTheme ? LOOSER_COLOR_THEME : LOOSER_COLOR;
 
@@ -51,7 +54,7 @@ export const Stage: React.FC = () => {
       setWarningColor(looserColor);
     }
     const timeout = setTimeout(() => {
-      dispatch(setWarning(Warning.clear));
+      dispatch(setWarning(Warning.CLEAR));
     }, WARNING_TIMEOUT)
   
     return () => clearTimeout(timeout);
@@ -59,7 +62,7 @@ export const Stage: React.FC = () => {
   
   return (
     <>
-      <h3 className="warning" style={{color: warningColor}}>{warning}</h3>
+      <h3 className="warning" style={{color: warningColor}}>{warningText}</h3>
       {!!hints && <Hints hints={hints}/>}
       <div className="stage" style={{
           gridTemplateColumns: `repeat(${geometry?.columns}, 75px)`,

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IError, IStage, levelsState } from "../../models/ILevel";
+import { IError, IStage, Languages, levelsState } from "../../models/ILevel";
 
 const initialState: levelsState = {
   level: 1,
@@ -20,7 +20,7 @@ const initialState: levelsState = {
   blackTheme: false,
   wellcomePage: true,
   translation: {},
-  language: "en",
+  language: Languages.USA,
 }
 
 type Lang = {
@@ -77,7 +77,7 @@ const levelsSlice = createSlice({
     hideWellcomePage(state) {
       state.wellcomePage = false;
     },
-    setTranslation(state, action: PayloadAction<{ language: string, translation: { [key:string]: string } }>) {
+    setTranslation(state, action: PayloadAction<{ language: Languages, translation: { [key:string]: string } }>) {
       state.language = action.payload.language;
       state.translation = action.payload.translation;
     },

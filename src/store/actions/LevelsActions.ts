@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IError, IStage } from "../../models/ILevel";
+import { IError, IStage, Languages } from "../../models/ILevel";
 import { AppDispatch, RootState } from "../store";
 import { levelsActions } from "../reducers/LevelsSlice";
 import { PayloadType, getRandomStageId } from "../../helpers";
@@ -74,7 +74,7 @@ export const getRandomStage = () => (dispatch: AppDispatch, getState: ()=> RootS
 
 export const setLanguage = createAsyncThunk(
   "levels/setLanguage",
-  async (language: string, thunckAPI) => {
+  async (language: Languages, thunckAPI) => {
     try {
       const response = await axios.get(`http://localhost:5000/translations/${language}`);
       thunckAPI.dispatch(setTranslation({language, translation: response.data}))
@@ -98,5 +98,5 @@ export const setError = (error: IError) => levelsActions.setError(error);
 export const setLoader = (loader: boolean) => levelsActions.setLoader(loader);
 export const setStages = (stages: IStage[]) => levelsActions.setStages(stages);
 export const hideWellcomePage = () => levelsActions.hideWellcomePage();
-export const setTranslation = ({language, translation}: { language: string, translation: { [key:string]: string } }) => 
+export const setTranslation = ({language, translation}: { language: Languages, translation: { [key:string]: string } }) => 
   levelsActions.setTranslation({language, translation})

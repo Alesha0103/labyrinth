@@ -86,7 +86,7 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
   }, [hintIndicator, color, blackTheme]);
 
   const handleWarning = () => {
-    dispatch(setWarning(Warning.lastStage));
+    dispatch(setWarning(Warning.LAST_STAGE));
     dispatch(setAttempts(attempts - 2));
     if(hintIndicator) {
       dispatch(setHintIndicator(true));
@@ -150,10 +150,10 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
     }
 
     if(!isClickable) {
-      dispatch(setWarning(Warning.error))
+      dispatch(setWarning(Warning.ERROR))
     }
     if(!isClickable && chosenCells[chosenCells.length-FIX_ARRAY_LENGTH].id === cell.id) {
-      dispatch(setWarning(Warning.warning))
+      dispatch(setWarning(Warning.WARNING))
     }
   };
 

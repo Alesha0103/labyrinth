@@ -7,12 +7,14 @@ import { Wellcome } from './components/Wellcome/Wellcome';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
 import { FinishedLevel } from './components/FinishedLevel/FinishedLevel';
 import { FinishedGame } from './components/FinishedGame/FinishedGame';
-import { setActiveLevel, setDefaultDataBase, setLoader, setTheme } from './store/actions/LevelsActions';
+import { setActiveLevel, setDefaultDataBase, setLanguage, setLoader, setTheme } from './store/actions/LevelsActions';
 import { Loader } from './components/Loader/Loader';
 import Confetti from "react-confetti";
 import classNames from 'classnames';
 import { ThemeButtons } from './components/ThemeButtons/ThemeButtons';
 import { useTranslation } from './hooks/useTranslations';
+import { LanguageButtons } from './components/LanguageButtons/LanguageButtons';
+import { Languages } from './models/ILevel';
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -27,14 +29,18 @@ const App = () => {
 
   const savedLevel = localStorage.getItem("level");
   const savedTheme = localStorage.getItem("theme");
+  const savedLanguage = localStorage.getItem("language") as Languages;
 
   const labyrinthText = useTranslation("LABYRINTH");
 
   const updateData = () => {
-    if(savedTheme && savedTheme === "dark") {
+    if (savedLanguage) {
+      dispatch(setLanguage(savedLanguage));
+    }
+    if (savedTheme && savedTheme === "dark") {
       dispatch(setTheme(true));
     }
-    if(savedLevel) {
+    if (savedLevel) {
       dispatch(setActiveLevel(Number(savedLevel)));
       setTimeout(() => {
         dispatch(setLoader(false));
@@ -78,6 +84,7 @@ const App = () => {
         {!isGameFinished ? <Labyrinth/> : <FinishedGame/>}
       </div>
 
+      <LanguageButtons />
       <ThemeButtons />
 
       <Modal>

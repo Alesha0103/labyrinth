@@ -16,7 +16,7 @@ export const Labyrinth = () => {
 
   React.useEffect(() => {
     dispatch(fetchStages(level));
-    localStorage.setItem("level", level.toString())
+    localStorage.setItem("level", level.toString());
   }, [level]);
 
   if (error.active) {

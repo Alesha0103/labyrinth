@@ -6,7 +6,7 @@ const initialState: CellsState = {
   rightWay: [],
   chosenCells: [],
   warning: "",
-  warningType: Warning.clear,
+  warningType: Warning.CLEAR,
   attempts: 0,
 }
 
