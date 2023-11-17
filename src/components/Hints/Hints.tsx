@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { setHintIndicator } from '../../store/actions/LevelsActions';
 import classNames from 'classnames';
 import { useTranslation } from '../../hooks/useTranslations';
+import { HINT_COLOR } from '../../constants';
 
 type HintsProps = {
   hints: number,
@@ -51,16 +52,20 @@ export const Hints: React.FC<HintsProps> = ({hints}) => {
 
   return (
     <div className="hints">
-      <div className="hints-section" id="hints-section">
-        <button 
-          disabled={disableHints || !freeHints.length}
-          className={classNames({"black-hints-button": blackTheme, "yellow-dot": !buttonAnimation})}
-          onClick={handleHint}
-        >
-          {showHintText}
-        </button>
-        {renderDots()}
-      </div>
+      <button 
+        disabled={disableHints || !freeHints.length}
+        className={classNames({
+          "black-hints-button": blackTheme,
+          "yellow-dot": !buttonAnimation && !blackTheme,
+          "yellow-dot-theme": !buttonAnimation && blackTheme,
+        })}
+        onClick={handleHint}
+      >
+        {showHintText}
+      </button>
+      <div className="dots" onClick={handleHint}>
+          {renderDots()}
+        </div>
     </div>
   )
 }

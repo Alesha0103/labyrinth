@@ -1,41 +1,45 @@
 .hints {
   position: absolute;
-  top: 155px;
-  right: 5vw;
-  .hints-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    button {
-      font-size: 20px;
-      font-family: 'Oswald', sans-serif;
-      background-color: rgb(255, 244, 230);
-      color: rgb(135, 210, 135);
-      display: block;
-      border: 1px solid rgb(135, 210, 135);
-      box-shadow: 0px 0px 5px rgb(135, 210, 135);
-      border-radius: 10px;
-      padding: 10px;
-      cursor: pointer;
-      animation: borderPulse 2s infinite alternate forwards;
-      &:hover {
-        box-shadow: 0px 0px 10px rgb(135, 210, 135);
-        animation-play-state: paused;
-      }
-      &:disabled {
-        animation: none;
-        border: 2px solid rgba(210, 95, 85, 0.5);
-        border-radius: 12px;
-        color: rgb(255, 125, 114);
-        cursor: auto;
-        box-shadow: inset 0px 0px 6px rgb(210, 95, 85);
-      }
+  top: 150px;
+  right: 8vw;
+
+  button {
+    font-size: 20px;
+    font-family: 'Oswald', sans-serif;
+    background-color: rgb(255, 244, 230);
+    color: rgb(135, 210, 135);
+    border: 1px solid rgb(135, 210, 135);
+    box-shadow: 0px 0px 5px rgb(135, 210, 135);
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    animation: borderPulse 2s infinite alternate forwards;
+    &:hover {
+      box-shadow: 0px 0px 10px rgb(135, 210, 135);
+      animation-play-state: paused;
     }
+    &:disabled {
+      animation: none;
+      border: 2px solid rgba(210, 95, 85, 0.5);
+      border-radius: 12px;
+      color: rgb(255, 125, 114);
+      cursor: auto;
+      box-shadow: inset 0px 0px 6px rgb(210, 95, 85);
+    }
+  }
+
+  .dots {
+    align-self: center;
+    display: flex;
+    justify-content: space-between;
+    width: 85%;
+    margin: auto;
+    margin-top: 10px;
     div {
-      height: 25px;
-      width: 25px;
-      border-radius: 25px;
-      margin-left: 20px;
+      height: 20px;
+      width: 20px;
+      border-radius: 20px;
+      cursor: pointer;
     }
   }
 }
@@ -77,6 +81,18 @@
 .yellow-dot {
   cursor: default !important;
   animation-play-state: paused !important;
+
+  border: 1px solid rgb(255, 200, 0) !important;
+  color: rgb(255, 200, 0) !important;
+  box-shadow: 0px 0px 10px rgb(255, 200, 0) !important;
+}
+.yellow-dot-theme {
+  cursor: default !important;
+  animation-play-state: paused !important;
+
+  border: 1px solid rgb(230, 255, 60) !important;
+  color: rgb(230, 255, 60) !important;
+  box-shadow: 0px 0px 10px rgb(230, 255, 60) !important;
 }
 
 @keyframes borderPulseBlack {
