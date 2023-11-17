@@ -108,12 +108,14 @@ export const LanguageButtons = () => {
   }
 
   React.useEffect(() => {
-    document.addEventListener('click', handleClickOutside);
+    if (visible === true) {
+      document.addEventListener('click', handleClickOutside);
+    }
 
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [])
+  }, [visible]);
 
   return (
     <div className="languages-container" ref={flagRef}>

@@ -17,17 +17,10 @@ export const Hints: React.FC<HintsProps> = ({hints}) => {
   const dispatch = useAppDispatch();
   const [hintIDs, setHintIDs] = React.useState<number[]>([]);
   const [freeHints, setFreeHints] = React.useState<number[]>([]);
-  const [buttonAnimation, setAnimation] = React.useState(true);
 
   const { activeStageID, disableHints, hintIndicator, blackTheme } = useAppSelector(state => state.levelsReducer);
 
   const showHintText = useTranslation("SHOW_HINT");
-
-  React.useEffect(() => {
-    if (!hintIndicator) {
-      setAnimation(true);
-    }
-  }, [hintIndicator])
 
   React.useEffect(() => {
     const IDs = []
@@ -42,7 +35,6 @@ export const Hints: React.FC<HintsProps> = ({hints}) => {
     if(!hintIndicator) {
       setFreeHints(freeHints.slice(0,-1))
       dispatch(setHintIndicator(true));
-      setAnimation(false);
     }
   }
 
@@ -50,14 +42,17 @@ export const Hints: React.FC<HintsProps> = ({hints}) => {
     return hintIDs.map((id, index) => <Dot key={id+index} id ={id} freeHints={freeHints} disabled={disableHints}/>)
   }
 
+  //  Зараз ховер світлої теми перезаписує ховер темної. 
+  // Ідея додати класи окремо для кожних ховерів щоб запобігти перезаписуванню
+
   return (
     <div className="hints">
       <button 
-        disabled={disableHints || !freeHints.length}
+        disabled={(disableHints || !freeHints.length) && !hintIndicator}
         className={classNames({
           "black-hints-button": blackTheme,
-          "yellow-dot": !buttonAnimation && !blackTheme,
-          "yellow-dot-theme": !buttonAnimation && blackTheme,
+          "yellow-dot": hintIndicator && !blackTheme,
+          "yellow-dot-black-theme": hintIndicator && blackTheme,
         })}
         onClick={handleHint}
       >
