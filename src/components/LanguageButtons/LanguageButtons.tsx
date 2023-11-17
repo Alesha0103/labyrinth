@@ -3,20 +3,35 @@ import "./LanguageButtons.scss";
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { Languages } from '../../models/ILevel';
 import { setLanguage } from '../../store/actions/LevelsActions';
-import { BLACK_BUTTON, BLACK_BUTTON_BG, LOOSER_COLOR, TRANSPARENT_BLACK, TRANSPARENT_YELLOW, WINNER_COLOR } from '../../constants';
+import {
+  BLACK_BUTTON,
+  BLACK_BUTTON_BG,
+  LOOSER_COLOR,
+  TRANSPARENT_BLACK,
+  TRANSPARENT_YELLOW,
+  WINNER_COLOR,
+} from "../../constants";
 import { NAVAJOWHITE_COLOR } from '../../constants';
 import { MILK_TEXT_COLOR } from '../../constants';
 import { GREEN_TITLE_COLOR } from '../../constants';
 
 import UA from '../../assets/ua_flag.png';
 import USA from '../../assets/usa_flag.png';
+import classNames from 'classnames';
 
 export const LanguageButtons = () => {
   const dispatch = useAppDispatch();
-  const [visible, setVisible] = React.useState(false);
+  const [visible, setVisible] = React.useState<boolean | null>(null);
   const flagRef = React.useRef<HTMLDivElement | null>(null);
 
-  const { language, wellcomePage, isLevelFinished, isGameFinished, blackTheme, error: { active } } = useAppSelector(state => state.levelsReducer);
+  const {
+    language,
+    wellcomePage,
+    isLevelFinished,
+    isGameFinished,
+    blackTheme,
+    error: { active },
+  } = useAppSelector((state) => state.levelsReducer);
 
   const chooseLanguage = (lang: Languages) => () => {
     localStorage.setItem("language", lang);
@@ -61,8 +76,16 @@ export const LanguageButtons = () => {
     }
   }
 
-  const handleButtons = () => {
-    setVisible(!visible);
+  const switchFlagBg = () => {
+    if (blackTheme) {
+      return BLACK_BUTTON_BG;
+    }
+    if (!blackTheme && !wellcomePage) {
+      return TRANSPARENT_BLACK;
+    }
+    if (!blackTheme && wellcomePage) {
+      return TRANSPARENT_YELLOW;
+    }
   }
 
   const checkFlag = () => {
@@ -74,28 +97,15 @@ export const LanguageButtons = () => {
     }
   }
 
-  const switchFlagBg = () => {
-    switch (visible) {
-      case false:
-        return "";
-      case true:
-        if (blackTheme) {
-          return BLACK_BUTTON_BG;
-        }
-        if (!blackTheme && !wellcomePage) {
-          return TRANSPARENT_BLACK;
-        }
-        if (!blackTheme && wellcomePage) {
-          return TRANSPARENT_YELLOW;
-        }
-    }
+  const handleButtons = () => {
+    setVisible(!visible);
   }
 
   const handleClickOutside = (event: any) => {
     if (flagRef.current && !flagRef.current.contains(event.target)) {
       setVisible(false);
     }
-  };
+  }
 
   React.useEffect(() => {
     document.addEventListener('click', handleClickOutside);
@@ -106,37 +116,37 @@ export const LanguageButtons = () => {
   }, [])
 
   return (
-    <div className="languages-container"
-      style={{ backgroundColor: switchFlagBg()}}
-      ref={flagRef}
-    >
+    <div className="languages-container" ref={flagRef}>
       <div className="flag" onClick={handleButtons}>
         {checkFlag()}
       </div>
-      {visible && (
-        <>
-          <button
-            disabled={language === Languages.USA}
-            onClick={chooseLanguage(Languages.USA)}
-            style={{
-              color: chooseColor(language === Languages.USA),
-              backgroundColor: switchBg(language === Languages.USA)
-            }}
-          >
-            English
-          </button>
-          <button
-            disabled={language === Languages.UA}
-            onClick={chooseLanguage(Languages.UA)}
-            style={{
-              color: chooseColor(language === Languages.UA),
-              backgroundColor: switchBg(language === Languages.UA)
-            }}
-          >
-            Українська
-          </button>
-        </>
-      )}
+      <div className={classNames("buttons", {
+          ["show-buttons"]: visible,
+          ["hide-buttons"]: visible === false,
+        })}
+        style={{ backgroundColor: switchFlagBg()}}
+      >
+        <button
+          disabled={language === Languages.USA}
+          onClick={chooseLanguage(Languages.USA)}
+          style={{
+            color: chooseColor(language === Languages.USA),
+            backgroundColor: switchBg(language === Languages.USA)
+          }}
+        >
+          English
+        </button>
+        <button
+          disabled={language === Languages.UA}
+          onClick={chooseLanguage(Languages.UA)}
+          style={{
+            color: chooseColor(language === Languages.UA),
+            backgroundColor: switchBg(language === Languages.UA)
+          }}
+        >
+          Українська
+        </button>
+      </div>
     </div>
   );
 }
