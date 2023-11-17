@@ -2,7 +2,7 @@
   display: inline;
   button {
     padding: 7px;
-    background-color: rgb(255, 244, 230);
+    background-color: transparent;
     font-weight: bold;
     font-size: 14px;
     border: none;
@@ -10,7 +10,7 @@
     cursor: pointer;
     &:disabled {
       cursor: default;
-      background-color: transparent;
+      background-color: rgb(255, 244, 230);
     }
   }
   :last-child {
@@ -19,9 +19,9 @@
 }
 .handle-theme-black {
   button {
-    background-color: rgb(60, 60, 60);
+    background-color: transparent;
     &:disabled {
-      background-color: transparent;
+      background-color: rgb(60, 60, 60);
     }
   }
 }

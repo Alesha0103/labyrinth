@@ -18,7 +18,7 @@ export const ThemeButtons = () => {
     localStorage.setItem("theme", blackTheme ? "light" : "dark");
   }
   const chooseColor = (disabled: boolean): string => {
-    if (!blackTheme && !wellcomePage && disabled){
+    if (!blackTheme && !wellcomePage && !disabled){
       return MILK_TEXT_COLOR;
     }
     if (!blackTheme && (isLevelFinished || isGameFinished)) {
@@ -42,14 +42,14 @@ export const ThemeButtons = () => {
         <button
           disabled={!blackTheme}
           onClick={handleTheme}
-          style={{color: chooseColor(!blackTheme)}}
+          style={{color: chooseColor(!blackTheme), backgroundColor: !blackTheme && wellcomePage ? NAVAJOWHITE_COLOR : ""}}
         >
           {lightThemeText}
         </button>
         <button
           disabled={blackTheme}
           onClick={handleTheme}
-          style={{color: chooseColor(blackTheme), backgroundColor: !blackTheme && wellcomePage ? NAVAJOWHITE_COLOR : ""}}
+          style={{color: chooseColor(blackTheme)}}
         >
           {darkThemeText}
         </button>

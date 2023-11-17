@@ -39,7 +39,7 @@ export const LanguageButtons = () => {
   }
 
   const chooseColor = (disabled: boolean): string => {
-    if (!blackTheme && !wellcomePage && disabled){
+    if (!blackTheme && !wellcomePage && !disabled){
       return MILK_TEXT_COLOR;
     }
     if (!blackTheme && (isLevelFinished || isGameFinished)) {
@@ -60,9 +60,9 @@ export const LanguageButtons = () => {
 
   const switchBg = (disabled: boolean): string => {
     switch (disabled) {
-      case true:
-        return "transparent";
       case false:
+        return "transparent";
+      case true:
         if (blackTheme) {
           return BLACK_BUTTON;
         }
