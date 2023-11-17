@@ -41,7 +41,7 @@ export const Dot: React.FC<HintProps> = ({id, freeHints, disabled}) => {
     } else {
       setColor(looserColor);
     }
-  }, [freeHints, hintIndicator]);
+  }, [freeHints, hintIndicator, blackTheme]);
 
   return (
     <div style={{ backgroundColor: color, boxShadow: blackTheme ? `0px 0px 10px ${color}` : undefined}}></div>
