@@ -2,14 +2,17 @@ import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { defaultTranslation } from "../../assets/defaultTranslations";
 import { Languages } from "../../models/IGeneral";
-import { generalAppActions } from "../reducers/GeneralAppSlice";
+import { generalAppActions } from "../reducers/GeneralSlice";
+import { setLoader } from "./LevelsActions";
 
 export const setLanguage = createAsyncThunk(
   "levels/setLanguage",
   async (language: Languages, thunckAPI) => {
     try {
+      thunckAPI.dispatch(setLoader(true));
       const response = await axios.get(`http://localhost:5000/translations/${language}`);
-      thunckAPI.dispatch(setTranslation({language, translation: response.data}))
+      thunckAPI.dispatch(setTranslation({language, translation: response.data}));
+      thunckAPI.dispatch(setLoader(false));
     } catch {
       thunckAPI.dispatch(setTranslation({language: Languages.USA, translation: defaultTranslation}))
     }

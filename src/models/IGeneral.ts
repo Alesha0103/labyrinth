@@ -1,3 +1,5 @@
+import { IStage } from "./ILevel";
+
 export enum Languages {
   USA = "usa",
   UA = "ua",
@@ -8,5 +10,6 @@ export interface GeneralAppState {
   wellcomePage: boolean,
   translation: { [key:string]: string },
   language: Languages,
-  firstLevel: any,
+  trainingLevel: IStage,
+  training: boolean,
 }

@@ -7,8 +7,9 @@ const initialState: GeneralAppState = {
   translation: {},
   language: Languages.USA,
 
-  firstLevel: {
-    id: 1,
+  training: true,
+  trainingLevel: {
+    id: 999,
     rightWay: [1, 4, 5, 6, 9],
     geometry: {
       columns: 3,

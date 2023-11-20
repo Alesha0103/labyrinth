@@ -5,7 +5,7 @@ import Troll from '../../assets/strange_troll_c.png';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import classNames from 'classnames';
 import { useTranslation } from '../../hooks/useTranslations';
-import { hideWellcomePage } from '../../store/actions/GeneralAppActions';
+import { hideWellcomePage } from '../../store/actions/GeneralActions';
 
 export const Wellcome = () => {
   const dispatch = useAppDispatch();

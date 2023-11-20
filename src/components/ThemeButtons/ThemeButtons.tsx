@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { GREEN_TITLE_COLOR, LOOSER_COLOR, MILK_TEXT_COLOR, NAVAJOWHITE_COLOR, WINNER_COLOR } from '../../constants';
 import "./ThemeButtons.scss";
 import { useTranslation } from '../../hooks/useTranslations';
-import { setTheme } from '../../store/actions/GeneralAppActions';
+import { setTheme } from '../../store/actions/GeneralActions';
 
 export const ThemeButtons = () => {
   const dispatch = useAppDispatch();

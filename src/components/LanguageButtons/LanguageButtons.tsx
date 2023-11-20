@@ -17,7 +17,7 @@ import UA from '../../assets/ua_flag.png';
 import USA from '../../assets/usa_flag.png';
 import classNames from 'classnames';
 import { Languages } from '../../models/IGeneral';
-import { setLanguage } from '../../store/actions/GeneralAppActions';
+import { setLanguage } from '../../store/actions/GeneralActions';
 
 export const LanguageButtons = () => {
   const dispatch = useAppDispatch();

@@ -24,10 +24,10 @@ export const Labyrinth = () => {
   }
 
   return (
-    <React.Fragment>
+    <>
       <h2>{levelText}{level}</h2>
       <Stage />
       <NotifyOverlay />
-    </React.Fragment>
+    </>
   )
 }

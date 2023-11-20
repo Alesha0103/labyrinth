@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { cellsReducer } from "./reducers/CellsSlice";
 import { levelsReducer } from "./reducers/LevelsSlice";
-import { generalAppReducer } from "./reducers/GeneralAppSlice";
+import { generalAppReducer } from "./reducers/GeneralSlice";
 
 const rootReducer = combineReducers({
   levelsReducer: levelsReducer,
