@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { setHintIndicator } from '../../store/actions/LevelsActions';
 import classNames from 'classnames';
 import { useTranslation } from '../../hooks/useTranslations';
-import { HINT_COLOR } from '../../constants';
 
 type HintsProps = {
   hints: number,
@@ -17,6 +16,7 @@ export const Hints: React.FC<HintsProps> = ({hints}) => {
   const dispatch = useAppDispatch();
   const [hintIDs, setHintIDs] = React.useState<number[]>([]);
   const [freeHints, setFreeHints] = React.useState<number[]>([]);
+  const [count, setCount] = React.useState<number>(20);
 
   const { activeStageID, disableHints, hintIndicator, blackTheme } = useAppSelector(state => state.levelsReducer);
 
@@ -42,18 +42,45 @@ export const Hints: React.FC<HintsProps> = ({hints}) => {
     return hintIDs.map((id, index) => <Dot key={id+index} id ={id} freeHints={freeHints} disabled={disableHints}/>)
   }
 
-  //  Зараз ховер світлої теми перезаписує ховер темної. 
-  // Ідея додати класи окремо для кожних ховерів щоб запобігти перезаписуванню
+  const chooseAnimation = () => {
+    if (!count && blackTheme) {
+      return { "--animationName": "borderPulseBlack" }
+    }
+    if (!count && !blackTheme) {
+      return { "--animationName": "borderPulseLight" }
+    }
+  }
+
+  React.useEffect(() => {
+    if (hintIndicator) {
+      setCount(5);
+      return;
+    }
+    const timer = setInterval(() => {
+      setCount((prevCount) => {
+        if (prevCount === 1) {
+          clearInterval(timer);
+          return 0;
+        }
+        return prevCount - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [hintIndicator]);
 
   return (
     <div className="hints">
       <button 
         disabled={(disableHints || !freeHints.length) && !hintIndicator}
-        className={classNames({
-          "black-hints-button": blackTheme,
+        className={classNames("animation", {
+          "light-theme-button": !blackTheme && !hintIndicator,
+          "black-theme-button": blackTheme && !hintIndicator,
           "yellow-dot": hintIndicator && !blackTheme,
           "yellow-dot-black-theme": hintIndicator && blackTheme,
         })}
+        // @ts-ignore
+        style={chooseAnimation()}
         onClick={handleHint}
       >
         {showHintText}
