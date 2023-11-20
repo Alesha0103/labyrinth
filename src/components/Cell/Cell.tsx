@@ -41,7 +41,8 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
   const [color, setColor] = React.useState("");
 
   const { cells, chosenCells, rightWay, attempts } = useAppSelector(state => state.cellsReducer);
-  const { level, stages, activeStageID, hintIndicator, blackTheme } = useAppSelector(state => state.levelsReducer);
+  const { level, stages, activeStageID, hintIndicator } = useAppSelector(state => state.levelsReducer);
+  const { blackTheme } = useAppSelector(state => state.generalReducer);
   const lastChosenCell = chosenCells?.[chosenCells.length - FIX_ARRAY_LENGTH];
 
   const hintColor = blackTheme ? HINT_COLOR_THEME : HINT_COLOR;

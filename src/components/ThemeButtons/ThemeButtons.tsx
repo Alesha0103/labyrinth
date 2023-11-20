@@ -1,14 +1,15 @@
 import React from 'react'
 import classNames from 'classnames'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { setTheme } from '../../store/actions/LevelsActions';
 import { GREEN_TITLE_COLOR, LOOSER_COLOR, MILK_TEXT_COLOR, NAVAJOWHITE_COLOR, WINNER_COLOR } from '../../constants';
 import "./ThemeButtons.scss";
 import { useTranslation } from '../../hooks/useTranslations';
+import { setTheme } from '../../store/actions/GeneralAppActions';
 
 export const ThemeButtons = () => {
   const dispatch = useAppDispatch();
-  const { wellcomePage, isLevelFinished, isGameFinished, blackTheme, error: { active } } = useAppSelector(state => state.levelsReducer);
+  const { isLevelFinished, isGameFinished, error: { active } } = useAppSelector(state => state.levelsReducer);
+  const { wellcomePage, blackTheme } = useAppSelector(state => state.generalReducer);
 
   const lightThemeText = useTranslation("LIGHT_THEME");
   const darkThemeText = useTranslation("DARK_THEME");

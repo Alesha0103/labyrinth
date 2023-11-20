@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IError, IStage, Languages, levelsState } from "../../models/ILevel";
+import { IError, IStage, levelsState } from "../../models/ILevel";
 
 const initialState: levelsState = {
   level: 1,
@@ -16,16 +16,6 @@ const initialState: levelsState = {
   isGameFinished: false,
   disableHints: false,
   hintIndicator: false,
-
-  blackTheme: false,
-  wellcomePage: true,
-  translation: {},
-  language: Languages.USA,
-}
-
-type Lang = {
-  translations: any,
-  lang: string
 }
 
 const levelsSlice = createSlice({
@@ -60,9 +50,6 @@ const levelsSlice = createSlice({
     setHintIndicator(state, action: PayloadAction<boolean>) {
       state.hintIndicator = action.payload
     },
-    setTheme(state, action: PayloadAction<boolean>) {
-      state.blackTheme = action.payload
-    },
     setError(state, action: PayloadAction<IError>) {
       state.error = action.payload;
     },
@@ -73,14 +60,7 @@ const levelsSlice = createSlice({
     },
     setLoader(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;
-    },
-    hideWellcomePage(state) {
-      state.wellcomePage = false;
-    },
-    setTranslation(state, action: PayloadAction<{ language: Languages, translation: { [key:string]: string } }>) {
-      state.language = action.payload.language;
-      state.translation = action.payload.translation;
-    },
+    }
   }
 });
 

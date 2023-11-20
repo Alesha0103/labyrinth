@@ -18,7 +18,8 @@ export const Hints: React.FC<HintsProps> = ({hints}) => {
   const [freeHints, setFreeHints] = React.useState<number[]>([]);
   const [count, setCount] = React.useState<number>(20);
 
-  const { activeStageID, disableHints, hintIndicator, blackTheme } = useAppSelector(state => state.levelsReducer);
+  const { activeStageID, disableHints, hintIndicator } = useAppSelector(state => state.levelsReducer);
+  const { blackTheme } = useAppSelector(state => state.generalReducer);
 
   const showHintText = useTranslation("SHOW_HINT");
 

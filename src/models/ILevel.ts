@@ -22,11 +22,6 @@ export interface IError {
   active: boolean,
   message: string,
 }
-
-export enum Languages {
-  USA = "usa",
-  UA = "ua",
-}
 export interface levelsState {
   level: number,
   isLoading: boolean,
@@ -39,8 +34,4 @@ export interface levelsState {
   isGameFinished: boolean,
   disableHints: boolean,
   hintIndicator: boolean,
-  blackTheme: boolean,
-  wellcomePage: boolean,
-  translation: { [key:string]: string },
-  language: Languages
 }

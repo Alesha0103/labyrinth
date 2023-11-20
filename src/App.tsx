@@ -7,24 +7,25 @@ import { Wellcome } from './components/Wellcome/Wellcome';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
 import { FinishedLevel } from './components/FinishedLevel/FinishedLevel';
 import { FinishedGame } from './components/FinishedGame/FinishedGame';
-import { setActiveLevel, setDefaultDataBase, setLanguage, setLoader, setTheme } from './store/actions/LevelsActions';
+import { setActiveLevel, setDefaultDataBase, setLoader } from './store/actions/LevelsActions';
+import { setLanguage, setTheme } from './store/actions/GeneralAppActions';
 import { Loader } from './components/Loader/Loader';
 import Confetti from "react-confetti";
 import classNames from 'classnames';
 import { useTranslation } from './hooks/useTranslations';
-import { Languages } from './models/ILevel';
 import { Header } from './components/Header/Header';
+import { Languages } from './models/IGeneral';
 
 const App = () => {
   const dispatch = useAppDispatch();
   const {
-    wellcomePage,
     isLevelFinished,
     isGameFinished,
-    blackTheme,
     error,
     isLoading,
   } = useAppSelector(state => state.levelsReducer);
+
+  const { wellcomePage, blackTheme } = useAppSelector(state => state.generalReducer);
 
   const savedLevel = localStorage.getItem("level");
   const savedTheme = localStorage.getItem("theme");

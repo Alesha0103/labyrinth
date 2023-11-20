@@ -1,8 +1,6 @@
 import React from 'react';
 import "./LanguageButtons.scss";
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { Languages } from '../../models/ILevel';
-import { setLanguage } from '../../store/actions/LevelsActions';
 import {
   BLACK_BUTTON,
   BLACK_BUTTON_BG,
@@ -18,6 +16,8 @@ import { GREEN_TITLE_COLOR } from '../../constants';
 import UA from '../../assets/ua_flag.png';
 import USA from '../../assets/usa_flag.png';
 import classNames from 'classnames';
+import { Languages } from '../../models/IGeneral';
+import { setLanguage } from '../../store/actions/GeneralAppActions';
 
 export const LanguageButtons = () => {
   const dispatch = useAppDispatch();
@@ -25,13 +25,11 @@ export const LanguageButtons = () => {
   const flagRef = React.useRef<HTMLDivElement | null>(null);
 
   const {
-    language,
-    wellcomePage,
     isLevelFinished,
     isGameFinished,
-    blackTheme,
     error: { active },
   } = useAppSelector((state) => state.levelsReducer);
+  const { language, wellcomePage,blackTheme } = useAppSelector(state => state.generalReducer);
 
   const chooseLanguage = (lang: Languages) => () => {
     localStorage.setItem("language", lang);

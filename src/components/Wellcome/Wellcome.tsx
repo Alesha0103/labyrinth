@@ -4,12 +4,12 @@ import './Wellcome.scss'
 import Troll from '../../assets/strange_troll_c.png';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import classNames from 'classnames';
-import { hideWellcomePage } from '../../store/actions/LevelsActions';
 import { useTranslation } from '../../hooks/useTranslations';
+import { hideWellcomePage } from '../../store/actions/GeneralAppActions';
 
 export const Wellcome = () => {
   const dispatch = useAppDispatch();
-  const { wellcomePage, blackTheme } = useAppSelector(state => state.levelsReducer);
+  const { wellcomePage, blackTheme } = useAppSelector(state => state.generalReducer);
 
   const greetingsText = useTranslation("GREETINGS");
   const enterText = useTranslation("ENTER");

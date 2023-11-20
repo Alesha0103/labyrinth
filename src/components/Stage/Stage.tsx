@@ -14,8 +14,9 @@ import { useTranslation } from '../../hooks/useTranslations';
 
 export const Stage: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { level, stages, activeStageID, blackTheme } = useAppSelector(state => state.levelsReducer);
+  const { level, stages, activeStageID } = useAppSelector(state => state.levelsReducer);
   const { warning, warningType, cells } = useAppSelector(state => state.cellsReducer);
+  const { blackTheme } = useAppSelector(state => state.generalReducer);
 
   const [warningColor, setWarningColor] = React.useState("");
   const [hints, setHints] = React.useState(0);

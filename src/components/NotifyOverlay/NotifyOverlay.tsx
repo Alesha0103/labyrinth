@@ -11,7 +11,8 @@ export const NotifyOverlay = () => {
   const finishStageText = useTranslation("FINISH_STAGE");
   const wastedStageText = useTranslation("WASTED_STAGE");
 
-  const { loserOverlay, winerOverlay, blackTheme } = useAppSelector(state => state.levelsReducer);
+  const { loserOverlay, winerOverlay } = useAppSelector(state => state.levelsReducer);
+  const { blackTheme } = useAppSelector(state => state.generalReducer);
   const overlay = loserOverlay || winerOverlay;
 
   if (!overlay) {

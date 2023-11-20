@@ -9,7 +9,7 @@ import { useTranslation } from '../../hooks/useTranslations';
 
 export const FinishedLevel = () => {
   const dispatch = useAppDispatch();
-  const { blackTheme } = useAppSelector(state => state.levelsReducer);
+  const { blackTheme } = useAppSelector(state => state.generalReducer);
 
   const congratulations = useTranslation("CONGRATULATIONS");
   const completedLevelText = useTranslation("COMPLETED_LEVEL");
