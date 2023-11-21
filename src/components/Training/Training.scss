@@ -1,4 +1,9 @@
 .training-container {
+  min-height: 400px;
+  .cells-container {
+    animation: var(--animationCells) 0.8s alternate forwards;
+  }
+
   .training-container__warning {
     text-align: center;
     height: 20px;
@@ -20,6 +25,7 @@
     }
   }
   .black-hint button{
+    animation: var(--animationName) 3s alternate forwards;
     background-color: rgb(60, 60, 60);
     border: 1px solid rgb(230, 255, 60);
     background-color: rgb(60, 60, 60);
@@ -41,6 +47,7 @@
   }
 
   .rules {
+    animation: var(--animationName) 0.8s alternate forwards;
     grid-template-columns: 90% 10%;
     cursor: text;
     width: 85%;
@@ -81,5 +88,42 @@
         transform: rotate(-45deg);
       }
     }
+  }
+}
+
+@keyframes disappear-cells {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+}
+
+@keyframes appear-cells {
+  0% {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes disappear {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

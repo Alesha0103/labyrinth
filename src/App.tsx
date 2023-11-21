@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from './hooks/redux';
 import { FinishedLevel } from './components/FinishedLevel/FinishedLevel';
 import { FinishedGame } from './components/FinishedGame/FinishedGame';
 import { setActiveLevel, setDefaultDataBase, setLoader } from './store/actions/LevelsActions';
-import { setLanguage, setTheme } from './store/actions/GeneralActions';
+import { setLanguage, setTheme, setTrainingLevel } from './store/actions/GeneralActions';
 import { Loader } from './components/Loader/Loader';
 import Confetti from "react-confetti";
 import classNames from 'classnames';
@@ -29,12 +29,16 @@ const App = () => {
   const { wellcomePage, blackTheme, training } = useAppSelector(state => state.generalReducer);
 
   const savedLevel = localStorage.getItem("level");
+  const trainingDone = localStorage.getItem("training");
   const savedTheme = localStorage.getItem("theme");
   const savedLanguage = localStorage.getItem("language") as Languages;
 
   const labyrinthText = useTranslation("LABYRINTH");
 
   const updateData = () => {
+    if (trainingDone) {
+      dispatch(setTrainingLevel(false));
+    }
     if (savedLanguage) {
       dispatch(setLanguage(savedLanguage));
     }

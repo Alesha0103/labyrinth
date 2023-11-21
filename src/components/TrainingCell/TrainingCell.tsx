@@ -17,9 +17,19 @@ type TrainingCellType = {
   className?: string,
   handleRule?: any,
   handleWarning? : any,
+  handleAnimation?: any,
+  handleAnimationCell?: any,
 }
 export const TrainingCell:React.FC<TrainingCellType> = (props) => {
-  const {id, rule, className, handleRule, handleWarning} = props;
+  const {
+    id,
+    rule,
+    className,
+    handleRule,
+    handleWarning,
+    handleAnimation,
+    handleAnimationCell,
+  } = props;
 
   const dispatch = useAppDispatch();
   const [color, setColor] = React.useState("");
@@ -42,6 +52,9 @@ export const TrainingCell:React.FC<TrainingCellType> = (props) => {
         }
         break;
       case 2:
+        if (id === 3) {
+          setColor(winnerColor)
+        }
         if (id === 2 || id === 4 || id === 7) {
           setColor(hintColor);
         }
@@ -92,6 +105,7 @@ export const TrainingCell:React.FC<TrainingCellType> = (props) => {
       setColor(winnerColor);
       dispatch(resetWrongCells());
       dispatch(finishLevelPopup(true));
+      localStorage.setItem("training", "done")
       return;
     }
     if (id === 2 || id === 5) {
@@ -112,14 +126,20 @@ export const TrainingCell:React.FC<TrainingCellType> = (props) => {
       setColor(winnerColor);
     }
     if (rule === 3) {
+      handleAnimation("disappear");
+      handleAnimationCell("disappear-cells")
       setTimeout(() => {
         handleRule(rule+1);
-      }, 2000)
+      }, 600)
     }
     if (rule === 6) {
       selectingLastCell()
     }
   }
+
+  React.useEffect(() => {
+    dispatch(resetWrongCells());
+  }, [])
 
   React.useEffect(() => {
     switchRules();

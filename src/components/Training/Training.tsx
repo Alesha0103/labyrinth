@@ -2,15 +2,18 @@ import React from 'react';
 import "./Training.scss"
 import { useAppSelector } from '../../hooks/redux';
 import { TrainingCell } from '../TrainingCell/TrainingCell';
-import { HINT_COLOR, HINT_COLOR_THEME, LOOSER_COLOR, LOOSER_COLOR_THEME } from '../../constants';
+import { LOOSER_COLOR, LOOSER_COLOR_THEME } from '../../constants';
 import classNames from 'classnames';
 
 export const Training = () => {
   const [checked, checkbox] = React.useState(false);
   const [rule, setRule] = React.useState(1);
   const [warning, setWarning] = React.useState("");
+  const [animation, setAnimation] = React.useState("");
+  const [animationCells, setAnimationCells] = React.useState("");
+
   const { trainingLevel, blackTheme } = useAppSelector(state => state.generalReducer);
-  const {isLevelFinished} = useAppSelector(state => state.levelsReducer);
+  const { isLevelFinished } = useAppSelector(state => state.levelsReducer);
 
   const looserColor = blackTheme ? LOOSER_COLOR_THEME : LOOSER_COLOR;
 
@@ -27,7 +30,7 @@ export const Training = () => {
       case 5:
         return <>You can use the hint wich will show you the right way</>
       case 6:
-        return <>Try to find th last cell to finis this level</>
+        return <>Try to find the last cell to finis this level</>
     }
   }
 
@@ -37,54 +40,84 @@ export const Training = () => {
   const handleWarningAsProp = (warning: string) => {
     setWarning(warning);
   }
+  const handleAnimatioAsProp = (name: string) => {
+    setAnimation(name);
+  }
+  const handleAnimationCellAsProp = (name: string) => {
+    setAnimationCells(name);
+  }
 
   const setCheckbox = () => {
     checkbox(true);
+    setAnimation("disappear");
+    setAnimationCells("disappear-cells")
     setTimeout(() => {
       setRule(rule+1);
       checkbox(false);
-    }, 2000)
+    }, 600)
   }
 
+  const animationName: object = {
+    "--animationName": animation
+  }
+  const animationCellsName: object = {
+    "--animationCells": animationCells
+  }
+
+  React.useEffect(() => {
+    if(rule !== 1) {
+      setAnimation("appear");
+      setAnimationCells("appear-cells")
+    }
+  }, [rule])
+
   return (
-    <div className="training-container">
+    <>
       <h2>Training level</h2>
-
-      <div className="rules" style={{
-        display: isLevelFinished ? "none" : "grid",
-        borderColor: "#ff7d7d",
-        backgroundColor: blackTheme ? "#3c3c3c" : "#ffdead55"
-      }}>
-        <p>
-          {switchRules(rule)}
-        </p>
-        <div className="checkbox"
-          onClick={setCheckbox}
-          style={{display: (rule === 3 || rule === 6) ? "none" : "block"}}
-        >
-          <span className="mark" style={{display: !checked ? "none" : "block"}}/>
+      {!isLevelFinished && (<div className="training-container" style={animationName}>
+        <div className="rules" style={{
+          display: isLevelFinished ? "none" : "grid",
+          borderColor: "#ff7d7d",
+          backgroundColor: blackTheme ? "#3c3c3c" : "#ffdead55"
+        }}>
+          <p>
+            {switchRules(rule)}
+          </p>
+          <div className="checkbox"
+            onClick={setCheckbox}
+            style={{display: (rule === 3 || rule === 6) ? "none" : "block"}}
+          >
+            <span className="mark" style={{display: !checked ? "none" : "block"}}/>
+          </div>
         </div>
-      </div>
 
-      {rule === 5 && <div className={classNames("training-container__hint", {
-        "black-hint": blackTheme
-      })}>
-        <button>Show hint</button>
-      </div>}
-      <h3 className="training-container__warning" style={{color: looserColor}}>{warning}</h3>
+        {rule === 5 && <div className={classNames("training-container__hint", {
+          "black-hint": blackTheme
+          })}
+          style={animationName}
+        >
+          <button>Show hint</button>
+        </div>}
 
-      <div className="training-cells">
-        {trainingLevel.cells.map(cell => {
-          return <TrainingCell
-            key={cell.id}
-            rule={rule}
-            id={cell.id}
-            handleRule={handleRuleAsProp}
-            handleWarning={handleWarningAsProp}
-            className="cell"
-          />
-        })}
-      </div>
-    </div>
+        <div className="cells-container" style={animationCellsName}>
+          <h3 className="training-container__warning" style={{color: looserColor}}>{warning}</h3>
+
+          <div className="training-cells">
+            {trainingLevel.cells.map(cell => {
+              return <TrainingCell
+                key={cell.id}
+                rule={rule}
+                id={cell.id}
+                handleRule={handleRuleAsProp}
+                handleWarning={handleWarningAsProp}
+                handleAnimation={handleAnimatioAsProp}
+                handleAnimationCell={handleAnimationCellAsProp}
+                className="cell"
+              />
+            })}
+          </div>
+        </div>
+      </div>)}
+    </>
   )
 }
