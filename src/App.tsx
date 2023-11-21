@@ -15,6 +15,7 @@ import classNames from 'classnames';
 import { useTranslation } from './hooks/useTranslations';
 import { Header } from './components/Header/Header';
 import { Languages } from './models/IGeneral';
+import { Training } from './components/Training/Training';
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -25,7 +26,7 @@ const App = () => {
     isLoading,
   } = useAppSelector(state => state.levelsReducer);
 
-  const { wellcomePage, blackTheme } = useAppSelector(state => state.generalReducer);
+  const { wellcomePage, blackTheme, training } = useAppSelector(state => state.generalReducer);
 
   const savedLevel = localStorage.getItem("level");
   const savedTheme = localStorage.getItem("theme");
@@ -52,6 +53,17 @@ const App = () => {
     setTimeout(() => {
       dispatch(setLoader(false));
     }, 1500);
+  }
+
+  const renderComponent = () => {
+    if (training) {
+      return <Training/>
+    }
+    if (isGameFinished) {
+      return <FinishedGame/>
+    } else {
+      return <Labyrinth/>
+    }
   }
 
   React.useEffect(() => {
@@ -82,7 +94,7 @@ const App = () => {
         <h1>
           {labyrinthText}
         </h1>
-        {!isGameFinished ? <Labyrinth/> : <FinishedGame/>}
+        {renderComponent()}
       </div>
 
       <Modal>

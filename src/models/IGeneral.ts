@@ -12,4 +12,5 @@ export interface GeneralAppState {
   language: Languages,
   trainingLevel: IStage,
   training: boolean,
+  chosenWrongCells: number[],
 }

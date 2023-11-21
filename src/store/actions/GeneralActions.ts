@@ -23,3 +23,6 @@ export const setTheme = (blackTheme: boolean) => generalAppActions.setTheme(blac
 export const hideWellcomePage = () => generalAppActions.hideWellcomePage();
 export const setTranslation = ({language, translation}: { language: Languages, translation: { [key:string]: string } }) => 
   generalAppActions.setTranslation({language, translation});
+export const setTrainingLevel = (active: boolean) => generalAppActions.setTrainingLevel(active);
+export const chooseTrainingCell = (cellId: number) => generalAppActions.chooseCell(cellId);
+export const resetWrongCells = () => generalAppActions.resetWrongCells();

@@ -1,0 +1,85 @@
+.training-container {
+  .training-container__warning {
+    text-align: center;
+    height: 20px;
+  }
+  .training-container__hint {
+    display: flex;
+    justify-content: end;
+    button {
+      font-size: 20px;
+      font-family: 'Oswald', sans-serif;
+      padding: 10px;
+      cursor: default;
+  
+      border: 1px solid rgb(255, 200, 0);
+      border-radius: 15px;
+      color: rgb(255, 200, 0);
+      background-color: rgb(255, 244, 230);
+      box-shadow: 0px 0px 10px rgb(255, 200, 0);
+    }
+  }
+  .black-hint button{
+    background-color: rgb(60, 60, 60);
+    border: 1px solid rgb(230, 255, 60);
+    background-color: rgb(60, 60, 60);
+    color: rgb(230, 255, 60);
+    box-shadow: 0px 0px 10px rgb(230, 255, 60);
+  }
+
+  .training-cells {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(4, 75px);
+    grid-template-rows: repeat(3, 75px);
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .cell {
+    border: 2px solid rgb(135, 210, 135);
+    border-radius: 5px;
+  }
+
+  .rules {
+    grid-template-columns: 90% 10%;
+    cursor: text;
+    width: 85%;
+    margin: 20px auto;
+    border-left: 2px solid transparent;
+    font-family: 'Oswald', sans-serif;
+    font-size: 16px;
+    overflow: auto;
+
+    p {
+      margin: 15px;
+      margin-right: 5px;
+      color: rgb(255, 125, 125);
+      .green {
+        color: rgb(135, 210, 135);
+      }
+      .yellow {
+        color: rgb(255 184 0);
+      }
+    }
+
+    .checkbox {
+      display: block;
+      position: relative;
+      width: 20px;
+      height: 20px;
+      align-self: center;
+      cursor: pointer;
+      border: 2px solid rgba(255, 125, 125, 0.55);
+      border-radius: 5px;
+
+      .mark {
+        width: 12px;
+        height: 7px;
+        margin: 2px;
+        border-left: 4px solid rgb(135, 210, 135);
+        border-bottom: 4px solid rgb(135, 210, 135);
+        transform: rotate(-45deg);
+      }
+    }
+  }
+}

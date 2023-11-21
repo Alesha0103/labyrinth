@@ -162,7 +162,6 @@ export const Cell: React.FC<CellPropsType> = ({cell}) => {
     <div className="cell" onClick={onClickHandle} style={{
       backgroundColor: color,
       borderColor: color && "transparent",
-      transform: color && "scale(0.99)"
     }}/>
   )
 }

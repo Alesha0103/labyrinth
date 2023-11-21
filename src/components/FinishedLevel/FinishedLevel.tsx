@@ -6,6 +6,7 @@ import { setWarning } from '../../store/actions/CellsAction';
 import { Warning } from '../../models/ICells';
 import classNames from 'classnames';
 import { useTranslation } from '../../hooks/useTranslations';
+import { setTrainingLevel } from '../../store/actions/GeneralActions';
 
 export const FinishedLevel = () => {
   const dispatch = useAppDispatch();
@@ -18,6 +19,7 @@ export const FinishedLevel = () => {
   const onClickHandler = () => {
     dispatch(finishLevelPopup(false));
     dispatch(disableHints(false));
+    dispatch(setTrainingLevel(false));
   }
 
   React.useEffect(() => {

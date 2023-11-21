@@ -16,7 +16,7 @@ export const defaultTranslation: {[key: string]: string} = {
   FINISH_STAGE: "You've made this stage!",
   WASTED_STAGE: "Wasted! Loading new stage...",
   WARNING: "Cell is already selected",
-  WARNING_ERROR: "Follow the rools!",
+  WARNING_ERROR: "Follow the rules!",
   WARNING_LAST_STAGE: "You are close! Don't give up!",
   SHOW_HINT: "Show hint",
   WAS_NOT_UPDATED: "Level was not updated",
