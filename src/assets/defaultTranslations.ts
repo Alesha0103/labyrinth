@@ -22,4 +22,12 @@ export const defaultTranslation: {[key: string]: string} = {
   WAS_NOT_UPDATED: "Level was not updated",
   ERROR: "Ooh, an ERROR...",
   DEFAULT_ERROR: "It looks like this troll has hacked the Labyrinth.",
+
+  TRAINING_LEVEL: "Training level",
+  RULE_1: "You are standing at the green cell right now",
+  RULE_2: "You can move to any of these yellow cells, but only one is right",
+  RULE_3: "Click on yellow cell to choose it",
+  RULE_4: "If you try to go back or choose the cell which is not adjacent then the game will show you an error popup",
+  RULE_5: "You can use the hint wich will show you the right way",
+  RULE_6: "Try to find the last cell to finis this level",
 };

@@ -4,6 +4,8 @@ import { useAppSelector } from '../../hooks/redux';
 import { TrainingCell } from '../TrainingCell/TrainingCell';
 import { LOOSER_COLOR, LOOSER_COLOR_THEME } from '../../constants';
 import classNames from 'classnames';
+import { useTranslation } from '../../hooks/useTranslations';
+import { Languages } from '../../models/IGeneral';
 
 export const Training = () => {
   const [checked, checkbox] = React.useState(false);
@@ -12,25 +14,65 @@ export const Training = () => {
   const [animation, setAnimation] = React.useState("");
   const [animationCells, setAnimationCells] = React.useState("");
 
-  const { trainingLevel, blackTheme } = useAppSelector(state => state.generalReducer);
+  const { language, trainingLevel, blackTheme } = useAppSelector(state => state.generalReducer);
   const { isLevelFinished } = useAppSelector(state => state.levelsReducer);
 
   const looserColor = blackTheme ? LOOSER_COLOR_THEME : LOOSER_COLOR;
 
+  const rule1 = useTranslation("RULE_1");
+  const rule2 = useTranslation("RULE_2");
+  const rule3 = useTranslation("RULE_3");
+  const rule4 = useTranslation("RULE_4");
+  const rule5 = useTranslation("RULE_5");
+  const rule6 = useTranslation("RULE_6");
+  const levelText = useTranslation("TRAINING_LEVEL");
+  const hintText = useTranslation("SHOW_HINT");
+  const warningText = useTranslation(warning);
+
   const switchRules = (rule: number) => {
     switch (rule) {
       case 1:
-        return <>You are standing at the <span className="green">green</span> cell right now</>
+        return (
+          language === Languages.USA ?
+            <span dangerouslySetInnerHTML={{ __html: rule1!.replace(
+              "green",
+              '<span class="green">green</span>'
+            )}}/>
+            : <span dangerouslySetInnerHTML={{ __html: rule1!.replace(
+              "зеленій",
+              '<span class="green">зеленій</span>'
+            )}}/>
+        );
       case 2:
-        return <>You can move to any of these <span className="yellow">yellow</span> cells, but only one is right</>
+        return (
+          language === Languages.USA ?
+            <span dangerouslySetInnerHTML={{ __html: rule2!.replace(
+              "yellow",
+              '<span class="yellow">yellow</span>'
+            )}}/>
+            : <span dangerouslySetInnerHTML={{ __html: rule2!.replace(
+              "жовту",
+              '<span class="yellow">жовту</span>'
+            )}}/>
+        );
       case 3:
-        return <>Click on <span className="yellow">yellow</span> cell to choose it</>
+        return (
+          language === Languages.USA ?
+            <span dangerouslySetInnerHTML={{ __html: rule3!.replace(
+              "yellow",
+              '<span class="yellow">yellow</span>'
+            )}}/>
+            : <span dangerouslySetInnerHTML={{ __html: rule3!.replace(
+              "жовту",
+              '<span class="yellow">жовту</span>'
+            )}}/>
+        );
       case 4:
-        return <>If you try to go back or choose the cell which is not adjacent then the game will show you an error popup</>
+        return rule4;
       case 5:
-        return <>You can use the hint wich will show you the right way</>
+        return rule5;
       case 6:
-        return <>Try to find the last cell to finis this level</>
+        return rule6;
     }
   }
 
@@ -73,7 +115,7 @@ export const Training = () => {
 
   return (
     <>
-      <h2>Training level</h2>
+      <h2>{levelText}</h2>
       {!isLevelFinished && (<div className="training-container" style={animationName}>
         <div className="rules" style={{
           display: isLevelFinished ? "none" : "grid",
@@ -96,11 +138,11 @@ export const Training = () => {
           })}
           style={animationName}
         >
-          <button>Show hint</button>
+          <button>{hintText}</button>
         </div>}
 
         <div className="cells-container" style={animationCellsName}>
-          <h3 className="training-container__warning" style={{color: looserColor}}>{warning}</h3>
+          <h3 className="training-container__warning" style={{color: looserColor}}>{warningText}</h3>
 
           <div className="training-cells">
             {trainingLevel.cells.map(cell => {

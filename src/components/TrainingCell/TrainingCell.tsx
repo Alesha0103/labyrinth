@@ -69,7 +69,7 @@ export const TrainingCell:React.FC<TrainingCellType> = (props) => {
         }
         break;
       case 4:
-        handleWarning("Follow the rules!");
+        handleWarning("WARNING_ERROR");
         if (id === 3 || id === 7) {
           setColor(winnerColor);
         }
@@ -109,16 +109,16 @@ export const TrainingCell:React.FC<TrainingCellType> = (props) => {
       return;
     }
     if (id === 2 || id === 5) {
-      handleWarning("You are close! Don't give up!");
+      handleWarning("WARNING_LAST_STAGE");
       dispatch(chooseTrainingCell(id));
       setColor(looserColor);
       return;
     }
     if (id === 3 || id === 6 || id === 7) {
-      handleWarning("Cell is already selected");
+      handleWarning("WARNING");
       return;
     }
-    handleWarning("Follow the rules!");
+    handleWarning("WARNING_ERROR");
   }
 
   const handleClick = () => {
