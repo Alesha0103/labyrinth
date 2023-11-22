@@ -1,4 +1,4 @@
-.wellcome-view {
+.wellcome-container {
   padding-top: 120px;
   position: fixed;
   top: 0;
@@ -7,8 +7,10 @@
   height: 100vh;
   font-family: 'Nunito', sans-serif;
   background-color: rgb(255, 244, 230);
-  position: 1;
-
+  z-index: 1;
+}
+.wellcome-view {
+  animation: appear 1.5s alternate forwards;
   display: flex;
   flex-direction: column;
   .img {
@@ -74,8 +76,11 @@
 
 // BLACK THEME
 
-.black-wellcome {
+.wellcome-container__black {
   background-color: rgb(32, 32, 32);
+}
+
+.wellcome-view__black {
   h1 {
     color: rgb(255, 95, 95);
     text-shadow: 0 0 0 rgb(205, 100, 100), 0 0 10px rgb(205, 100, 100), 0 0 0 rgb(205, 100, 100);
@@ -93,5 +98,14 @@
       box-shadow: 0px 0px 15px 7px rgb(255, 95, 95);
       text-shadow:  rgb(255, 95, 95) 1px 0 3px;
     }
+  }
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

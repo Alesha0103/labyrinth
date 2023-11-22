@@ -17,23 +17,26 @@ import UA from '../../assets/ua_flag.png';
 import USA from '../../assets/usa_flag.png';
 import classNames from 'classnames';
 import { Languages } from '../../models/IGeneral';
-import { setLanguage } from '../../store/actions/GeneralActions';
+import { openLanguagesButtons, setLanguage } from '../../store/actions/GeneralActions';
 
 export const LanguageButtons = () => {
   const dispatch = useAppDispatch();
-  const [visible, setVisible] = React.useState<boolean | null>(null);
   const flagRef = React.useRef<HTMLDivElement | null>(null);
+
+  const [initial, setInitial] = React.useState(true);
 
   const {
     isLevelFinished,
     isGameFinished,
     error: { active },
   } = useAppSelector((state) => state.levelsReducer);
-  const { language, wellcomePage,blackTheme } = useAppSelector(state => state.generalReducer);
+
+  const { language, languagesOpened, wellcomePage,blackTheme } = useAppSelector(state => state.generalReducer);
 
   const chooseLanguage = (lang: Languages) => () => {
     localStorage.setItem("language", lang);
     dispatch(setLanguage(lang));
+    setInitial(true);
   }
 
   const chooseColor = (disabled: boolean): string => {
@@ -96,24 +99,34 @@ export const LanguageButtons = () => {
   }
 
   const handleButtons = () => {
-    setVisible(!visible);
+    if (initial) {
+      setInitial(false);
+    }
+    dispatch(openLanguagesButtons(!languagesOpened));
   }
 
   const handleClickOutside = (event: any) => {
     if (flagRef.current && !flagRef.current.contains(event.target)) {
-      setVisible(false);
+      dispatch(openLanguagesButtons(false));
     }
   }
 
+  const buttonsStyles = {
+    "--firstButtonAnimation": !initial ? "slideFirstButton" : "",
+    "--secondButtonAnimation": !initial ? "slideSecondButton" : "",
+    "--buttonsOpacity": !initial ? 0 : 1,
+    backgroundColor: switchFlagBg()
+  }
+
   React.useEffect(() => {
-    if (visible === true) {
+    if (languagesOpened === true) {
       document.addEventListener('click', handleClickOutside);
     }
 
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [visible]);
+  }, [languagesOpened]);
 
   return (
     <div className="languages-container" ref={flagRef}>
@@ -121,10 +134,11 @@ export const LanguageButtons = () => {
         {checkFlag()}
       </div>
       <div className={classNames("buttons", {
-          ["show-buttons"]: visible,
-          ["hide-buttons"]: visible === false,
+          ["initial-buttons"]: initial && languagesOpened,
+          ["show-buttons"]: !initial && languagesOpened,
+          ["hide-buttons"]: !languagesOpened && !initial,
         })}
-        style={{ backgroundColor: switchFlagBg()}}
+        style={buttonsStyles}
       >
         <button
           disabled={language === Languages.USA}

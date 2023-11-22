@@ -7,9 +7,15 @@
   z-index: 10;
 }
 .header {
+  animation: appear 2s alternate forwards;
   display: flex;
   justify-content: space-between;
   margin: auto;
   margin-top: 50px;
   width: 70%;
+}
+
+@keyframes appear {
+  0% { opacity: 0 }
+  100% {opacity: 1}
 }

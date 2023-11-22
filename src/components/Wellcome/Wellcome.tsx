@@ -25,17 +25,19 @@ export const Wellcome = () => {
   }
 
   return (
-    <div className={classNames("wellcome-view", {"black-wellcome": blackTheme})}>
-      <h1>{greetingsText}</h1>
-      <div className="img">
-        <img src={Troll} alt="troll_pic" />
+    <div className={classNames("wellcome-container", {"wellcome-container__black": blackTheme})}>
+      <div className={classNames("wellcome-view", {"wellcome-view__black": blackTheme})}>
+        <h1>{greetingsText}</h1>
+        <div className="img">
+          <img src={Troll} alt="troll_pic" />
+        </div>
+        <div className="explanation">
+          <span>{enterText}</span>       
+          <span className="rules">{rulesTopicText}</span>
+          <p>{rulesText}</p>
+        </div>
+        <button onClick={hideThisPage}>{startButtonText}</button>
       </div>
-      <div className="explanation">
-        <span>{enterText}</span>       
-        <span className="rules">{rulesTopicText}</span>
-        <p>{rulesText}</p>
-      </div>
-      <button onClick={hideThisPage}>{startButtonText}</button>
     </div>
   )
 }

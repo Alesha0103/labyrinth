@@ -1,0 +1,7 @@
+.appear {
+  animation: appear 2s alternate forwards;
+}
+@keyframes appear {
+  0% { opacity: 0 }
+  100% {opacity: 1}
+}

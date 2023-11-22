@@ -6,6 +6,7 @@ const initialState: GeneralAppState = {
   wellcomePage: true,
   translation: {},
   language: Languages.USA,
+  languagesOpened: false,
 
   chosenWrongCells: [],
   training: true,
@@ -51,10 +52,13 @@ const generalSlice = createSlice({
       state.training = action.payload;
     },
     chooseCell(state, action: PayloadAction<number>) {
-      state.chosenWrongCells = [...state.chosenWrongCells, action.payload]
+      state.chosenWrongCells = [...state.chosenWrongCells, action.payload];
     },
     resetWrongCells(state) {
-      state.chosenWrongCells = []
+      state.chosenWrongCells = [];
+    },
+    openLanguagesButtons(state, action: PayloadAction<boolean>) {
+      state.languagesOpened = action.payload;
     }
   }
 });

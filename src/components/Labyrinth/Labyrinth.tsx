@@ -20,14 +20,18 @@ export const Labyrinth = () => {
   }, [level]);
 
   if (error.active) {
-    return <ErrorPage />
+    return (
+      <div className="appear">
+        <ErrorPage />
+      </div>
+    )
   }
 
   return (
-    <>
+    <div key={level} className="appear">
       <h2>{levelText}{level}</h2>
       <Stage />
       <NotifyOverlay />
-    </>
+    </div>
   )
 }

@@ -26,3 +26,4 @@ export const setTranslation = ({language, translation}: { language: Languages, t
 export const setTrainingLevel = (active: boolean) => generalAppActions.setTrainingLevel(active);
 export const chooseTrainingCell = (cellId: number) => generalAppActions.chooseCell(cellId);
 export const resetWrongCells = () => generalAppActions.resetWrongCells();
+export const openLanguagesButtons = (state: boolean) => generalAppActions.openLanguagesButtons(state);

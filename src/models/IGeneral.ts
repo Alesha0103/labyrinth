@@ -10,6 +10,7 @@ export interface GeneralAppState {
   wellcomePage: boolean,
   translation: { [key:string]: string },
   language: Languages,
+  languagesOpened: boolean,
   trainingLevel: IStage,
   training: boolean,
   chosenWrongCells: number[],
