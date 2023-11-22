@@ -37,7 +37,6 @@ export const checkIfGameFinished = createAsyncThunk(
     try {
       const res = await axios.get<boolean>(`http://localhost:5000/check-the-end`);
       if(res && !res.data) {
-        thunckAPI.dispatch(setActiveLevel(levelID));
         thunckAPI.dispatch(finishLevelPopup(true));
       } else if (res && res.data) {
         thunckAPI.dispatch(finishGame());

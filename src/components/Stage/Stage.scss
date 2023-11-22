@@ -3,6 +3,7 @@
   grid-gap: 10px;
   justify-content: center;
   margin-top: 20px;
+  animation: appear 1s alternate forwards;
 }
 
 .cell {
@@ -16,5 +17,5 @@
 .warning {
   height: 20px;
   text-align: center;
-  margin-top: 70px;
+  margin-top: 60px;
 }

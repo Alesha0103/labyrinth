@@ -65,10 +65,13 @@ export const Stage: React.FC = () => {
     <>
       <h3 className="warning" style={{color: warningColor}}>{warningText}</h3>
       {!!hints && <Hints hints={hints}/>}
-      <div className="stage" style={{
-          gridTemplateColumns: `repeat(${geometry?.columns}, 75px)`,
-          gridTemplateRows: `repeat(${geometry?.rows}, 75px)`,
-      }}>
+      <div className="stage"
+        key={activeStageID}
+          style={{
+            gridTemplateColumns: `repeat(${geometry?.columns}, 75px)`,
+            gridTemplateRows: `repeat(${geometry?.rows}, 75px)`,
+          }}
+      >
         {cells.map(cell => {
           return <Cell key={cell.id} cell={cell}/>
         })}

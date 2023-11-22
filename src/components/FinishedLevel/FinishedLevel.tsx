@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { disableHints, finishLevelPopup } from '../../store/actions/LevelsActions';
+import { disableHints, finishLevelPopup, setActiveLevel } from '../../store/actions/LevelsActions';
 
 import { setWarning } from '../../store/actions/CellsAction';
 import { Warning } from '../../models/ICells';
@@ -11,6 +11,7 @@ import { setTrainingLevel } from '../../store/actions/GeneralActions';
 export const FinishedLevel = () => {
   const dispatch = useAppDispatch();
   const { blackTheme } = useAppSelector(state => state.generalReducer);
+  const { level } = useAppSelector(state => state.levelsReducer);
 
   const congratulations = useTranslation("CONGRATULATIONS");
   const completedLevelText = useTranslation("COMPLETED_LEVEL");
@@ -20,6 +21,7 @@ export const FinishedLevel = () => {
     dispatch(finishLevelPopup(false));
     dispatch(disableHints(false));
     dispatch(setTrainingLevel(false));
+    dispatch(setActiveLevel(level+1));
   }
 
   React.useEffect(() => {
