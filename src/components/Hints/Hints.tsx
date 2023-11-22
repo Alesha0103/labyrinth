@@ -16,7 +16,7 @@ export const Hints: React.FC<HintsProps> = ({hints}) => {
   const dispatch = useAppDispatch();
   const [hintIDs, setHintIDs] = React.useState<number[]>([]);
   const [freeHints, setFreeHints] = React.useState<number[]>([]);
-  const [count, setCount] = React.useState<number>(20);
+  const [count, setCount] = React.useState<number>(10);
 
   const { level, stages, activeStageID, disableHints, hintIndicator } = useAppSelector(state => state.levelsReducer);
   const { blackTheme } = useAppSelector(state => state.generalReducer);
@@ -53,13 +53,12 @@ export const Hints: React.FC<HintsProps> = ({hints}) => {
   }
 
   React.useEffect(() => {
-    setCount(20);
+    setCount(10);
   }, [stages])
 
   React.useEffect(() => {
     if (hintIndicator || disableHints || !freeHints.length) {
-      setCount(20);
-      return;
+      setCount(10);
     }
     const timer = setInterval(() => {
       setCount((prevCount) => {

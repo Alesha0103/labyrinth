@@ -21,12 +21,14 @@ export const NotifyOverlay = () => {
   
   return (
     <div className={classNames("overlay", { "black-notify-overlay": blackTheme })}>
-      <div className="img">
-        {winerOverlay && <img src={GreenTroll} alt="green_troll" />}
-        {loserOverlay && <img src={RedTroll} alt="pink_troll" />}
+      <div className="animation-container">
+        <div className="img">
+          {winerOverlay && <img src={GreenTroll} alt="green_troll" />}
+          {loserOverlay && <img src={RedTroll} alt="pink_troll" />}
+        </div>
+        {winerOverlay && <h3 style={{color: WINNER_COLOR, backgroundColor: blackTheme ? WINNER_COLOR_THEME : undefined}}>{finishStageText}</h3>}
+        {loserOverlay && <h3 style={{backgroundColor: blackTheme ? LOOSER_COLOR_THEME : undefined}}>{wastedStageText}</h3>}
       </div>
-      {winerOverlay && <h3 style={{color: WINNER_COLOR, backgroundColor: blackTheme ? WINNER_COLOR_THEME : undefined}}>{finishStageText}</h3>}
-      {loserOverlay && <h3 style={{backgroundColor: blackTheme ? LOOSER_COLOR_THEME : undefined}}>{wastedStageText}</h3>}
     </div>
   )
 }

@@ -1,7 +1,7 @@
 .hints {
   position: absolute;
   top: 140px;
-  right: 8vw;
+  right: 10vw;
 
   button {
     font-size: 20px;
@@ -98,6 +98,7 @@
   100% {
     border: 1px solid rgba(135, 210, 135, 0.5);
     box-shadow: 0px 0px 12px rgb(0, 155, 0);
+    transform: scale(1.2);
   }
 }
 
@@ -109,6 +110,8 @@
   100% {
     background-color: rgb(60, 60, 60);
     box-shadow: 0px 0px 15px rgb(170, 255, 170);
+    transform: scale(1.05);
+    padding: 10px;
   }
 }
 

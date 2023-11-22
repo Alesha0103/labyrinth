@@ -10,7 +10,7 @@ import { setTrainingLevel } from '../../store/actions/GeneralActions';
 
 export const FinishedLevel = () => {
   const dispatch = useAppDispatch();
-  const { blackTheme } = useAppSelector(state => state.generalReducer);
+  const { training, blackTheme } = useAppSelector(state => state.generalReducer);
   const { level } = useAppSelector(state => state.levelsReducer);
 
   const congratulations = useTranslation("CONGRATULATIONS");
@@ -21,7 +21,7 @@ export const FinishedLevel = () => {
     dispatch(finishLevelPopup(false));
     dispatch(disableHints(false));
     dispatch(setTrainingLevel(false));
-    dispatch(setActiveLevel(level+1));
+    dispatch(setActiveLevel(training? 1 : level+1));
   }
 
   React.useEffect(() => {
