@@ -1,39 +1,30 @@
 import React from 'react';
 import './App.scss';
 
-import { Labyrinth } from './components/Labyrinth/Labyrinth';
 import { Modal } from './components/Modal/Modal';
-import { Wellcome } from './components/Wellcome/Wellcome';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
 import { FinishedLevel } from './components/FinishedLevel/FinishedLevel';
 import { FinishedGame } from './components/FinishedGame/FinishedGame';
 import { setActiveLevel, setDefaultDataBase, setLoader } from './store/actions/LevelsActions';
 import { setLanguage, setTheme, setTrainingLevel } from './store/actions/GeneralActions';
 import { Loader } from './components/Loader/Loader';
-import Confetti from "react-confetti";
-import classNames from 'classnames';
-import { useTranslation } from './hooks/useTranslations';
 import { Header } from './components/Header/Header';
 import { Languages } from './models/IGeneral';
-import { Training } from './components/Training/Training';
+import { AppConfetti } from './components/AppConfetti/AppConfetti';
+import { Pages } from './components/Pages/Pages';
 
 const App = () => {
   const dispatch = useAppDispatch();
   const {
     isLevelFinished,
     isGameFinished,
-    error,
     isLoading,
   } = useAppSelector(state => state.levelsReducer);
-
-  const { wellcomePage, blackTheme, training } = useAppSelector(state => state.generalReducer);
 
   const savedLevel = localStorage.getItem("level");
   const trainingDone = localStorage.getItem("training");
   const savedTheme = localStorage.getItem("theme");
   const savedLanguage = localStorage.getItem("language") as Languages;
-
-  const labyrinthText = useTranslation("LABYRINTH");
 
   const updateData = () => {
     if (trainingDone) {
@@ -59,54 +50,24 @@ const App = () => {
     }, 1500);
   }
 
-  const renderComponent = () => {
-    if (wellcomePage) {
-      return <Wellcome/>
-    }
-    if (training) {
-      return <Training/>
-    }
-    if (isGameFinished) {
-      return null;
-    } 
-    return <Labyrinth/>
-  }
-
   React.useEffect(() => {
     updateData();
   }, [])
 
   if (isLoading) {
-    return (
-      <div className={classNames("app-background", {"black-bg": blackTheme})}>
-        <Loader />
-      </div>
-    )
+    return <Loader appLoader={true}/>
   }
 
   return (
     <>
       <Header />
-      <div className={classNames("app-overlay", {"black-overlay": blackTheme})}>
-        {isGameFinished && <Confetti height={2000}/>}
-      </div>
-      <div className={classNames("app-background", {"black-bg": blackTheme})} />
+      <AppConfetti />
+      <Pages/>
 
-      <div className={classNames("app", {
-          "black-app": blackTheme,
-          "winner-bg": isLevelFinished || isGameFinished,
-          "black-winner-bg": (isLevelFinished || isGameFinished) && blackTheme,
-        })}>
-        <h1>
-          {labyrinthText}
-        </h1>
-        {renderComponent()}
-
-        <Modal>
-          {isGameFinished && <FinishedGame/>}
-          {isLevelFinished && <FinishedLevel/>}
-        </Modal>
-      </div>
+      <Modal>
+        {isGameFinished && <FinishedGame/>}
+        {isLevelFinished && <FinishedLevel/>}
+      </Modal>
     </>
   );
 }
