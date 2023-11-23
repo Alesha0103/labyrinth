@@ -8,6 +8,8 @@ import classNames from 'classnames';
 import { useTranslation } from '../../hooks/useTranslations';
 import { setTrainingLevel } from '../../store/actions/GeneralActions';
 
+import "./FinishedLevel.scss"
+
 export const FinishedLevel = () => {
   const dispatch = useAppDispatch();
   const { training, blackTheme } = useAppSelector(state => state.generalReducer);

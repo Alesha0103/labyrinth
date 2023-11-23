@@ -60,14 +60,16 @@ const App = () => {
   }
 
   const renderComponent = () => {
+    if (wellcomePage) {
+      return <Wellcome/>
+    }
     if (training) {
       return <Training/>
     }
     if (isGameFinished) {
-      return <FinishedGame/>
-    } else {
-      return <Labyrinth/>
-    }
+      return null;
+    } 
+    return <Labyrinth/>
   }
 
   React.useEffect(() => {
@@ -99,12 +101,12 @@ const App = () => {
           {labyrinthText}
         </h1>
         {renderComponent()}
-      </div>
 
-      <Modal>
-        {wellcomePage && !error.active && <Wellcome/>}
-        {isLevelFinished && <FinishedLevel/>}
-      </Modal>
+        <Modal>
+          {isGameFinished && <FinishedGame/>}
+          {isLevelFinished && <FinishedLevel/>}
+        </Modal>
+      </div>
     </>
   );
 }

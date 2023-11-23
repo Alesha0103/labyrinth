@@ -1,8 +1,8 @@
 .finished-game-page {
+  z-index: 2;
   animation: appear 2s alternate forwards;
-  width: 400px;
+  width: 100%;
   margin: auto;
-  margin-top: 115px;
   padding: 45px 0;
   box-shadow: 0px 0px 10px 3px rgb(135, 210, 135);
   color: rgb(135, 210, 135);
