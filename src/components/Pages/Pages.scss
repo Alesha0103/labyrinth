@@ -6,10 +6,10 @@
   animation: appear 2s alternate forwards;
   position: relative;
   z-index: 2;
-  width: 50vw;
+  max-width: 485px;
   min-height: 445px;
   margin: auto;
-  margin-top: 150px;
+  margin-top: 180px;
   background-color: rgb(255, 244, 230);
   box-shadow: 0px 0px 35px 5px rgb(205, 100, 100);
   border-radius: 50px;
@@ -53,4 +53,36 @@
 @keyframes appear {
   0% { opacity: 0 }
   100% {opacity: 1}
+}
+
+@media (max-width: 768px) {
+  .app {
+    margin: 100px auto;
+    padding: 25px 10px;
+    h1 {
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+    h2 {
+      font-size: 20px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .app {
+    margin: 100px 35px 25px;
+  }
+}
+
+@media (max-width: 400px) {
+  .app {
+    margin: 100px 10px 10px;
+    h1 {
+      font-size: 18px;
+    }
+    h2 {
+      font-size: 14px;
+    }
+  }
 }

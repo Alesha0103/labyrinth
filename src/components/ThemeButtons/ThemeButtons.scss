@@ -25,3 +25,22 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .handle-theme {
+    button {
+      padding: 3px 5px;
+      font-size: 12px;
+    }
+    :last-child {
+      margin-left: 0;
+    }
+  }
+}
+
+@media (max-width: 270px) {
+  .handle-theme {
+    display: flex;
+    flex-direction: column;
+  }
+}

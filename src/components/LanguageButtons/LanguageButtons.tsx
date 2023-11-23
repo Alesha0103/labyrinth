@@ -10,7 +10,7 @@ import {
   WINNER_COLOR,
 } from "../../constants";
 import { NAVAJOWHITE_COLOR } from '../../constants';
-import { MILK_TEXT_COLOR } from '../../constants';
+import { MILK_COLOR } from '../../constants';
 import { GREEN_TITLE_COLOR } from '../../constants';
 
 import UA from '../../assets/ua_flag.png';
@@ -41,13 +41,13 @@ export const LanguageButtons = () => {
 
   const chooseColor = (disabled: boolean): string => {
     if (!blackTheme && !wellcomePage && !disabled){
-      return MILK_TEXT_COLOR;
+      return MILK_COLOR;
     }
     if (!blackTheme && (isLevelFinished || isGameFinished)) {
       return GREEN_TITLE_COLOR;
     }
     if (!blackTheme && active && disabled) {
-      return MILK_TEXT_COLOR;
+      return MILK_COLOR;
     }
     if (blackTheme && (isLevelFinished || isGameFinished)) {
       return WINNER_COLOR;
@@ -70,7 +70,7 @@ export const LanguageButtons = () => {
         if (!blackTheme && wellcomePage) {
           return NAVAJOWHITE_COLOR;
         }
-      return MILK_TEXT_COLOR;
+      return MILK_COLOR;
 
       default:
         return "transparent";

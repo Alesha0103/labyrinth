@@ -1,18 +1,25 @@
-.wellcome-container {
+.wellcome-view {
   padding-top: 120px;
+
   position: fixed;
   top: 0;
+  bottom: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  font-family: 'Nunito', sans-serif;
+  right: 0;
+  z-index: 5;
+
+  overflow-y: auto;
+
   background-color: rgb(255, 244, 230);
-  z-index: 2;
-}
-.wellcome-view {
-  animation: appear 1.5s alternate forwards;
+  font-family: 'Nunito', sans-serif;
   display: flex;
   flex-direction: column;
+  .animation {
+    animation: appear 1.5s alternate forwards;
+    font-family: 'Nunito', sans-serif;
+    display: flex;
+    flex-direction: column;
+  }
   .img {
     display: none;
     margin: 0 auto;
@@ -20,6 +27,9 @@
       display: block;
       width: 150px;
       height: 150px;
+    }
+    img {
+      width: 100%;
     }
   }
   h1 {
@@ -58,7 +68,7 @@
   button {
     cursor: pointer;
     align-self: center;
-    margin-top: 50px;
+    margin: 50px 0;
     width: 150px;
     padding: 25px;
     border-radius: 15px;
@@ -76,11 +86,8 @@
 
 // BLACK THEME
 
-.wellcome-container__black {
-  background-color: rgb(32, 32, 32);
-}
-
 .wellcome-view__black {
+  background-color: rgb(32, 32, 32);
   h1 {
     color: rgb(255, 95, 95);
     text-shadow: 0 0 0 rgb(205, 100, 100), 0 0 10px rgb(205, 100, 100), 0 0 0 rgb(205, 100, 100);
@@ -107,5 +114,28 @@
   }
   100% {
     opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .wellcome-view {
+    h1 {
+      font-size: 22px;
+      margin: 15px 0;
+    }
+    .img {
+      width: 120px;
+      height: 120px;
+    }
+    .explanation {
+      padding: 0 20px;
+      width: fit-content;
+      font-size: 16px;
+    }
+    button {
+      margin-top: 25px;
+      width: unset;
+      padding: 20px;
+    }
   }
 }

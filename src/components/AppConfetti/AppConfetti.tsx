@@ -11,10 +11,9 @@ export const AppConfetti = () => {
   const { blackTheme } = useAppSelector(state => state.generalReducer);
   return (
     <>
-      <div className={classNames("app-overlay", {"black-overlay": blackTheme})}>
+      <div className={classNames("app-overlay", {"app-overlay__black": blackTheme})}>
         {isGameFinished && <Confetti height={2000}/>}
       </div>
-      <div className={classNames("app-background", {"black-bg": blackTheme})} />
     </>
   )
 }

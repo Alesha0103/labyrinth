@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { GREEN_TITLE_COLOR, LOOSER_COLOR, MILK_TEXT_COLOR, NAVAJOWHITE_COLOR, WINNER_COLOR } from '../../constants';
+import { GREEN_TITLE_COLOR, LOOSER_COLOR, MILK_COLOR, NAVAJOWHITE_COLOR, WINNER_COLOR } from '../../constants';
 import "./ThemeButtons.scss";
 import { useTranslation } from '../../hooks/useTranslations';
 import { setTheme } from '../../store/actions/GeneralActions';
@@ -20,13 +20,13 @@ export const ThemeButtons = () => {
   }
   const chooseColor = (disabled: boolean): string => {
     if (!blackTheme && !wellcomePage && !disabled){
-      return MILK_TEXT_COLOR;
+      return MILK_COLOR;
     }
     if (!blackTheme && (isLevelFinished || isGameFinished)) {
       return GREEN_TITLE_COLOR;
     }
     if (!blackTheme && active && disabled) {
-      return MILK_TEXT_COLOR;
+      return MILK_COLOR;
     }
     if (blackTheme && (isLevelFinished || isGameFinished)) {
       return WINNER_COLOR;

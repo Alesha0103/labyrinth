@@ -12,12 +12,9 @@ export const ErrorPage = () => {
   const defaultError = useTranslation("DEFAULT_ERROR");
   const errorMessage = useTranslation(message);
 
-  console.log('message :>> ', message);
-  console.log('errorText :>> ', errorText);
-
   return (
     <>
-      <div className="img">
+      <div className="error-page__img">
         <img src={RedTroll} alt="red_troll" />
       </div>
       <h2>

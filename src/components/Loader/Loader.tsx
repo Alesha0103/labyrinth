@@ -12,7 +12,7 @@ export const Loader: React.FC<LoaderProps> = () => {
   const { blackTheme } = useAppSelector(state => state.generalReducer);
 
   return (
-    <div className={classNames("app-background", {"black-bg": blackTheme})}>
+    <div className={classNames("app-overlay loader-overlay", {"app-overlay__black": blackTheme})}>
       <div style={{
           display: "flex",
           justifyContent: "center",
