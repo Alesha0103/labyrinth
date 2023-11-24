@@ -26,7 +26,7 @@ export const Wellcome = () => {
 
   return (
     <div className={classNames("wellcome-view", {"wellcome-view__black": blackTheme})}>
-      <div className="animation">
+      <div className="wellcome-animation">
         <h1>{greetingsText}</h1>
         <div className="img">
           <img src={Troll} alt="troll_pic" />

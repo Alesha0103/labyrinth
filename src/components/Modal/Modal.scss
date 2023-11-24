@@ -1,9 +1,26 @@
 .modal {
   position: absolute;
-  bottom: 310px;
+  top: 350px;
   left: 0;
   right: 0;
   width: 400px;
   margin: auto;
   z-index: 2;
+}
+
+@media (max-width: 768px) {
+  .modal {
+    width: 350px;
+  }
+}
+@media (max-width: 400px) {
+  .modal {
+    top: 250px;
+    width: 300px;
+  }
+}
+@media (max-width: 300px) {
+  .modal {
+    width: 100%;
+  }
 }

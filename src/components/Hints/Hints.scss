@@ -38,7 +38,6 @@
     justify-content: space-between;
     width: 85%;
     margin: auto;
-    margin-top: 10px;
     div {
       height: 20px;
       width: 20px;
@@ -98,7 +97,7 @@
   100% {
     border: 1px solid rgba(135, 210, 135, 0.5);
     box-shadow: 0px 0px 12px rgb(0, 155, 0);
-    transform: scale(1.05);
+    transform: scale(1.01);
     padding: 10px;
   }
 }
@@ -111,11 +110,96 @@
   100% {
     background-color: rgb(60, 60, 60);
     box-shadow: 0px 0px 15px rgb(170, 255, 170);
-    transform: scale(1.05);
+    transform: scale(1.01);
     padding: 10px;
   }
 }
 
 .animation {
   animation: var(--animationName) 0.5s infinite alternate forwards;
+}
+
+@media (min-width: 530px) {
+  .hints .dots {
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hints {
+    top: 90px;
+    right: 25px;
+    button {
+      font-size: 16px;
+      border-radius: 10px;
+      padding: 7px;
+    }
+    .dots {
+      div {
+        width: 15px;
+        height: 15px;
+      }
+    }
+  }
+  @keyframes borderPulseLight {
+    100% {
+      border: 1px solid rgba(135, 210, 135, 0.5);
+      box-shadow: 0px 0px 12px rgb(0, 155, 0);
+      transform: scale(1.01);
+      padding: 7px;
+    }
+  }
+  
+  @keyframes borderPulseBlack {
+    100% {
+      background-color: rgb(60, 60, 60);
+      box-shadow: 0px 0px 10px rgb(170, 255, 170);
+      transform: scale(1.01);
+      padding: 7px;
+    }
+  }
+}
+
+@media (max-width: 530px) {
+  .hints {
+    top: 100px;
+    display: flex;
+    
+    button {
+      font-size: 12px;
+      border-radius: 10px;
+      padding: 5px;
+    }
+    .dots {
+      margin-left: 7px;
+      width: unset;
+      div {
+        width: 15px;
+        height: 15px;
+        margin-right: 5px;
+      }
+    }
+  }
+  .animation {
+    animation: none !important;
+  }
+}
+@media (max-width: 400px) {
+  .hints {
+    top: 85px;
+    button {
+      border-radius: 5px;
+    }
+    .dots div {
+      width: 10px;
+      height: 10px;
+    }
+  }
+}
+@media (max-width: 300px) {
+  .hints {
+    button {
+      font-size: 10px;
+    }
+  }
 }

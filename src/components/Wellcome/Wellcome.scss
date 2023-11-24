@@ -14,7 +14,7 @@
   font-family: 'Nunito', sans-serif;
   display: flex;
   flex-direction: column;
-  .animation {
+  .wellcome-animation {
     animation: appear 1.5s alternate forwards;
     font-family: 'Nunito', sans-serif;
     display: flex;
@@ -119,6 +119,7 @@
 
 @media (max-width: 768px) {
   .wellcome-view {
+    padding-top: 80px;
     h1 {
       font-size: 22px;
       margin: 15px 0;
@@ -136,6 +137,15 @@
       margin-top: 25px;
       width: unset;
       padding: 20px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .wellcome-view {
+    padding-top: 65px;
+    button {
+      margin-top: 15px;
     }
   }
 }
