@@ -22,6 +22,7 @@ export const defaultTranslation: {[key: string]: string} = {
   WAS_NOT_UPDATED: "Level was not updated",
   ERROR: "Ooh, an ERROR...",
   DEFAULT_ERROR: "It looks like this troll has hacked the Labyrinth.",
+  PLAY_AGAIN: "Play again",
 
   TRAINING_LEVEL: "Training level",
   RULE_1: "You are standing at the green cell right now",

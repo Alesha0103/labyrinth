@@ -11,7 +11,7 @@ export const fetchStages = createAsyncThunk(
     try {
       const response = await axios.get<IStage[]>(`http://localhost:5000/levels/${levelID}`);
       if (!response.data.length) {
-        thunckAPI.dispatch(finishGame());
+        thunckAPI.dispatch(finishGame(true));
       }
       thunckAPI.dispatch(setStages(response.data));
     } catch {
@@ -39,7 +39,7 @@ export const checkIfGameFinished = createAsyncThunk(
       if(res && !res.data) {
         thunckAPI.dispatch(finishLevelPopup(true));
       } else if (res && res.data) {
-        thunckAPI.dispatch(finishGame());
+        thunckAPI.dispatch(finishGame(true));
       }
     } catch (error) {
       thunckAPI.dispatch(setError({active: true, message: ""}));
@@ -77,7 +77,7 @@ export const setLoserOverlay = (loserOverlay: boolean) => levelsActions.setLoser
 export const setWinnerOverlay = (winnerOverlay: boolean) => levelsActions.setWinnerOverlay(winnerOverlay);
 export const hideOverlay = () => levelsActions.hideOverlay();
 export const finishLevelPopup = (finish: boolean) => levelsActions.finishLevelPopup(finish);
-export const finishGame = () => levelsActions.finishGame();
+export const finishGame = (isFinished: boolean) => levelsActions.finishGame(isFinished);
 export const disableHints = (isDisabled: boolean) => levelsActions.disableHints(isDisabled);
 export const setHintIndicator = (indicator: boolean) => levelsActions.setHintIndicator(indicator);
 export const setError = (error: IError) => levelsActions.setError(error);

@@ -18,4 +18,33 @@
       margin-top: 24px;
     }
   }
+
+  button {
+    font-family: 'Oswald', sans-serif;
+    width: 55%;
+    margin: auto;
+    margin-top: 40px;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    padding: 10px;
+    background-color: rgb(255, 244, 230);
+    color: rgb(135, 210, 135);
+    box-shadow: 0px 0px 10px  rgb(135, 210, 135);
+    &:hover {
+      color: rgb(255, 125, 125);
+      box-shadow: 0px 0px 15px rgb(80 150 80);
+    }
+  }
+}
+
+.finished-game__black {
+  button {
+    background-color: rgb(60, 60, 60);
+    &:hover {
+      color: rgb(255, 125, 125);
+      box-shadow: 0px 0px 15px  rgb(135, 210, 135);
+    }
+  }
 }

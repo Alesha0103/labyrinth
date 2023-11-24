@@ -41,8 +41,8 @@ const levelsSlice = createSlice({
     finishLevelPopup(state, action: PayloadAction<boolean>) {
       state.isLevelFinished = action.payload
     },
-    finishGame(state) {
-      state.isGameFinished = true;
+    finishGame(state, action: PayloadAction<boolean>) {
+      state.isGameFinished = action.payload;
     },
     disableHints(state, action: PayloadAction<boolean>) {
       state.disableHints = action.payload
